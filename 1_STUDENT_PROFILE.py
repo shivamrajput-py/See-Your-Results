@@ -30,10 +30,7 @@ shortf_branch = {
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🧑‍🎓')
 
 with open('style1.css', 'r') as f:
-    st.markdown(f"""
-
-    <style>{f.read()}</style>
-    """, unsafe_allow_html=True)
+    st.markdown(f"""<style>{f.read()}</style>""", unsafe_allow_html=True)
 
 def load_lottieurl(isjson: bool, url_or_path: str):
     if isjson:
@@ -60,8 +57,6 @@ def get_img_with_href(local_img_path, target_url):
             <img src="data:image/{img_format};base64,{bin_str}" />
         </a>'''
     return html_code
-
-
 
 
 lm,mm,_ = st.columns([1,3,1])
@@ -135,7 +130,7 @@ if selected=='STUDENT PROFILE':
         df_final = jsondf[m1]
 
         if (len(df_final)>1 or len(df_final)<1) and not other:
-            st.markdown('#')
+            st.markdown('<br><br><br>', unsafe_allow_html=True)
             st.error("No student was found with the provided roll number. Please verify the roll number and try again. If you believe this is a mistake, please contact the Project Maintainer.")
             st.error("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE SHARE (GO TO ABOUT SECTION), I WILL SOLVE IT ASAP!")
 
@@ -163,7 +158,7 @@ if selected=='STUDENT PROFILE':
 
             with l_c:
 
-                st.markdown("#")
+                st.markdown('<br><br>', unsafe_allow_html=True)
 
                 st.write(f"""
                 <h2 class="nametit">HELLO, {df_final['name'].values[0]}</h2>
@@ -179,8 +174,7 @@ if selected=='STUDENT PROFILE':
 
             with m_c:
 
-                st.markdown("#")
-                st.markdown("###")
+                st.markdown('<br><br><br>', unsafe_allow_html=True)
 
                 st.markdown(
                     f"""
@@ -190,15 +184,13 @@ if selected=='STUDENT PROFILE':
                 """,
                     unsafe_allow_html=True,
                 )
-                st.markdown("###")
+                st.markdown('<br>', unsafe_allow_html=True)
 
                 st.text(f"You performed better than {round(stud_percentile, 6)} Percent Students")
 
-
-
             with r_c:
 
-                st.markdown("#")
+                st.markdown('<br><br>', unsafe_allow_html=True)
 
                 st_lottie(
                     load_lottieurl(True, "./animation/flying_student.json"),
@@ -212,8 +204,7 @@ if selected=='STUDENT PROFILE':
                 )
 
 
-            st.markdown('#')
-            st.markdown('###')
+            st.markdown('<br>', unsafe_allow_html=True)
 
             _, left_c, _ , right_c, _ = st.columns([1,3,1,3,1])
 
@@ -256,8 +247,7 @@ if selected=='STUDENT PROFILE':
 
             #--------------------------------------------------------------------------------------------------------------------------------------------
 
-            st.markdown('#')
-
+            st.markdown('<br>', unsafe_allow_html=True)
 
             df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_sem}_{stud_branch}_ranked_results.csv', dtype=str,
                              index_col=None).fillna("")
@@ -284,7 +274,8 @@ elif selected=='UNIVERSITY RANK LIST':
     lf, rt = st.columns([1, 3])
 
     with lf:
-        st.markdown('#')
+        st.markdown('<br><br><br>', unsafe_allow_html=True)
+
         year_choosed = st.selectbox('Choose Year', ['2027'], index=0)
         brnch_choosed = st.selectbox('Choose Branch', ['Overall University Rank'] + list(shortf_branch.values()),
                                      index=0)
@@ -343,7 +334,6 @@ elif selected=='ABOUT':
             key=None,
         )
 
-        # st.markdown("##")
 
     with lc:
 
@@ -357,7 +347,7 @@ elif selected=='ABOUT':
 
         M,M1,M2,_ = st.columns([3,1.7,2.1,8])
 
-        with M: st.markdown("##### Contact me HERE: ")
+        with M: st.markdown("<h5>Contact Me Here:</h5>", unsafe_allow_html=True)
         with M1:
             but = st.button('LINKDIN')
             if but:
@@ -366,8 +356,9 @@ elif selected=='ABOUT':
             but = st.button('INSTAGRAM')
             if but:
                 webbrowser.open('https://www.instagram.com/shivammm20_/', new=0)
-        st.markdown('#')
-        st.markdown('#')
+
+        st.markdown('<br><br><br>', unsafe_allow_html=True)
+
         st.write(f"""
             <h3 class="about">MORE <span style="color: yellow;">FEATURES</span> TO COME, IN FURTHER UPDATES</h3>
             <h6>- 2nd Sem results ? YES I WILL UPDATE, After Results, ASAP!</h6>
@@ -378,8 +369,7 @@ elif selected=='ABOUT':
             """,
          unsafe_allow_html=True)
 
-        st.markdown('#')
-        st.markdown('#')
+        st.markdown('<br><br><br>', unsafe_allow_html=True)
 
         st.warning("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR YOU FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE SHARE (GO TO ABOUT SECTION), I WILL SOLVE IT ASAP!")
 
