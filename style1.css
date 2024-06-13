@@ -1,7 +1,8 @@
 .nametit {
     text-align: center:
     align-items: center;
-    color: blue;
+    color: 	#1F51FF;
+
 }
 
 .cgline {
@@ -15,9 +16,106 @@
         display: none;
     }
 
+#social1,#social2 {
+    display: inline-block !important;
+}
+
+.ssbtn {
+    background-color: lightgrey;
+    border-radius: 3px;
+    color: white;
+    border: solid;
+    border-width: 2px
+    border-color: blue;
+    }
+
+/* CSS */
+.button-18 {
+  white-space: nowrap;
+  align-items: center;
+  background-color: #0A66C2;
+  border: 0;
+  border-radius: 12px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+}
+
+.button-18:hover,
+.button-18:focus {
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+.button-18:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-18:disabled {
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
+
+/* CSS */
+.button-62 {
+  white-space: nowrap;
+  background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+  border: 0;
+  max-width: 480px;
+  min-width: 0px;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.button-62:not([disabled]):focus {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.button-62:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+
+/*
 .css-15zrgzn {display: none}
 .css-eczf16 {display: none}
-.css-jn99sy {display: none}
+.css-jn99sy {display: none}*/
 
 /* FOR REMOVING THE SIDE BAR COMPLETELY */
 [data-testid="collapsedControl"] {
@@ -41,3 +139,16 @@ header {visibility: hidden;}
 
 [data-testid="stToolbar"] {visibility: hidden !important;}
 footer {visibility: hidden !important;}
+
+.button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }

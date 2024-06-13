@@ -1,4 +1,3 @@
-import webbrowser
 import streamlit as st
 import json
 import pandas as pd
@@ -7,7 +6,6 @@ from streamlit_lottie import st_lottie
 import requests
 from streamlit_option_menu import option_menu
 import os
-import base64
 
 shortf_branch = {
     'EP': 'Engineering Physics',
@@ -26,11 +24,11 @@ shortf_branch = {
     'ME': 'Mechanical Engineering'
 }
 
-
+color = '#1F51FF'
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🧑‍🎓')
 
 with open('style1.css', 'r') as f:
-    st.markdown(f"""<style>{f.read()}</style>""", unsafe_allow_html=True)
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 def load_lottieurl(isjson: bool, url_or_path: str):
     if isjson:
@@ -42,26 +40,9 @@ def load_lottieurl(isjson: bool, url_or_path: str):
             return None
         return r.json()
 
-# @st.cache(allow_output_mutation=True)
-def get_base64_of_bin_file(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-# @st.cache(allow_output_mutation=True)
-def get_img_with_href(local_img_path, target_url):
-    img_format = os.path.splitext(local_img_path)[-1].replace('.', '')
-    bin_str = get_base64_of_bin_file(local_img_path)
-    html_code = f'''
-        <a href="{target_url}">
-            <img src="data:image/{img_format};base64,{bin_str}" />
-        </a>'''
-    return html_code
-
-
 lm,mm,_ = st.columns([1,3,1])
 with mm:
-    selected = option_menu(menu_title=None, options= ['STUDENT PROFILE', 'UNIVERSITY RANK LIST', 'ABOUT'],
+    selected = option_menu(menu_title=None, options= ['STUDENT PROFILE', 'RESULTS/RANKS', 'ABOUT'],
                            default_index=0,
                            icons=['person-vcard', 'bar-chart-line', 'info-square'],
                            orientation='horizontal'
@@ -73,7 +54,7 @@ with lm:
         speed=1,
         reverse=False,
         loop=True,
-        quality="medium",  # medium ; high
+        quality="low",  # medium ; high
         height=80,
         width=80,
         key=None,
@@ -87,8 +68,8 @@ if selected=='STUDENT PROFILE':
 
     _,srch_middle, _ = st.columns(3)
 
-    srch_middle.write("""
-    <h2 style="text-align: center; align-items: center;"><span style="color: blue;">DTU</span> Student Profile 2027</h2>
+    srch_middle.write(f"""
+    <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile 2027</h2>
     """,
     unsafe_allow_html=True)
 
@@ -143,13 +124,13 @@ if selected=='STUDENT PROFILE':
             with open('./Extracting_Result_Data/extracted_data_json/branchwise_ranked_results.json', 'r') as fl:
                 dt = json.loads(fl.read())
                 for sd in dt[str(stud_sem)+'_'+str(stud_branch)]:
-                    if sd['name'] == df_final['name'].values[0]:
+                    if sd['rolln'] == df_final['rolln'].values[0]:
                         stud_branch_rank = sd['rank']
 
             with open('./Extracting_Result_Data/extracted_data_json/uniwise_ranked_results.json', 'r') as fl:
                 dt = json.loads(fl.read())
                 for sd in dt:
-                    if sd['name'] == df_final['name'].values[0]:
+                    if sd['rolln'] == df_final['rolln'].values[0]:
                         stud_university_rank = sd['rank']
 
             stud_percentile = round(float(((2590.0-stud_university_rank)/2589.0)*100), 4)
@@ -256,7 +237,7 @@ if selected=='STUDENT PROFILE':
             <h3 style="
             text-align: center;
             align-items: center;
-            ">Your Branch <span style="color: blue;">{stud_branch}'{stud_sem+26}</span> Students Rankings: </h3>
+            ">Your Branch <span style="color: {color};">{stud_branch}'{stud_sem+26}</span> Students Rankings: </h3>
             """,
                               unsafe_allow_html=True)
 
@@ -269,7 +250,7 @@ if selected=='STUDENT PROFILE':
 #------------------------------MENU: UNIVERSITY RANK STARTED--------------------------------------------------------------------------------------------------------------
 
 
-elif selected=='UNIVERSITY RANK LIST':
+elif selected=='RESULT/RANKS':
 
     lf, rt = st.columns([1, 3])
 
@@ -277,7 +258,7 @@ elif selected=='UNIVERSITY RANK LIST':
         st.markdown('<br><br><br>', unsafe_allow_html=True)
 
         year_choosed = st.selectbox('Choose Year', ['2027'], index=0)
-        brnch_choosed = st.selectbox('Choose Branch', ['Overall University Rank'] + list(shortf_branch.values()),
+        brnch_choosed = st.selectbox('Choose Branch', ['Cumulative'] + list(shortf_branch.values()),
                                      index=0)
 
         text_search = st.text_input(label="Enter Roll Number/Name to Find a specific student", value="",
@@ -285,13 +266,13 @@ elif selected=='UNIVERSITY RANK LIST':
 
 
     if brnch_choosed:
-        if brnch_choosed == 'Overall University Rank':
-            flname, title_help = f'uniwise_ranked_results.csv', '<span style="color: blue;">UNIVERSITY WISE</span> Students CGPA Ranking'
+        if brnch_choosed == 'Cumulative':
+            flname, title_help = f'uniwise_ranked_results.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking'
         else:
             for key in shortf_branch.keys():
                 if shortf_branch[key] == brnch_choosed:
                     flname = f'1_{key}_ranked_results.csv'
-                    title_help = f'<span style="color: blue;">{shortf_branch[key]}</span> Students CGPA Ranking'
+                    title_help = f'<span style="color: {color};">{shortf_branch[key]}</span> Students CGPA Ranking'
 
     rt.write(f"""
     <h3 style="
@@ -303,7 +284,6 @@ elif selected=='UNIVERSITY RANK LIST':
 
     df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{flname}', dtype=str, index_col=None).fillna("")
 
-    # Show the dataframe (we'll delete this later)
     dataspace = rt.empty()
     dataspace.dataframe(df, hide_index=True, height=525, use_container_width=True)
 
@@ -345,17 +325,17 @@ elif selected=='ABOUT':
             """,
             unsafe_allow_html=True)
 
-        M,M1,M2,_ = st.columns([3,1.7,2.1,8])
+        st.markdown("<h5>Contact Me Here:</h5>", unsafe_allow_html=True)
 
-        with M: st.markdown("<h5>Contact Me Here:</h5>", unsafe_allow_html=True)
+        M1,M2,_ = st.columns([3,3,14])
+
         with M1:
-            but = st.button('LINKDIN')
-            if but:
-                webbrowser.open('https://www.linkedin.com/in/shivam-rajput-3928a328a/', new=0)
+            st.markdown('''<a id="social1" href="https://www.instagram.com/shivammm20_/"><button class="button-62" type="button">INSTAGRAM</button>''', unsafe_allow_html=True)
+
         with M2:
-            but = st.button('INSTAGRAM')
-            if but:
-                webbrowser.open('https://www.instagram.com/shivammm20_/', new=0)
+            st.markdown('''<a id="social2" href="https://www.linkedin.com/in/shivam-rajput-3928a328a/"><button class="button-18" type="button">  LINKDIN  </button>''', unsafe_allow_html=True)
+
+
 
         st.markdown('<br><br><br>', unsafe_allow_html=True)
 
@@ -371,7 +351,6 @@ elif selected=='ABOUT':
 
         st.markdown('<br><br><br>', unsafe_allow_html=True)
 
-        st.warning("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR YOU FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE SHARE (GO TO ABOUT SECTION), I WILL SOLVE IT ASAP!")
-
+        st.warning("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF'S, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR YOU FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE SHARE (GO TO ABOUT SECTION), I WILL SOLVE IT ASAP!")
 
 #---------------------------------------------------END-----------------------------------------------------------------------------------------------
