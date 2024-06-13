@@ -34,3 +34,7 @@
                     padding-left: 3rem;
                     padding-right: 3rem;
                 }
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
