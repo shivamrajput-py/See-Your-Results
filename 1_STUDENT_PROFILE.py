@@ -104,8 +104,9 @@ if selected=='STUDENT PROFILE':
     """, unsafe_allow_html=True)
 
     _,middle, _ = st.columns([2,1,2])
-    middle.markdown("###")
-    result_search_box = middle.text_input("Enter Your Roll Number Here", value='', placeholder='23/__/___')
+    with middle:
+        st.markdown('<br>', unsafe_allow_html=True)
+        result_search_box = st.text_input("Enter Your Roll Number Here", value='', placeholder='23/__/___')
 
     if result_search_box:
         descripe.empty()
