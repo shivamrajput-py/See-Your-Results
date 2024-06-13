@@ -1,0 +1,36 @@
+.nametit {
+    text-align: center:
+    align-items: center;
+    color: blue;
+}
+
+.cgline {
+    margin: 0px;
+    margin-bottom: 5px;
+
+}
+
+/* Hide the link button */
+.stApp a:first-child {
+        display: none;
+    }
+
+.css-15zrgzn {display: none}
+.css-eczf16 {display: none}
+.css-jn99sy {display: none}
+
+/* FOR REMOVING THE SIDE BAR COMPLETELY */
+[data-testid="collapsedControl"] {
+        display: none
+    }
+/* */
+#root > div:nth-child(1) > div.withScreencast > div > div > div > section:nth-child(2) {
+                    height: 3rem !important;
+                }
+/* FOR ADJUSTING EXTRA SPACE AROUND THE WHOLE PAGE*/
+.block-container {
+                    padding-top: 30px;
+                    padding-bottom: 5rem;
+                    padding-left: 3rem;
+                    padding-right: 3rem;
+                }
