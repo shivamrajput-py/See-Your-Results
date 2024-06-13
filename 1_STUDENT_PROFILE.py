@@ -250,7 +250,7 @@ if selected=='STUDENT PROFILE':
 #------------------------------MENU: UNIVERSITY RANK STARTED--------------------------------------------------------------------------------------------------------------
 
 
-elif selected=='RESULT/RANKS':
+elif selected=='RESULTS/RANKS':
 
     lf, rt = st.columns([1, 3])
 
