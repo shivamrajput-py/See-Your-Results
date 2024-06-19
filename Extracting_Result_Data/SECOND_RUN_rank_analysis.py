@@ -28,7 +28,7 @@ with open('./extracted_data_json/uniwise_ranked_results.json', 'w') as fl:
 
 
 # SETTING UP A CSV FILE FOR SAME DATA ________________________________________________________
-data_file = open('./ranked_results_csv/uniwise_ranked_results.csv', 'w')
+data_file = open('./ranked_results_csv/1_UNI_ranked_results.csv', 'w')
 csv_writer = csv.writer(data_file)
 
 count = 0

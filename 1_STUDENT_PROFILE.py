@@ -90,15 +90,111 @@ if selected=='STUDENT PROFILE':
         # FUN --------------------- ADDITION IN THE WEBAPP __________________________________________________
         if '19012007' == result_search_box:
             other= True
-            st.subheader('IG KIRTI IS HERE ? 😠')
-            st.text('I actually do not know you are real kirti or not?')
-            st.text('Give me the right answer of the question down below:')
-            kiritbox = st.text_input('What is that short name that you gave it to yourself, after that i started calling you by that name!')
+            st.subheader('IS KIRTI HERE ? WTF ARE YOU DOING HERE!')
+            st.write('I actually do not know whether you are real kri-tikka or not?')
+            st.write('Give me the right answer of the question down below:')
+            kiritbox = st.text_input(label='', value='', placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
             if kiritbox:
                 if kiritbox=='kirit' or kiritbox=='Kirit' or kiritbox=='KIRIT':
-                    st.warning("YOU AREEEE ACTUALLY KIRTI, I MEAN KIRIT BKL 🥰")
+                    st.warning("YOU ARE ACTUALLY THE REAL KRITIKA, I MEAN KIRIT BKL 🥰")
+                    kiriti = ['WELCOME TO', 'MY WEBSITE', 'MISS CERTIFIED', 'BIG W  YAPPER', 'KRITIKA SINHA']
+                    for i in range(76):
+                        st.markdown("#")
+                        if (i/15==1):
+                            k,_,_,_,_ = st.columns(5)
+                            k.markdown(f'# {kiriti[0]}')
+                            k.markdown('<h6>bhaag ja bhen ki lauri</h6>',  unsafe_allow_html=True)
+                        if (i/15==2):
+                            _,k,_,_,_ = st.columns(5)
+                            k.markdown(f'# {kiriti[1]}')
+                            k.markdown('<h6>you are lucky bich</h6>',  unsafe_allow_html=True)
+
+                        if (i/15==3):
+                            _,_,k,_,_ = st.columns(5)
+                            k.markdown(f'# {kiriti[2]}')
+                            k.markdown('<h6>not a certified typical biharan</h6>',  unsafe_allow_html=True)
+
+                        if (i/15==4):
+                            _,_,_,k,_ = st.columns(5)
+                            k.markdown(f'# {kiriti[3]}')
+                            k.markdown('<h6>the W in your name stands for WIN</h6>',  unsafe_allow_html=True)
+
+                        if (i/15==5):
+                            _,_,_,_,k = st.columns(5)
+                            k.markdown(f'# {kiriti[4]}')
+                            k.markdown('<h6>kIrTi gori niggru fr fr yay</h6>',  unsafe_allow_html=True)
+
+
+                    kiriti = ['YOU ARE REALLY A _____________', 'PERFECT W', '10/10 BADDIE', 'PRETTY BICH', 'SALI, LITERALLY BEST SALI']
+                    for i in range(76):
+                        st.markdown("#")
+                        if (i/15==1):
+                            _,_,_,_,k = st.columns(5)
+                            k.markdown(f'## {kiriti[0]}')
+                            k.markdown('<h6>Magically god-crafted shit, yes</h6>',  unsafe_allow_html=True)
+
+                        if (i/15==2):
+                            _,_,_,k,_ = st.columns(5)
+                            k.markdown(f'## {kiriti[1]}')
+                            k.markdown('<h6>W = Womp Womp nigggaahhhoee</h6>', unsafe_allow_html=True)
+
+                        if (i/15==3):
+                            _,_,k,_,_ = st.columns(5)
+                            k.markdown(f'## {kiriti[2]}')
+                            k.markdown('<h6>you will get 10/10 bad-DIE</h6>',  unsafe_allow_html=True)
+
+                        if (i/15==4):
+                            _,k,_,_,_ = st.columns(5)
+                            k.markdown(f'## {kiriti[3]}')
+                            k.markdown("<h6>It ain't a lie tho, everything is</h6>",  unsafe_allow_html=True)
+
+                        if (i/15==5):
+                            k,_,_,_,_ = st.columns(5)
+                            k.markdown(f'## {kiriti[4]}')
+                            k.markdown("<h6>Kya expect kra another reply, NO, it is acutally true tho heheh<3</h6>",  unsafe_allow_html=True)
+                            k.markdown('''<h2 style="color: lightpink;"> SO KIRTI, ...</h2>''',  unsafe_allow_html=True)
+
+
+                            k.markdown('''<h5 style="color: lightpink;">How you doing? All well i hope so, How's my rishika, I hope she is well too, I am writing this considering the future aspect too! KEEP STUDYING KIRTI, Cause you know what, nothing remains with you except your work so yay, simple jiju advice. Also Improve your choice in dating mann its bad arsh niggru kya kahe. Best wishes for Your Upcoming CA foundation, I hope you clear it with good grades and come to delhi soon, tbh bit excited bout it! so white kirit niggru tbh idk what to say more, i suck at writing shit like this.</h5>''',  unsafe_allow_html=True)
+
+                            k.markdown('''<h5 style="color: babypink;"> So kirti, basically Thank you for being a good supportive sali, for giving me gifts suggestions<br>Thank you for being TOO much nice to me, its always fun to fight w ya, tbh my vocab, arguements skills, homour got improved somehow by daily this fighting bkchodi with ya.</h5>''',  unsafe_allow_html=True)
+
+                    kiriti = ['KRI-TIKKA', 'WHITE NIGGAHH', 'YOU ARE TOO MUCH', 'NERD, MARD WITH BIG D',
+                              'SALI JII, BUS JAIYE AB AAP']
+                    for i in range(76):
+                        st.markdown("#")
+                        if (i / 15 == 1):
+                            k, _, _, _, _ = st.columns(5)
+                            k.markdown(f'## {kiriti[0]}')
+                            k.markdown('<h6>urff DeepFriedChicken</h6>', unsafe_allow_html=True)
+
+                        if (i / 15 == 2):
+                            _, k, _, _, _ = st.columns(5)
+                            k.markdown(f'## {kiriti[1]}')
+                            k.markdown('<h6>Silly dumb nigga, but a good Sali tho</h6>', unsafe_allow_html=True)
+
+                        if (i / 15 == 3):
+                            _, _, k, _, _ = st.columns(5)
+                            k.markdown(f'## {kiriti[2]}')
+                            k.markdown('<h6>Hot to handle? naah! Skinny(joks)</h6>', unsafe_allow_html=True)
+
+                        if (i / 15 == 4):
+                            _, _, _, k, _ = st.columns(5)
+                            k.markdown(f'## {kiriti[3]}')
+                            k.markdown("<h6>irl, 5'3 pookie, will get scared of cockroch </h6>", unsafe_allow_html=True)
+
+                        if (i / 15 == 5):
+                            _, _, _, _, k = st.columns(5)
+                            k.markdown(f'## {kiriti[4]}')
+                            k.markdown("<h6>REALLY A 10/10 W SALI.</h6>", unsafe_allow_html=True)
+                            k.markdown("<h6>Bye, frequently visit karte rehna<3</h6>",
+                                       unsafe_allow_html=True)
+
+
+
                 else:
-                    st.warning("EITHER YOU ARE NOT KIRTI OR YOU ARE, BUT YOU DON'T KNOW THE ANSWER ! L KIRTI L KIRTI ")
+                    st.warning("EITHER YOU ARE NOT KIRTI OR YOU ARE, BUT YOU DON'T KNOW THE ANSWER ! L KIRTI")
+
         # FUN --------------------- ADDITION IN THE WEBAPP __________________________________________________
 
 
@@ -257,22 +353,28 @@ elif selected=='RESULTS/RANKS':
     with lf:
         st.markdown('<br><br><br>', unsafe_allow_html=True)
 
-        year_choosed = st.selectbox('Choose Year', ['2027'], index=0)
+        year_choosed = st.selectbox('Choose Year', ['2027', '2026'] ,index=0)
         brnch_choosed = st.selectbox('Choose Branch', ['Cumulative'] + list(shortf_branch.values()),
                                      index=0)
 
-        text_search = st.text_input(label="Enter Roll Number/Name to Find a specific student", value="",
-                                placeholder="23/__/___")
-
+        text_search = st.text_input(label="Enter Roll Number/Name to Find a specific student", value="")
 
     if brnch_choosed:
         if brnch_choosed == 'Cumulative':
-            flname, title_help = f'uniwise_ranked_results.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking'
+            if year_choosed=='2026':
+                flname, title_help = f'26_UNI_ranked_results.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2026'
+            elif year_choosed=='2027':
+                flname, title_help = f'1_UNI_ranked_results.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2027'
         else:
             for key in shortf_branch.keys():
                 if shortf_branch[key] == brnch_choosed:
-                    flname = f'1_{key}_ranked_results.csv'
-                    title_help = f'<span style="color: {color};">{shortf_branch[key]}</span> Students CGPA Ranking'
+                    if year_choosed=='2027':
+                        flname = f'1_{key}_ranked_results.csv'
+                        title_help = f'<span style="color: {color};">{shortf_branch[key]}</span> Students CGPA Ranking 2027'
+                    elif year_choosed=='2026':
+                        flname = f'26_{key}_ranked_results.csv'
+                        title_help = f'<span style="color: {color};">{shortf_branch[key]}</span> Students CGPA Ranking 2026'
+
 
     rt.write(f"""
     <h3 style="
