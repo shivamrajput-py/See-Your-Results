@@ -11,7 +11,7 @@ driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(7)
 brnch = {'ENE': 'EN',
          'EP': 'EP',
-         'COE': 'CS',
+         'COE': 'CO',
          'BT': 'BT',
          'SE': 'SE',
          'MCE': 'MC',
@@ -31,8 +31,8 @@ try:
 
     brnchbuttons = driver.find_elements(By.XPATH, '/html/body/div/div/div[2]/div/div[2]/div/button')
     for j, branchbt in enumerate(brnchbuttons):
-        if j==0:
-            continue
+        # if j==0:
+        #     continue
 
         branchbt.click()
         time.sleep(1)
@@ -53,7 +53,13 @@ try:
 
             elements = tb_row.find_elements(By.CLASS_NAME, "px-3.py-2")
 
-            csv_writer.writerow([elements[0].text,elements[1].text,elements[2].text,elements[3].text,elements[4].text,elements[5].text,elements[6].text])
+            #_ ROLL NUMBER ACHEE SE KAR RHA
+            if len(elements[2].text.strip())==10:
+                ROLLNO = (elements[2].text)[2:7] + '/0' + (elements[2].text)[8:]
+            else:
+                ROLLNO = (elements[2].text).replace('2K', '')
+
+            csv_writer.writerow([elements[0].text,elements[1].text,ROLLNO,elements[3].text,elements[4].text,elements[5].text,elements[6].text])
 
 
         data_file.close()

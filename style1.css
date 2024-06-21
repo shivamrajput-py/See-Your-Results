@@ -1,8 +1,13 @@
 .nametit {
-    text-align: center:
+    text-align: center;
     align-items: center;
     color: 	#1F51FF;
+    font-size: 65px;
 
+}
+
+.nametit__ {
+    color:	#1F51FF;
 }
 
 .cgline {
@@ -152,3 +157,7 @@ footer {visibility: hidden !important;}
             text-align: center;
             text-decoration: none;
         }
+
+.about {
+
+}
