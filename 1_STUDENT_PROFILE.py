@@ -129,7 +129,7 @@ if selected=='STUDENT PROFILE':
                 st.warning("YOU ARE THE KRITIKA :smile_cat: I KNOW, I MEAN KIRIT BKL 🥰")
                 kiriti = ['WELCOME TO','MY WEBSITE', 'MISS CERTIFIED', 'BIG W YAPPER', 'KRITIKA SINHA :smirk_cat:']
                 for i in range(52):
-                    st.markdown("""<br><br>""", unsafe_allow_html=True)
+                    st.markdown("""<br>""", unsafe_allow_html=True)
                     if (i==3):
                         k, _, _, _, _ = st.columns(5)
                         k.markdown(f'# {kiriti[0]}')
@@ -159,7 +159,7 @@ if selected=='STUDENT PROFILE':
 
 
                 for i in range(54):
-                    st.markdown("""<br><br>""", unsafe_allow_html=True)
+                    st.markdown("""<br>""", unsafe_allow_html=True)
 
                     if (i==6):
                         _, _, _, _, k = st.columns(5)
@@ -218,7 +218,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 kiriti = ['KRI-TIKKA', 'WHITE NIGGAHH', 'YOU ARE TOOO MUCHHHH', 'NERD, MARD WITH BIG D',
                           'SALI JII, BUS JAIYE AB AAP']
                 for i in range(46):
-                    st.markdown("""<br><br>""", unsafe_allow_html=True)
+                    st.markdown("""<br>""", unsafe_allow_html=True)
                     if (i == 3):
                         k, _, _, _, _ = st.columns(5)
                         k.markdown(f'## {kiriti[0]}')
