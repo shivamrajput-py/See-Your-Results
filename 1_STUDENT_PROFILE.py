@@ -129,7 +129,7 @@ if selected=='STUDENT PROFILE':
                 st.warning("YOU ARE THE KRITIKA :smile_cat: I KNOW, I MEAN KIRIT BKL 🥰")
                 kiriti = ['WELCOME TO','MY WEBSITE', 'MISS CERTIFIED', 'BIG W YAPPER', 'KRITIKA SINHA :smirk_cat:']
                 for i in range(52):
-                    st.markdown("#")
+                    st.markdown("""<br><br>""", unsafe_allow_html=True)
                     if (i==3):
                         k, _, _, _, _ = st.columns(5)
                         k.markdown(f'# {kiriti[0]}')
@@ -159,7 +159,8 @@ if selected=='STUDENT PROFILE':
 
 
                 for i in range(54):
-                    st.markdown("#")
+                    st.markdown("""<br><br>""", unsafe_allow_html=True)
+
                     if (i==6):
                         _, _, _, _, k = st.columns(5)
                         k.markdown(f'## {kiriti[0]}')
@@ -185,13 +186,13 @@ if selected=='STUDENT PROFILE':
                         k.markdown(f'## {kiriti[4]}')
                         k.markdown("""<h6 style="color: pink;">Kya expect kra another reply, NO, it is acutally true ehehehe <3</h6>""", unsafe_allow_html=True)
 
-                st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
+                st.markdown("<br><br><br><br><br>", unsafe_allow_html=True)
                 lef, _ , rig = st.columns([1.6,2, 1.7])
 
                 with lef:
 
                     st.markdown('''<h1 style="color: #D27D2D;">SO, KIRTI</h1>''', unsafe_allow_html=True)
-                    st.markdown('###')
+                    st.markdown("""<br>""", unsafe_allow_html=True)
                     st.markdown('''<h6 style="color: white;">How you doing? All well i hope so, How's my rishika, I hope she is well too,I am writing this considering
 the future aspect too! KEEP STUDYING KIRTI, Cause you know what, nothing remains in life except your work so yayy,
 simple Jiju advice. Also Improve your choice in dating men ,It Sucks! Best wishes for Your Upcoming CA foundation,
@@ -203,7 +204,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 with rig:
                     st.markdown('''<h1 style="color: #D27D2D;">~KRITIKA SINHA~</h1>''', unsafe_allow_html=True)
-                    st.markdown('###')
+                    st.markdown("""<br>""", unsafe_allow_html=True)
                     st.write('- The N in your Name Stands for How much NERD You are')
                     st.write('- The T in your Name Stands for How much TRASH you are')
                     st.write('- The M in your Name Stands for How much Mardana you are')
@@ -217,7 +218,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 kiriti = ['KRI-TIKKA', 'WHITE NIGGAHH', 'YOU ARE TOOO MUCHHHH', 'NERD, MARD WITH BIG D',
                           'SALI JII, BUS JAIYE AB AAP']
                 for i in range(46):
-                    st.markdown("#")
+                    st.markdown("""<br><br>""", unsafe_allow_html=True)
                     if (i == 3):
                         k, _, _, _, _ = st.columns(5)
                         k.markdown(f'## {kiriti[0]}')
@@ -246,7 +247,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                         k.markdown("""<h6 style="color: #ffc1cc;">BYEEEE, ITNA HEE THA,<br>KEEP REVISITING KIRTI 🤍</h6>""", unsafe_allow_html=True)
 
 
-                st.markdown('<br><br><br><br><br><br><br><br>', unsafe_allow_html=True)
+                st.markdown('<br><br><br><br><br><br><br>', unsafe_allow_html=True)
 
 
                 st.markdown("""<h1 style="color: babypink; text-align: center;">AAB JAA NAA BHEN KI LAURI, HOGYA NAA</h1>""", unsafe_allow_html=True)
