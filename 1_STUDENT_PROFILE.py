@@ -1,3 +1,5 @@
+import csv
+
 import streamlit as st
 import json
 import pandas as pd
@@ -19,14 +21,15 @@ shortf_branch26 = {
     'MC': 'Mathematics and Computing',
     'SE': 'Software Engineering',
     'EC': 'Electronics and Communication Engineering',
-    'EE': 'Electric Engineering',
-    'BT': 'Biotech Engineering',
-    'EN': 'Envirnomental Engineering',
+    'EE': 'Electrical Engineering',
+    'BT': 'Bio-Technology',
+    'EN': 'Environmental Engineering',
     'CE': 'Civil Engineering',
     'CH': 'Chemical Engineering',
     'PE': 'Production Engineering',
     'ME': 'Mechanical Engineering'
 }
+
 shortf_branch27 = {
     'EP': 'Engineering Physics',
     'AE': 'Automotive Engineering',
@@ -35,23 +38,43 @@ shortf_branch27 = {
     'MC': 'Mathematics and Computing',
     'SE': 'Software Engineering',
     'EC': 'Electronics and Communication Engineering',
-    'EE': 'Electric Engineering',
-    'BT': 'Biotech Engineering',
-    'EN': 'Envirnomental Engineering',
+    'EE': 'Electrical Engineering',
+    'BT': 'Bio-Technology',
+    'EN': 'Environmental Engineering',
     'CE': 'Civil Engineering',
     'CH': 'Chemical Engineering',
     'PE': 'Production Engineering',
     'ME': 'Mechanical Engineering'
 }
 
+
+placem_branch_name = {
+    'EP': 'Engineering Physics',
+    'AE': 'Mechanical Engineering with Specialization in Automotive',
+    'CS': 'Computer Engineering',
+    'IT': 'Information Technology',
+    'MC': 'Mathematics and Computing',
+    'CO': 'Computer Engineering',
+    'SE': 'Software Engineering',
+    'EC': 'Electronics and Communication Engineering',
+    'EE': 'Electrical Engineering',
+    'BT': 'Bio-Technology',
+    'EN': 'Environmental Engineering',
+    'CE': 'Civil Engineering',
+    'CH': 'Polymer Science and Chemical Technology',
+    'PE': 'Production and Industrial Engineering',
+    'ME': 'Mechanical Engineering'
+}
+
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🧑‍🎓')
 
-color = '#1F51FF'
+color = '#1F51FF' # USE FOR HIGHLIGHTING A SPECIFIC WORD
 other= False
 
-with open('style1.css', 'r') as f:
+with open('style.css', 'r') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+# FOR LOADING THE ANIMATION !!
 def load_lottieurl(isjson: bool, url_or_path: str):
     if isjson:
         with open(url_or_path, 'r') as fl:
@@ -62,15 +85,10 @@ def load_lottieurl(isjson: bool, url_or_path: str):
             return None
         return r.json()
 
-lm,mm,_ = st.columns([1,3,1])
-with mm:
-    selected = option_menu(menu_title=None, options= ['STUDENT PROFILE', 'RESULTS/RANKS', 'ABOUT'],
-                           default_index=0,
-                           icons=['person-vcard', 'bar-chart-line', 'info-square'],
-                           orientation='horizontal'
-                           )
+# MAIN MENU COLUMNS FOR LOGO ANIMATION AND REAL MAIN MENU
+mainmenu_left, mainmenu_middle,_ = st.columns([0.6,3,0.6])
 
-with lm:
+with mainmenu_left:
     st_lottie(
         load_lottieurl(True, "./animation/hat_w_books.json"),
         speed=1,
@@ -82,43 +100,51 @@ with lm:
         key=None,
     )
 
+with mainmenu_middle:
+    selected = option_menu(menu_title=None, options= ['STUDENT PROFILE', 'RESULTS/RANKS','PLACEMENTS', 'ABOUT'],
+                           default_index=0,
+                           icons=['person-vcard', 'bar-chart-line', 'info-square'],
+                           orientation='horizontal'
+                           )
 
-#---------------------------MENU: STUDENT PROFILE STARTED-----------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------MENU: [STUDENT PROFILE] STARTED-----------------------------------------------------------------------------------------------------------------------
 
 if selected=='STUDENT PROFILE':
 
-    _,srch_middle, _ = st.columns(3)
+    _,search_middle, _ = st.columns(3)
 
-    title = srch_middle.empty()
-    title.write(f"""
+    Mtitle = search_middle.empty()
+    Mtitle.write(f"""
     <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile 2027</h2>
     """,
     unsafe_allow_html=True)
 
-    _, descrip, _ = st.columns([1,3,1])
-    descripe = descrip.empty()
-    with descripe: st.markdown("""
+    _, description, _ = st.columns([1,3,1])
+    descripE = description.empty()
+    with descripE: st.markdown("""
     <h5 style="text-align: center; align-items: center;">Enter your roll number to access a comprehensive summary of your semester grades and academic performance. A detailed report will be generated upon entry.</h2>
     """, unsafe_allow_html=True)
 
 
-    _,middle1,middle2, _ = st.columns([2.5,1,1,2.5])
-    with middle2:
-        st.markdown('<br>', unsafe_allow_html=True)
-        result_search_box = st.text_input("Enter Your Roll Number Here", value='', placeholder='__/__/___')
-    with middle1:
+    _,filt1,filt2, _ = st.columns([2.5,1,1,2.5])
+
+    with filt1:
         st.markdown('<br>', unsafe_allow_html=True)
         year_choosed = st.selectbox("Choose Year", ['2027' ,'2026'], index=0)
+    with filt2:
+        st.markdown('<br>', unsafe_allow_html=True)
+        result_search_box = st.text_input("Enter Your Roll Number Here", value='', placeholder='__/__/___')
 
     if year_choosed=='2026':
-        title.write(f"""
+        Mtitle.write(f"""
             <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile 2026</h2>
             """,unsafe_allow_html=True)
 
-    # SPECIAL ADDITION IN THE WEBSITE, KIRTI __________________________________________________________________________________________________________
+
+#-----------------------------SPECIAL ADDITION IN THE WEBSITE, KIRTI--------------------------------------------------------------------------------------------------------
 
     if result_search_box and '19012007' == result_search_box:
-        descripe.empty()
+        descripE.empty()
         other = True
         st.subheader('IS KIRTI :pouting_cat: HERE ? WTF ARE YOU DOING HERE!')
         st.write("I actually don't know whether you are the kri-tikka ik or someone else?")
@@ -255,17 +281,20 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             else:
                 st.warning("EITHER YOU ARE NOT KIRTI OR YOU ARE, BUT YOU DON'T KNOW THE ANSWER ! L KIRTI")
 
-    # ENDING OF SPECIAL ADDITION IN THE WEBSITE____________________________________________________________________________________________________________
+#--------------------------ENDING OF SPECIAL ADDITION IN THE WEBSITE-----------------------------------------------------------------------------------------------------
 
     if year_choosed=='2027' and result_search_box:
-        descripe.empty()
+        descripE.empty()
 
+        # IF USER HAS PUTTEN 2K/2k IN THE ROLL NUMBER, REMOVING THAT CAUSE, OUR DATA DOES NOT CONTAIN THAT
         if '2k' in result_search_box or '2K' in result_search_box:
             result_search_box= result_search_box.replace('2k', '').replace('2K', '').strip()
 
+        # DEALING WITH USER PUTTEN ROLL NO. 23/EP/12  AND  23/EP/01
         if len(result_search_box)==8:
             result_search_box  = result_search_box[0:6] + '0' + result_search_box[6:]
 
+        # AFTER SEM2 RESULTS THERE GONNA BE JUST 1 FILE 27UNI_ranked_results.csv !!!!!
         jsondf = pd.read_json("./Extracting_Result_Data/extracted_data_json/uniwise_ranked_results.json")
         m1 = jsondf['rolln'].str.contains(result_search_box.upper())
         df_final = jsondf[m1]
@@ -278,26 +307,22 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
         elif len(df_final)==1:
 
             stud_branch = str(df_final['rolln'].values[0])[3:5]
-            stud_sem = 1
+            stud_sem = 1 # A VERY UNNECESSARY VARIABLE, SEM2 UPDATE THIS GONNA BE REMOVED
             stud_branch_rank = None
-            stud_university_rank = None
+            stud_university_rank = df_final['rank'].values[0]
+
             with open('./Extracting_Result_Data/extracted_data_json/branchwise_ranked_results.json', 'r') as fl:
                 dt = json.loads(fl.read())
                 for sd in dt[str(stud_sem)+'_'+str(stud_branch)]:
                     if sd['rolln'] == df_final['rolln'].values[0]:
                         stud_branch_rank = sd['rank']
 
-            with open('./Extracting_Result_Data/extracted_data_json/uniwise_ranked_results.json', 'r') as fl:
-                dt = json.loads(fl.read())
-                for sd in dt:
-                    if sd['rolln'] == df_final['rolln'].values[0]:
-                        stud_university_rank = sd['rank']
+            stud_percentile = round(float(((2589.0-stud_university_rank)/2589.0)*100), 4)
 
-            stud_percentile = round(float(((2590.0-stud_university_rank)/2589.0)*100), 4)
+            # MENU1: FIRST MAIN DIV WITH 3 COLUMNS ---------------------------------------------
+            l_sec1 ,m_sec1,  r_sec1 = st.columns([1.5,2,1])
 
-            l_c ,m_c, r_c = st.columns([1.5,2,1])
-
-            with l_c:
+            with l_sec1:
 
                 st.markdown('<br><br>', unsafe_allow_html=True)
 
@@ -311,9 +336,9 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 l1,l2 = st.columns(2)
                 l1.metric(label="Credits Completed" , value=df_final['credits'].values[0] )
-                l2.metric(label="Cumulative CGPA" , value=df_final['sgpa'].values[0])
+                l2.metric(label="Cumulative CGPA" , value=+df_final['sgpa'].values[0])
 
-            with m_c:
+            with m_sec1:
 
                 st.markdown('<br><br><br>', unsafe_allow_html=True)
 
@@ -327,9 +352,9 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 )
                 st.markdown('<br>', unsafe_allow_html=True)
 
-                st.text(f"You performed better than {round(stud_percentile, 6)} Percent Students")
+                st.text(f"""You performed better than {round(stud_percentile, 6)} Percent Students""")
 
-            with r_c:
+            with r_sec1:
 
                 st.markdown('<br><br>', unsafe_allow_html=True)
 
@@ -344,14 +369,14 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                     key=None,
                 )
 
-
             st.markdown('<br>', unsafe_allow_html=True)
 
-            _, left_c, _ , right_c, _ = st.columns([1,3,1,3,1])
+            # MENU1: SECOND MAIN DIV WITH 2 COLUMNS ---------------------------------------------
+            _,l_sec2,_,r_sec2,_ = st.columns([1,3.1,0.8,3.1,1])
 
-            with left_c:
+            with l_sec2:
 
-                brnch_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/cg_analysis.csv', index_col=False)
+                brnch_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/cg_analysis.csv', index_col=None)
 
                 for brnach_srn, branch_name in enumerate(brnch_cg['BRANCH'].values):
                     if stud_branch in branch_name: i=brnach_srn
@@ -359,55 +384,120 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 brnch_cg['Your'][i] = df_final['sgpa'].values[0]
 
                 df = pd.DataFrame({
-                    'Academic Stats': ['Highest', 'Average', 'Your', 'Max Appeared', 'Lowest'],
+                    'Branch Stats': ['Highest', 'Average', 'Your', 'Max Appeared', 'Lowest'],
                     'CGPA': [brnch_cg['Highest'].values[i],brnch_cg['Average'].values[i],brnch_cg['Your'].values[i],brnch_cg['Max Appeared'].values[i],brnch_cg['Lowest'].values[i]]})
 
                 df.reset_index(drop=True)
-                df.set_index('Academic Stats', inplace=True)
+                df.set_index('Branch Stats', inplace=True)
 
-                bar_chrt_l = px.bar(df,title=f'{stud_branch} CGPA Distribution', width=440, height=420)
+                st.plotly_chart(px.bar(df,title=f"{stud_branch}'27 CGPA Distribution", width=440, height=420, range_y=[0,10], text_auto=''))
 
-                st.plotly_chart(bar_chrt_l)
+            with r_sec2:
 
-
-            with right_c:
-
-                uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/cg_analysis.csv', index_col=False)
+                uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/cg_analysis.csv', index_col=None)
                 brnch_cg['Your'][0] = df_final['sgpa'].values[0]
 
                 df = pd.DataFrame({
-                    'Academic Stats': ['Highest', 'Average', 'Your', 'Max Appeared', 'Lowest'],
+                    'University Stats': ['Highest', 'Average', 'Your', 'Max Appeared', 'Lowest'],
                     'CGPA': [brnch_cg['Highest'].values[0], brnch_cg['Average'].values[0], brnch_cg['Your'].values[0],brnch_cg['Max Appeared'].values[0], brnch_cg['Lowest'].values[0]]})
 
                 df.reset_index(drop=True)
-                df.set_index('Academic Stats', inplace=True)
+                df.set_index('University Stats', inplace=True)
 
-                bar_chrt_r = px.bar(df, title=f'University CGPA Distribution', width=440, height=420)
+                st.plotly_chart(px.bar(df, title=f'University CGPA Distribution', width=440, height=420, range_y=[0,10] ,text_auto=''))
 
-                st.plotly_chart(bar_chrt_r)
-
-            #--------------------------------------------------------------------------------------------------------------------------------------------
+            #TODO: MENU1: THIRD MAIN DIV WITH 1 COLUMNS--------------------------------------------------------------------------------------------------
 
             st.markdown('<br>', unsafe_allow_html=True)
-
-            df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_sem}_{stud_branch}_ranked_results.csv', dtype=str,
-                             index_col=None).fillna("")
 
             st.write(f"""
             <h3 style="
             text-align: center;
             align-items: center;
             ">Your Branch <span style="color: {color};">{stud_branch}'{stud_sem+26}</span> Students Rankings: </h3>
-            """,
-                              unsafe_allow_html=True)
+            """,unsafe_allow_html=True)
 
             _,mm,_ = st.columns([1,4,1])
-            dataspace = mm.empty()
+            ranklist = mm.empty()
+            ranklist.dataframe(df, hide_index=True, use_container_width=True, height= 450)
 
-            dataspace.dataframe(df, hide_index=True, use_container_width=True, height= 450)
+            st.markdown("<br><br>", unsafe_allow_html=True)
+
+            st.write(f"""
+            <h3 style="
+            text-align: center;
+            align-items: center;
+            ">Your Branch <span style="color: {color};">{shortf_branch27[stud_branch]}</span> Placement Stats:</h3>
+            """,
+            unsafe_allow_html=True)
+
+            st.markdown("<br>", unsafe_allow_html=True)
 
 
-    if year_choosed=='2026' and result_search_box:
+            # data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0] FOR ACCESING VALYE OF PLACEMENT DIRECTLY
+            data23 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package23.csv')
+            data22 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package22.csv')
+            data21 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package21.csv')
+
+            df = pd.DataFrame({
+                'YEAR': ['2023', '2022', '2021'],
+                'AVERAGE PACKAGE': [
+                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
+                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
+                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0]
+                ]})
+
+
+            df.reset_index(drop=True)
+            df.set_index('YEAR', inplace=True)
+
+            avg_placement_barc = px.bar(df, title=f"Average Package Trend (IN LPA)", text_auto='')
+
+            # HIGHEST PLACEMENTS
+
+            data23 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package23.csv')
+            data22 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package22.csv')
+            data21 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package21.csv')
+
+            df = pd.DataFrame({
+                'YEAR': ['2023', '2022', '2021'],
+                'HIGHEST PACKAGE': [
+                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
+                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
+                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0]
+                ]})
+
+            df.reset_index(drop=True)
+            df.set_index('YEAR', inplace=True)
+
+            max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='')
+
+            # PERCENTAGE PLACED PLACEMENT
+
+            data23 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv')
+            data22 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed22.csv')
+            data21 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed21.csv')
+
+            df = pd.DataFrame({
+                'YEAR': ['2023', '2022', '2021'],
+                '% STUDENT PLACED': [
+                    float(data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%', '')),
+                    float(data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%', '')),
+                    float(data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%', ''))
+                ]})
+
+            df.reset_index(drop=True)
+            df.set_index('YEAR', inplace=True)
+
+            percent_placement_barc = px.bar(df, title=f"Percentage Of Student Placed", range_y=[0,100], text_auto='')
+
+            bar1, bar2, bar3 = st.columns(3)
+            with bar1: st.plotly_chart(avg_placement_barc, use_container_width=True)
+            with bar2: st.plotly_chart(max_placement_barc, use_container_width=True)
+            with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True)
+
+
+    elif year_choosed=='2026' and result_search_box:
         descripe.empty()
 
         if '2k' in result_search_box or '2K' in result_search_box:
@@ -455,8 +545,8 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 l1, l2, l3  = st.columns(3)
                 l1.metric(label="1ST SEM CG", value=df_final['SEM1'].values[0])
-                l2.metric(label="2ND SEM CG", value=df_final['SEM2'].values[0])
-                l3.metric(label="3RD SEM CG", value=df_final['SEM3'].values[0])
+                l2.metric(label="2ND SEM CG", value=df_final['SEM2'].values[0], delta=round(float(df_final['SEM2'].values[0])-float(df_final['SEM1'].values[0]), 2))
+                l3.metric(label="3RD SEM CG", value=df_final['SEM3'].values[0], delta=round(float(df_final['SEM3'].values[0])-float(df_final['SEM2'].values[0]), 2))
 
             with m_c:
 
@@ -498,14 +588,14 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 brnch_cg = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/26_{stud_branch}_ranked_results.csv', index_col=False)
 
                 df = pd.DataFrame({
-                    'Academic Stats': ['Highest', 'Average', 'Your', 'Max Appeared'],
+                    'Branch Stats': ['Highest', 'Average', 'Your', 'Max Appeared'],
                     'CGPA': [max(brnch_cg['Cumulative CGPA'].values), round(statistics.mean(brnch_cg['Cumulative CGPA'].values) ,4),
                              stud_cum_cgpa, round(statistics.mode(brnch_cg['Cumulative CGPA'].values), 4)]})
 
                 df.reset_index(drop=True)
-                df.set_index('Academic Stats', inplace=True)
+                df.set_index('Branch Stats', inplace=True)
 
-                bar_chrt_l = px.bar(df, title=f'{stud_branch} CGPA Distribution 2026', width=440, height=420)
+                bar_chrt_l = px.bar(df, title=f"{stud_branch}'26 CGPA Distribution 2026", width=440, height=420, text_auto='')
 
                 st.plotly_chart(bar_chrt_l)
 
@@ -514,14 +604,14 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv', index_col=False)
 
                 df = pd.DataFrame({
-                    'Academic Stats': ['Highest', 'Average', 'Your', 'Max Appeared'],
+                    'University Stats': ['Highest', 'Average', 'Your', 'Max Appeared'],
                     'CGPA': [max(uni_cg['Cumulative CGPA'].values), round(statistics.mean(uni_cg['Cumulative CGPA'].values) ,4),
                              stud_cum_cgpa, round(statistics.mode(uni_cg['Cumulative CGPA'].values), 4)]})
 
                 df.reset_index(drop=True)
-                df.set_index('Academic Stats', inplace=True)
+                df.set_index('University Stats', inplace=True)
 
-                bar_chrt_r = px.bar(df, title=f'University CGPA Distribution 2026', width=440, height=420)
+                bar_chrt_r = px.bar(df, title=f'University CGPA Distribution 2026', width=440, height=420, text_auto='')
 
                 st.plotly_chart(bar_chrt_r)
 
@@ -544,11 +634,12 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             # df1.reset_index(drop=True)
             # df1.set_index('SEMESTER', inplace=True)
 
-            cg_line_chart = px.line(df1, x="SEMESTER", y="CGPA", title='YOUR CGPA CHART: ', range_y=[0,10])
+            cg_line_chart = px.line(df1, x="SEMESTER", y="CGPA", title='YOUR CGPA CHART: ')
 
             _, mid , _ =  st.columns([1,2.5,1])
             with mid: st.plotly_chart(cg_line_chart, use_container_width=True)
 
+            st.markdown('<br><br>', unsafe_allow_html=True)
 
             st.write(f"""
                         <h3 style="
@@ -561,7 +652,81 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             _, mm, _ = st.columns([1, 4, 1])
             dataspace = mm.empty()
 
-            dataspace.dataframe(df, hide_index=True, use_container_width=True, height=400)
+            dataspace.dataframe(df, hide_index=True, use_container_width=True, height=450)
+
+            st.markdown("<br><br>", unsafe_allow_html=True)
+
+            st.write(f"""
+                        <h3 style="
+                        text-align: center;
+                        align-items: center;
+                        ">Your Branch <span style="color: {color};">{shortf_branch26[stud_branch]}</span> Placement Stats:</h3>
+                        """,
+                     unsafe_allow_html=True)
+
+            st.markdown("<br>", unsafe_allow_html=True)
+
+
+            # data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0] FOR ACCESING VALYE OF PLACEMENT DIRECTLY
+            data23 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package23.csv')
+            data22 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package22.csv')
+            data21 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package21.csv')
+
+            df = pd.DataFrame({
+                'YEAR': ['2023', '2022', '2021'],
+                'AVERAGE PACKAGE': [
+                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
+                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
+                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0]
+                ]})
+
+            df.reset_index(drop=True)
+            df.set_index('YEAR', inplace=True)
+
+            avg_placement_barc = px.bar(df, title=f"Average Package Trend (IN LPA)", text_auto='')
+
+            # HIGHEST PLACEMENTS
+
+            data23 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package23.csv')
+            data22 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package22.csv')
+            data21 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package21.csv')
+
+            df = pd.DataFrame({
+                'YEAR': ['2023', '2022', '2021'],
+                'HIGHEST PACKAGE': [
+                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
+                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
+                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0]
+                ]})
+
+            df.reset_index(drop=True)
+            df.set_index('YEAR', inplace=True)
+
+            max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='')
+
+            # PERCENTAGE PLACED PLACEMENT
+
+            data23 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv')
+            data22 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed22.csv')
+            data21 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed21.csv')
+
+            df = pd.DataFrame({
+                'YEAR': ['2023', '2022', '2021'],
+                '% STUDENT PLACED': [
+                    float(data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%', '')),
+                    float(data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%', '')),
+                    float(data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%', ''))
+                ]})
+
+            df.reset_index(drop=True)
+            df.set_index('YEAR', inplace=True)
+
+            percent_placement_barc = px.bar(df, title=f"Percentage Of Student Placed", range_y=[0,100], text_auto='')
+
+            bar1, bar2, bar3 = st.columns(3)
+            with bar1: st.plotly_chart(avg_placement_barc, use_container_width=True)
+            with bar2: st.plotly_chart(max_placement_barc, use_container_width=True)
+            with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True)
 
 
 #------------------------------MENU: UNIVERSITY RANK STARTED--------------------------------------------------------------------------------------------------------------
@@ -622,6 +787,168 @@ elif selected=='RESULTS/RANKS':
     if text_search:
         dataspace.dataframe(df_search, hide_index=True, height=525, use_container_width=True)
 
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+elif selected=='PLACEMENTS':
+
+    #____________ 2023 PLACEMENTTS
+
+    st.write(f"""
+        <h2 style="
+        text-align: center;
+        align-items: center;
+        ">OVERALL <span style="color: {color};">2023</span> PLACEMENT STATS:</h2>
+        """,
+     unsafe_allow_html=True)
+
+    data23 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package23.csv').dropna()
+
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE'],
+        'Avg CTC (in LPA)': data23['Avg CTC (in LPA)'].values
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    r,l = st.columns([1, 1])
+    _, m, _ = st.columns([0.3,1,0.3])
+    with r: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2023'), use_container_width=True)
+
+    data23 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package23.csv').dropna()
+
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE'],
+        'Max CTC (in LPA)': data23['Max CTC (in LPA)'].values
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    with l: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2023'), use_container_width=True)
+
+    data23 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv').dropna()
+    placed_Data = []
+    for val in data23['Placed (%)'].values: placed_Data.append(float(str(val).replace('%', '')))
+
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE', 'OVERALL'],
+        'Placed (%)': placed_Data
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    with m: st.plotly_chart(px.bar(df, title='Percentage Of Students placed from every Branch in 2023',text_auto='', range_y=[0,100]), use_container_width=True)
+
+
+    #____________________ 2022 PALCEMENTS
+
+    st.markdown("""<br><br><br>""", unsafe_allow_html=True)
+
+    st.write(f"""
+            <h2 style="
+            text-align: center;
+            align-items: center;
+            ">OVERALL <span style="color: {color};">2022</span> PLACEMENT STATS:</h2>
+            """,
+             unsafe_allow_html=True)
+
+    r1, l1 = st.columns([1,1])
+    _, m1, _ = st.columns([0.3, 1, 0.3])
+
+    data22 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package22.csv').dropna()
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE'],
+        'Avg CTC (in LPA)': data22['Avg CTC (in LPA)'].values
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    with r1: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2022'), use_container_width=True)
+
+    data22 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package22.csv').dropna()
+
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE'],
+        'Max CTC (in LPA)': data22['Max CTC (in LPA)'].values
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    with l1: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2022'), use_container_width=True)
+
+    data22 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed22.csv').dropna()
+    placed_Data = []
+    for val in data22['Placed (%)'].values: placed_Data.append(float(str(val).replace('%', '')))
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE', 'OVERALL'],
+        'Placed (%)': placed_Data
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    with m1: st.plotly_chart(px.bar(df,  title='Percentage Of Students placed from every Branch in 2022' ,range_y=[0, 100], text_auto=''), use_container_width=True)
+
+    #____________________ 2021 PLACEMENTS
+
+    st.markdown("""<br><br><br>""", unsafe_allow_html=True)
+
+
+    st.write(f"""
+            <h2 style="
+            text-align: center;
+            align-items: center;
+            ">OVERALL <span style="color: {color};">2021</span> PLACEMENT STATS:</h2>
+            """,
+             unsafe_allow_html=True)
+
+    r2, l2 = st.columns([1,1])
+    _, m2, _ = st.columns([0.3, 1, 0.3])
+
+    data21 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package21.csv').dropna()
+
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE'],
+        'Avg CTC (in LPA)': data21['Avg CTC (in LPA)'].values
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    with r2: st.plotly_chart(px.bar(df, title='Average Package of Every Branch in 2021'), use_container_width=True)
+
+    data21 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package21.csv').dropna()
+
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE'],
+        'Max CTC (in LPA)': data21['Max CTC (in LPA)'].values
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    with l2: st.plotly_chart(px.bar(df, title='Highest Package from Every Branch in 2021'), use_container_width=True)
+
+    data21 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv').dropna()
+    placed_Data = []
+    for val in data21['Placed (%)'].values: placed_Data.append(float(str(val).replace('%', '')))
+    df = pd.DataFrame({
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE', 'OVERALL'],
+        'Placed (%)': placed_Data
+    })
+
+    df.reset_index(drop=True)
+    df.set_index('Branch', inplace=True)
+
+    with m2: st.plotly_chart(px.bar(df,title= 'Percentage of Student placed from every Branch in 2021',  range_y=[0, 100], text_auto=''), use_container_width=True)
+
+
+
 #--------------------------------MENU: ABOUT STARTED------------------------------------------------------------------------------------------------------------------
 
 
@@ -629,19 +956,23 @@ elif selected=='ABOUT':
     lc, rc  = st.columns([1.3,1])
 
     with rc:
+
+        st.write('<h6>This Website is Developed and Maintained By ME.</h6>', unsafe_allow_html=True)
+        l_, m_, r_ = st.columns([6, 2.5, 2.5])
+
         st_lottie(
-            load_lottieurl(True,"./animation/boyy_with_laptop.json"),
+            load_lottieurl(True,"./animation/boy_workingBack.json"),
             speed=1,
             reverse=False,
             loop=True,
             quality="low",  # medium ; high
             height=None,
-            width=None,
+            width=530,
             key=None,
         )
 
-        st.write('<h5>This Website is Developed and Maintained By ME.</h5>', unsafe_allow_html=True)
-        l_, m_, r_ = st.columns([6, 2.5, 2.5])
+        # st.write('<h5>This Website is Developed and Maintained By ME.</h5>', unsafe_allow_html=True)
+
 
         with l_:
             st.write(f"""
@@ -663,18 +994,19 @@ elif selected=='ABOUT':
 
     with lc:
 
+        # "text-shadow: 4px 3px 0px hsl(190, 85%, 55%), 9px 8px 0px rgba(0,0,0,0.15);"
+
         st.write(f"""
-        <h1 class="nametit">Your Education<br>Dashboard<br>DTU RESULTS</h1>
+        <h1 class="nametit">Your Education<br>Dashboard<br><span class="nametitm">DTU RESULTS</span></h1>
                 <br>""", unsafe_allow_html=True)
 
 
         st.markdown('<br>', unsafe_allow_html=True)
 
         st.write(f"""
-            <h3 class="about">MORE <span style="color: yellow;">FEATURES</span> TO COME, IN FURTHER UPDATES</h3>
+            <h3 class="about">MORE <span style="color: #1F51FF;">FEATURES</span> TO COME, IN FURTHER UPDATES</h3>
             <h6 class="about">- 2nd Sem results ? YES I WILL UPDATE, After Results, ASAP!</h6>
             <h6 class="about">- What about 2025 Results etc? YES I am going to add them too, it will take time. </h6>
-            <h6 class="about">- Placement Stats, of all the past years and current year, of all the branch.</h6>
             <h6 class="about">- Study Material and Resources that will help during exams</h6>
             <h6 class="about">- Other than this, Suggest me what more should i add ?</h6>
             """,
@@ -682,6 +1014,6 @@ elif selected=='ABOUT':
 
         st.markdown('<br><br><br>', unsafe_allow_html=True)
 
-        st.warning("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF'S, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR YOU FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE SHARE (GO TO ABOUT SECTION), I WILL SOLVE IT ASAP!")
+    st.warning("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF'S, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR YOU FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE CONTACT ME, I WILL SOLVE IT ASAP!")
 
 #---------------------------------------------------END-----------------------------------------------------------------------------------------------

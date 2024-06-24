@@ -1,8 +1,16 @@
 .nametit {
     text-align: center;
     align-items: center;
-    color: 	#1F51FF;
-    font-size: 65px;
+    color: 	hsl(218, 36%, 72%); /*hsl(210, 30%, 58%)*/
+    font-size: 73px;
+
+}
+
+.nametitm {
+    text-align: center;
+    align-items: center;
+    color: 	#475f96; /*hsl(210, 30%, 58%)*/
+    font-size: 73px;
 
 }
 
