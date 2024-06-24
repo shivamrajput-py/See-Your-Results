@@ -410,6 +410,8 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
             st.markdown('<br>', unsafe_allow_html=True)
 
+            df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_sem}_{stud_branch}_ranked_results.csv', dtype=str, index_col=None).fillna("")
+
             st.write(f"""
             <h3 style="
             text-align: center;
@@ -498,7 +500,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
 
     elif year_choosed=='2026' and result_search_box:
-        descripe.empty()
+        descripE.empty()
 
         if '2k' in result_search_box or '2K' in result_search_box:
             result_search_box= result_search_box.replace('2k', '').replace('2K', '').strip()
