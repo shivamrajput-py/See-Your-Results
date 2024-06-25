@@ -14,7 +14,7 @@ import statistics
 import warnings
 warnings.filterwarnings('ignore')
 countedview = 0
-WEBONSERVER = False
+WEBONSERVER = True
 
 shortf_branch26 = {
     'EP': 'Engineering Physics',
