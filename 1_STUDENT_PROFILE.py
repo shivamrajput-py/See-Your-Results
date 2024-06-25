@@ -8,10 +8,13 @@ from streamlit_lottie import st_lottie
 import requests
 from streamlit_option_menu import option_menu
 import os
+import datetime
 import statistics
 
 import warnings
 warnings.filterwarnings('ignore')
+countedview = 0
+WEBONSERVER = False
 
 shortf_branch26 = {
     'EP': 'Engineering Physics',
@@ -103,7 +106,7 @@ with mainmenu_left:
 with mainmenu_middle:
     selected = option_menu(menu_title=None, options= ['STUDENT PROFILE', 'RESULTS/RANKS','PLACEMENTS', 'ABOUT'],
                            default_index=0,
-                           icons=['person-vcard', 'bar-chart-line', 'info-square'],
+                           icons=['person-vcard', 'bar-chart-line','clipboard-data' ,'info-square'],
                            orientation='horizontal'
                            )
 
@@ -111,7 +114,7 @@ with mainmenu_middle:
 
 if selected=='STUDENT PROFILE':
 
-    _,search_middle, _ = st.columns(3)
+    _,search_middle, _ = st.columns([0.5,1,0.5])
 
     Mtitle = search_middle.empty()
     Mtitle.write(f"""
@@ -126,7 +129,7 @@ if selected=='STUDENT PROFILE':
     """, unsafe_allow_html=True)
 
 
-    _,filt1,filt2, _ = st.columns([2.5,1,1,2.5])
+    _,filt1,filt2, _ = st.columns([2.2,1,1,2.2])
 
     with filt1:
         st.markdown('<br>', unsafe_allow_html=True)
@@ -142,6 +145,18 @@ if selected=='STUDENT PROFILE':
 
 
 #-----------------------------SPECIAL ADDITION IN THE WEBSITE, KIRTI--------------------------------------------------------------------------------------------------------
+
+    if result_search_box:
+
+        # VIEW COUNTING
+        if countedview == 0 and WEBONSERVER:
+            countedview = 1
+            with open('user_webViewsData.txt', 'a') as fl:
+                fl.write(f"""USER AT {datetime.datetime.now()} SEARCHED "{result_search_box}"\n""")
+        elif countedview==1:
+            with open('user_webViewsData.txt', 'a') as fl:
+                fl.write(f"""SAME USER SEARCHED "{result_search_box}"\n""")
+
 
     if result_search_box and '19012007' == result_search_box:
         descripE.empty()
@@ -372,7 +387,8 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             st.markdown('<br>', unsafe_allow_html=True)
 
             # MENU1: SECOND MAIN DIV WITH 2 COLUMNS ---------------------------------------------
-            _,l_sec2,_,r_sec2,_ = st.columns([1,3.1,0.8,3.1,1])
+
+            _, l_sec2, _,r_sec2, _ = st.columns([0.9,3.1,1,3.1,0.5])
 
             with l_sec2:
 
@@ -390,7 +406,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 df.reset_index(drop=True)
                 df.set_index('Branch Stats', inplace=True)
 
-                st.plotly_chart(px.bar(df,title=f"{stud_branch}'27 CGPA Distribution", width=440, height=420, range_y=[0,10], text_auto=''))
+                st.plotly_chart(px.bar(df,title=f"{stud_branch}'27 CGPA Distribution", range_y=[0,10], text_auto='', width=430).update_layout({'dragmode':False}), config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'zoomOut2d', 'select2d']})
 
             with r_sec2:
 
@@ -404,7 +420,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 df.reset_index(drop=True)
                 df.set_index('University Stats', inplace=True)
 
-                st.plotly_chart(px.bar(df, title=f'University CGPA Distribution', width=440, height=420, range_y=[0,10] ,text_auto=''))
+                st.plotly_chart(px.bar(df, title=f'University CGPA Distribution', range_y=[0,10] ,text_auto='', width=430).update_layout({'dragmode':False}), config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'zoomOut2d', 'select2d']})
 
             #TODO: MENU1: THIRD MAIN DIV WITH 1 COLUMNS--------------------------------------------------------------------------------------------------
 
@@ -453,7 +469,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
-            avg_placement_barc = px.bar(df, title=f"Average Package Trend (IN LPA)", text_auto='')
+            avg_placement_barc = px.bar(df, title=f"Average Package Trend (IN LPA)", text_auto='').update_layout({'dragmode':False})
 
             # HIGHEST PLACEMENTS
 
@@ -472,7 +488,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
-            max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='')
+            max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='').update_layout({'dragmode':False})
 
             # PERCENTAGE PLACED PLACEMENT
 
@@ -491,12 +507,12 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
-            percent_placement_barc = px.bar(df, title=f"Percentage Of Student Placed", range_y=[0,100], text_auto='')
+            percent_placement_barc = px.bar(df, title=f"Percentage Of Student Placed", range_y=[0,100], text_auto='').update_layout({'dragmode':False})
 
             bar1, bar2, bar3 = st.columns(3)
-            with bar1: st.plotly_chart(avg_placement_barc, use_container_width=True)
-            with bar2: st.plotly_chart(max_placement_barc, use_container_width=True)
-            with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True)
+            with bar1: st.plotly_chart(avg_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
+            with bar2: st.plotly_chart(max_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
+            with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
 
 
     elif year_choosed=='2026' and result_search_box:
@@ -597,9 +613,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 df.reset_index(drop=True)
                 df.set_index('Branch Stats', inplace=True)
 
-                bar_chrt_l = px.bar(df, title=f"{stud_branch}'26 CGPA Distribution 2026", width=440, height=420, text_auto='')
-
-                st.plotly_chart(bar_chrt_l)
+                st.plotly_chart(px.bar(df, title=f"{stud_branch}'26 CGPA Distribution 2026", text_auto='').update_layout({'dragmode':False}), use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d', 'zoomOut2d']})
 
             with right_c:
 
@@ -613,9 +627,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 df.reset_index(drop=True)
                 df.set_index('University Stats', inplace=True)
 
-                bar_chrt_r = px.bar(df, title=f'University CGPA Distribution 2026', width=440, height=420, text_auto='')
-
-                st.plotly_chart(bar_chrt_r)
+                st.plotly_chart(px.bar(df, title=f'University CGPA Distribution 2026', text_auto='').update_layout({'dragmode':False}), use_container_width=True,  config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d', 'zoomOut2d', 'hoverClosestCartesian']})
 
             st.markdown('<br>', unsafe_allow_html=True)
 
@@ -636,10 +648,8 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             # df1.reset_index(drop=True)
             # df1.set_index('SEMESTER', inplace=True)
 
-            cg_line_chart = px.line(df1, x="SEMESTER", y="CGPA", title='YOUR CGPA CHART: ')
-
             _, mid , _ =  st.columns([1,2.5,1])
-            with mid: st.plotly_chart(cg_line_chart, use_container_width=True)
+            with mid: st.plotly_chart(px.line(df1, x="SEMESTER", y="CGPA", title='YOUR CGPA CHART: ', range_y=[0,10]).update_layout({'dragmode':False}), use_container_width=True)
 
             st.markdown('<br><br>', unsafe_allow_html=True)
 
@@ -685,7 +695,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
-            avg_placement_barc = px.bar(df, title=f"Average Package Trend (IN LPA)", text_auto='')
+            avg_placement_barc = px.bar(df, title=f"Average Package Trend (IN LPA)", text_auto='').update_layout({'dragmode':False})
 
             # HIGHEST PLACEMENTS
 
@@ -704,7 +714,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
-            max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='')
+            max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='').update_layout({'dragmode':False})
 
             # PERCENTAGE PLACED PLACEMENT
 
@@ -723,18 +733,24 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
-            percent_placement_barc = px.bar(df, title=f"Percentage Of Student Placed", range_y=[0,100], text_auto='')
+            percent_placement_barc = px.bar(df, title=f"Percentage Of Student Placed", range_y=[0,100], text_auto='').update_layout({'dragmode':False})
 
             bar1, bar2, bar3 = st.columns(3)
-            with bar1: st.plotly_chart(avg_placement_barc, use_container_width=True)
-            with bar2: st.plotly_chart(max_placement_barc, use_container_width=True)
-            with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True)
+            with bar1: st.plotly_chart(avg_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
+            with bar2: st.plotly_chart(max_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
+            with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
 
 
 #------------------------------MENU: UNIVERSITY RANK STARTED--------------------------------------------------------------------------------------------------------------
 
 
 elif selected=='RESULTS/RANKS':
+
+    if countedview==0 and WEBONSERVER:
+        countedview=1
+        with open('user_webViewsData.txt', 'a') as fl:
+            fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "RESULTS/RANKS" (VIEW COUNTED)""")
+
 
     lf, rt = st.columns([0.5, 3])
 
@@ -778,7 +794,7 @@ elif selected=='RESULTS/RANKS':
     df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{flname}', dtype=str, index_col=None).fillna("")
 
     dataspace = rt.empty()
-    dataspace.dataframe(df, hide_index=True, height=525, use_container_width=True)
+    dataspace.dataframe(df, hide_index=True, height=900, use_container_width=True)
 
     # Filter the dataframe using masks !!!!!!!!! GOTT THIS FROM INTERNET! PLEASE LEARN PANDAS TO UNDERSTAND THIS
     m1 = df["NAME"].str.contains(text_search.upper())
@@ -793,6 +809,13 @@ elif selected=='RESULTS/RANKS':
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 elif selected=='PLACEMENTS':
+
+    # VIEW COUNTING
+    if countedview == 0 and WEBONSERVER:
+        countedview = 1
+        with open('user_webViewsData.txt', 'a') as fl:
+            fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "PLACEMENTS" (VIEW COUNTED)\n""")
+
 
     #____________ 2023 PLACEMENTTS
 
@@ -816,7 +839,7 @@ elif selected=='PLACEMENTS':
 
     r,l = st.columns([1, 1])
     _, m, _ = st.columns([0.3,1,0.3])
-    with r: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2023'), use_container_width=True)
+    with r: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2023').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
     data23 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package23.csv').dropna()
 
@@ -828,7 +851,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with l: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2023'), use_container_width=True)
+    with l: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2023').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
     data23 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv').dropna()
     placed_Data = []
@@ -842,7 +865,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with m: st.plotly_chart(px.bar(df, title='Percentage Of Students placed from every Branch in 2023',text_auto='', range_y=[0,100]), use_container_width=True)
+    with m: st.plotly_chart(px.bar(df, title='Percentage Of Students placed from every Branch in 2023',text_auto='', range_y=[0,100]).update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
 
     #____________________ 2022 PALCEMENTS
@@ -869,7 +892,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with r1: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2022'), use_container_width=True)
+    with r1: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2022').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
     data22 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package22.csv').dropna()
 
@@ -881,7 +904,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with l1: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2022'), use_container_width=True)
+    with l1: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2022').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
 
     data22 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed22.csv').dropna()
     placed_Data = []
@@ -894,7 +917,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with m1: st.plotly_chart(px.bar(df,  title='Percentage Of Students placed from every Branch in 2022' ,range_y=[0, 100], text_auto=''), use_container_width=True)
+    with m1: st.plotly_chart(px.bar(df,  title='Percentage Of Students placed from every Branch in 2022' ,range_y=[0, 100], text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
 
     #____________________ 2021 PLACEMENTS
 
@@ -922,7 +945,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with r2: st.plotly_chart(px.bar(df, title='Average Package of Every Branch in 2021'), use_container_width=True)
+    with r2: st.plotly_chart(px.bar(df, title='Average Package of Every Branch in 2021').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
 
     data21 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package21.csv').dropna()
 
@@ -934,7 +957,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with l2: st.plotly_chart(px.bar(df, title='Highest Package from Every Branch in 2021'), use_container_width=True)
+    with l2: st.plotly_chart(px.bar(df, title='Highest Package from Every Branch in 2021').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
 
     data21 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv').dropna()
     placed_Data = []
@@ -947,7 +970,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with m2: st.plotly_chart(px.bar(df,title= 'Percentage of Student placed from every Branch in 2021',  range_y=[0, 100], text_auto=''), use_container_width=True)
+    with m2: st.plotly_chart(px.bar(df,title= 'Percentage of Student placed from every Branch in 2021',  range_y=[0, 100], text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']} ,use_container_width=True)
 
 
 
@@ -955,6 +978,14 @@ elif selected=='PLACEMENTS':
 
 
 elif selected=='ABOUT':
+
+    # VIEW COUNTING
+    if countedview==0 and WEBONSERVER:
+        countedview=1
+        with open('user_webViewsData.txt', 'a') as fl:
+            fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "ABOUT" (VIEW COUNTED)\n""")
+
+
     lc, rc  = st.columns([1.3,1])
 
     with rc:
