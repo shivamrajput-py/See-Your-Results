@@ -69,7 +69,9 @@ placem_branch_name = {
     'ME': 'Mechanical Engineering'
 }
 
-st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🧑‍🎓')
+
+
+st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🎓')
 
 color = '#1F51FF' # USE FOR HIGHLIGHTING A SPECIFIC WORD
 other= False
