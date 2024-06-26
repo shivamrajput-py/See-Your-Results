@@ -152,7 +152,7 @@ if selected=='STUDENT PROFILE':
 
         # VIEW COUNTING
         if countedview == 0 and WEBONSERVER:
-            countedview = 1
+            countedview += 1
             with open('user_webViewsData.txt', 'a') as fl:
                 fl.write(f"""USER AT {datetime.datetime.now()} SEARCHED "{result_search_box}"\n""")
         elif countedview==1:
@@ -424,24 +424,27 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 st.plotly_chart(px.bar(df, title=f'University CGPA Distribution', range_y=[0,10] ,text_auto='', width=430).update_layout({'dragmode':False}), config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'zoomOut2d', 'select2d']})
 
-            #TODO: MENU1: THIRD MAIN DIV WITH 1 COLUMNS--------------------------------------------------------------------------------------------------
+            #MENU1: THIRD MAIN DIV WITH 1 COLUMNS--------------------------------------------------------------------------------------------------
 
             st.markdown('<br>', unsafe_allow_html=True)
 
-            df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_sem}_{stud_branch}_ranked_results.csv', dtype=str, index_col=None).fillna("")
+            df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/1_{stud_branch}_ranked_results.csv', dtype=str, index_col=None).fillna("")
 
             st.write(f"""
             <h3 style="
             text-align: center;
             align-items: center;
-            ">Your Branch <span style="color: {color};">{stud_branch}'{stud_sem+26}</span> Students Rankings: </h3>
+            ">Your Branch <span style="color: {color};">{stud_branch}'27</span> Students Rankings: </h3>
             """,unsafe_allow_html=True)
 
             _,mm,_ = st.columns([1,4,1])
-            ranklist = mm.empty()
-            ranklist.dataframe(df, hide_index=True, use_container_width=True, height= 450)
+            with mm:
+                ranklist = st.empty()
+                ranklist.dataframe(df, hide_index=True, use_container_width=True, height= 425)
 
             st.markdown("<br><br>", unsafe_allow_html=True)
+
+            #MENU1: FOURTH MAIN DIV WITH 3 COLUMNS --------------------------------------------------------------------------------------------------
 
             st.write(f"""
             <h3 style="
@@ -453,6 +456,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
             st.markdown("<br>", unsafe_allow_html=True)
 
+            # AVERAGE PLACEMENTS
 
             # data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0] FOR ACCESING VALYE OF PLACEMENT DIRECTLY
             data23 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package23.csv')
@@ -520,11 +524,14 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
     elif year_choosed=='2026' and result_search_box:
         descripE.empty()
 
+        # IF USER HAS PUTTEN 2K/2k IN THE ROLL NUMBER, REMOVING THAT CAUSE, OUR DATA DOES NOT CONTAIN THAT
         if '2k' in result_search_box or '2K' in result_search_box:
             result_search_box= result_search_box.replace('2k', '').replace('2K', '').strip()
 
+        # DEALING WITH USER PUTTEN ROLL NO. 23/EP/12  AND  23/EP/01
         if len(result_search_box)==8:
             result_search_box  = result_search_box[0:6] + '0' + result_search_box[6:]
+
 
         data26std = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv')
         m1 = data26std['ROLL NO.'].str.contains(result_search_box.upper())
@@ -542,6 +549,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             stud_branch_rank = None
             stud_university_rank = df_final['RANK'].values[0]
 
+            # HAD TO FIND THE BRANCH RANK ALAG SE !
             fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/26_{stud_branch}_ranked_results.csv')
             m1 = fl['ROLL NO.'].str.contains(result_search_box.upper())
             fl_final = fl[m1]
@@ -647,8 +655,6 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                     'CGPA': [df_final['SEM1'].values[0], df_final['SEM2'].values[0], df_final['SEM3'].values[0]]
                 }
             )
-            # df1.reset_index(drop=True)
-            # df1.set_index('SEMESTER', inplace=True)
 
             _, mid , _ =  st.columns([1,2.5,1])
             with mid: st.plotly_chart(px.line(df1, x="SEMESTER", y="CGPA", title='YOUR CGPA CHART: ', range_y=[0,10]).update_layout({'dragmode':False}), use_container_width=True)
@@ -749,9 +755,9 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 elif selected=='RESULTS/RANKS':
 
     if countedview==0 and WEBONSERVER:
-        countedview=1
+        countedview+=1
         with open('user_webViewsData.txt', 'a') as fl:
-            fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "RESULTS/RANKS" (VIEW COUNTED)""")
+            fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "RESULTS/RANKS" (VIEW COUNTED)\n""")
 
 
     lf, rt = st.columns([0.5, 3])
@@ -805,6 +811,15 @@ elif selected=='RESULTS/RANKS':
 
     # Show the results, if you have a text_search
     if text_search:
+
+        # IF USER HAS PUTTEN 2K/2k IN THE ROLL NUMBER, REMOVING THAT CAUSE, OUR DATA DOES NOT CONTAIN THAT
+        if '2k' in text_search or '2K' in text_search:
+            text_search = text_search.replace('2k', '').replace('2K', '').strip()
+
+        # DEALING WITH USER PUTTEN ROLL NO. 23/EP/12  AND  23/EP/01
+        if len(text_search) == 8:
+            text_search = text_search[0:6] + '0' + text_search[6:]
+
         dataspace.dataframe(df_search, hide_index=True, height=525, use_container_width=True)
 
 
@@ -814,7 +829,7 @@ elif selected=='PLACEMENTS':
 
     # VIEW COUNTING
     if countedview == 0 and WEBONSERVER:
-        countedview = 1
+        countedview += 1
         with open('user_webViewsData.txt', 'a') as fl:
             fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "PLACEMENTS" (VIEW COUNTED)\n""")
 
@@ -975,7 +990,6 @@ elif selected=='PLACEMENTS':
     with m2: st.plotly_chart(px.bar(df,title= 'Percentage of Student placed from every Branch in 2021',  range_y=[0, 100], text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']} ,use_container_width=True)
 
 
-
 #--------------------------------MENU: ABOUT STARTED------------------------------------------------------------------------------------------------------------------
 
 
@@ -983,7 +997,7 @@ elif selected=='ABOUT':
 
     # VIEW COUNTING
     if countedview==0 and WEBONSERVER:
-        countedview=1
+        countedview+=1
         with open('user_webViewsData.txt', 'a') as fl:
             fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "ABOUT" (VIEW COUNTED)\n""")
 
@@ -1000,14 +1014,11 @@ elif selected=='ABOUT':
             speed=1,
             reverse=False,
             loop=True,
-            quality="low",  # medium ; high
+            quality="low",
             height=None,
             width=530,
             key=None,
         )
-
-        # st.write('<h5>This Website is Developed and Maintained By ME.</h5>', unsafe_allow_html=True)
-
 
         with l_:
             st.write(f"""
@@ -1028,8 +1039,6 @@ elif selected=='ABOUT':
                 unsafe_allow_html=True)
 
     with lc:
-
-        # "text-shadow: 4px 3px 0px hsl(190, 85%, 55%), 9px 8px 0px rgba(0,0,0,0.15);"
 
         st.write(f"""
         <h1 class="nametit">Your Education<br>Dashboard<br><span class="nametitm">DTU RESULTS</span></h1>
