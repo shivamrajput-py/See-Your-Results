@@ -69,8 +69,6 @@ placem_branch_name = {
     'ME': 'Mechanical Engineering'
 }
 
-
-
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🎓')
 
 color = '#1F51FF' # USE FOR HIGHLIGHTING A SPECIFIC WORD
@@ -532,7 +530,6 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
         if len(result_search_box)==8:
             result_search_box  = result_search_box[0:6] + '0' + result_search_box[6:]
 
-
         data26std = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv')
         m1 = data26std['ROLL NO.'].str.contains(result_search_box.upper())
         df_final = data26std[m1]
@@ -759,7 +756,6 @@ elif selected=='RESULTS/RANKS':
         with open('user_webViewsData.txt', 'a') as fl:
             fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "RESULTS/RANKS" (VIEW COUNTED)\n""")
 
-
     lf, rt = st.columns([0.5, 3])
 
     with lf:
@@ -821,7 +817,6 @@ elif selected=='RESULTS/RANKS':
             text_search = text_search[0:6] + '0' + text_search[6:]
 
         dataspace.dataframe(df_search, hide_index=True, height=525, use_container_width=True)
-
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -940,7 +935,6 @@ elif selected=='PLACEMENTS':
 
     st.markdown("""<br><br><br>""", unsafe_allow_html=True)
 
-
     st.write(f"""
             <h2 style="
             text-align: center;
@@ -989,9 +983,7 @@ elif selected=='PLACEMENTS':
 
     with m2: st.plotly_chart(px.bar(df,title= 'Percentage of Student placed from every Branch in 2021',  range_y=[0, 100], text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']} ,use_container_width=True)
 
-
 #--------------------------------MENU: ABOUT STARTED------------------------------------------------------------------------------------------------------------------
-
 
 elif selected=='ABOUT':
 
