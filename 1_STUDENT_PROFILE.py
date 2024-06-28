@@ -1,5 +1,4 @@
 import csv
-
 import streamlit as st
 import json
 import pandas as pd
@@ -15,43 +14,42 @@ import warnings
 warnings.filterwarnings('ignore')
 countedview = 0
 WEBONSERVER = True
-
 grdpoint = {
     'O':10, 'A+':9, 'A':8, 'B+':7, 'B':6, 'C':5, 'P':4,'F': 0
 }
 
 shortf_branch26 = {
-    'EP': 'Engineering Physics',
-    'AE': 'Automotive Engineering',
     'CO': 'Computer Science',
     'IT': 'Information Technology',
-    'MC': 'Mathematics and Computing',
     'SE': 'Software Engineering',
+    'MC': 'Mathematics and Computing',
     'EC': 'Electronics and Communication Engineering',
     'EE': 'Electrical Engineering',
-    'BT': 'Bio-Technology',
-    'EN': 'Environmental Engineering',
+    'EP': 'Engineering Physics',
+    'ME': 'Mechanical Engineering',
+    'AE': 'Automotive Engineering',
     'CE': 'Civil Engineering',
     'CH': 'Chemical Engineering',
     'PE': 'Production Engineering',
-    'ME': 'Mechanical Engineering'
+    'EN': 'Environmental Engineering',
+    'BT': 'Bio-Technology'
 }
 
 shortf_branch27 = {
-    'EP': 'Engineering Physics',
-    'AE': 'Automotive Engineering',
     'CS': 'Computer Science',
     'IT': 'Information Technology',
-    'MC': 'Mathematics and Computing',
     'SE': 'Software Engineering',
+    'MC': 'Mathematics and Computing',
     'EC': 'Electronics and Communication Engineering',
     'EE': 'Electrical Engineering',
-    'BT': 'Bio-Technology',
-    'EN': 'Environmental Engineering',
+    'EP': 'Engineering Physics',
+    'ME': 'Mechanical Engineering',
+    'AE': 'Automotive Engineering',
     'CE': 'Civil Engineering',
     'CH': 'Chemical Engineering',
     'PE': 'Production Engineering',
-    'ME': 'Mechanical Engineering'
+    'EN': 'Environmental Engineering',
+    'BT': 'Bio-Technology'
 }
 
 
@@ -93,7 +91,7 @@ def load_lottieurl(isjson: bool, url_or_path: str):
         return r.json()
 
 # MAIN MENU COLUMNS FOR LOGO ANIMATION AND REAL MAIN MENU
-mainmenu_left, mainmenu_middle,_ = st.columns([0.2,3,0.2])
+mainmenu_left, mainmenu_middle,_ = st.columns([0.6,3,0.6])
 
 with mainmenu_left:
     st_lottie(
@@ -108,7 +106,7 @@ with mainmenu_left:
     )
 
 with mainmenu_middle:
-    selected = option_menu(menu_title=None, options= ['STUDENT PROFILE', 'RESULTS/RANKS','PLACEMENTS','GPA CALC' , 'ABOUT'],
+    selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','GPA' , 'ABOUT'],
                            default_index=0,
                            icons=['person-vcard', 'bar-chart-line','clipboard-data', 'calculator-fill' ,'info-square'],
                            orientation='horizontal'
@@ -116,7 +114,7 @@ with mainmenu_middle:
 
 #--------------------------------------------------MENU: [STUDENT PROFILE] STARTED-----------------------------------------------------------------------------------------------------------------------
 
-if selected=='STUDENT PROFILE':
+if selected=='PROFILE':
 
     _,search_middle, _ = st.columns([0.5,1,0.5])
 
@@ -755,7 +753,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 #------------------------------MENU: UNIVERSITY RANK STARTED--------------------------------------------------------------------------------------------------------------
 
 
-elif selected=='RESULTS/RANKS':
+elif selected=='RANKS':
 
     if countedview==0 and WEBONSERVER:
         countedview+=1
@@ -843,6 +841,7 @@ elif selected=='PLACEMENTS':
             <h6 style="
             text-align: center;
             align-items: center;
+            font-size: 13px;
             ">Be on Desktop mode to see the graphs properly!</h6>
             """,
              unsafe_allow_html=True)
@@ -868,7 +867,7 @@ elif selected=='PLACEMENTS':
 
     r,l = st.columns([1, 1])
     _, m, _ = st.columns([0.3,1,0.3])
-    with r: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2023').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
+    with r: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2023', text_auto='').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
     data23 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package23.csv').dropna()
 
@@ -880,7 +879,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with l: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2023').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
+    with l: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2023', text_auto='').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
     data23 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv').dropna()
     placed_Data = []
@@ -921,7 +920,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with r1: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2022').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
+    with r1: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2022', text_auto='').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
     data22 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package22.csv').dropna()
 
@@ -933,7 +932,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with l1: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2022').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
+    with l1: st.plotly_chart(px.bar(df,  title='Highest Package from Every Branch in 2022', text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
 
     data22 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed22.csv').dropna()
     placed_Data = []
@@ -973,7 +972,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with r2: st.plotly_chart(px.bar(df, title='Average Package of Every Branch in 2021').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
+    with r2: st.plotly_chart(px.bar(df, title='Average Package of Every Branch in 2021', text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
 
     data21 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package21.csv').dropna()
 
@@ -985,7 +984,7 @@ elif selected=='PLACEMENTS':
     df.reset_index(drop=True)
     df.set_index('Branch', inplace=True)
 
-    with l2: st.plotly_chart(px.bar(df, title='Highest Package from Every Branch in 2021').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
+    with l2: st.plotly_chart(px.bar(df, title='Highest Package from Every Branch in 2021', text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
 
     data21 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv').dropna()
     placed_Data = []
@@ -1002,9 +1001,9 @@ elif selected=='PLACEMENTS':
 
 #--------------------------------MENU: ABOUT STARTED------------------------------------------------------------------------------------------------------------------
 
-elif selected=='GPA CALC':
+elif selected=='GPA':
 
-    leftsec , rightsec, _ = st.columns([1.1,0.8,1.1])
+    leftsec , rightsec, _ = st.columns([1.5,1,0.5])
 
     with leftsec:
 
@@ -1015,12 +1014,12 @@ elif selected=='GPA CALC':
                     "><span style="color: {color};"></span>Enter How Many subjects do you have? :</h5>
                     """,
                  unsafe_allow_html=True)
-        _, mm1 , mm2, _ =  st.columns([0.3,0.7,0.7, 0.3])
-        with mm1:
-            nofs = st.number_input("", value=6, key='nofs', label_visibility='collapsed', max_value=12, min_value=0)
 
-        with mm2:
-            subbut = st.button('CALCULATE SGPA')
+        _, mm, _ = st.columns([0.35,1,0.35])
+        with mm:
+            nofs = st.number_input("", value=6, key='nofs', label_visibility='collapsed', max_value=12, min_value=0)
+            st.markdown("######")
+            subbut = st.button('CALCULATE YOUR SGPA ACCORDING TO THESE GRADES:')
 
         if subbut:
             try:
@@ -1058,66 +1057,32 @@ elif selected=='GPA CALC':
                 num = ([4]*(int(nofs)-1)) + [2,2]
 
                 for i in range(int(nofs)+1):
-                    sec1, sec2, sec3 = st.columns([1.6, 0.7, 0.7])
+                    sec1, sec2, sec3 = st.columns([1.2, 0.95, 0.95])
                     with sec1:
                         if i==0:
-                            st.write(f"""
-                                <h4 style="
-                                text-align: center;
-                                align-items: center;
-                                padding-top: 0px;
-                                border-top-width: 0px;
-                                padding-bottom: 0px;
-                                border-bottom-width: 0px;
-                                color: {color};
-                                "> SUBJECTS:</h5>
-                                """,
-                        unsafe_allow_html=True)
+                            pass
                         else:
                             st.write(f"""
                                 <h5 style="
-                                text-align: center;
-                                align-items: center;
                                 padding-top: 35px;
-                                ">Subject {i}: </h5>
+                                color: skyblue;
+                                ">SUBJECT {i} -</h5>
                                 """,
                         unsafe_allow_html=True)
                     with sec2:
 
                         if i==0:
-                            st.write(f"""
-                                <h4 style="
-                                text-align: center;
-                                align-items: center;
-                                padding-top: 0px;
-                                border-top-width: 0px;
-                                padding-bottom: 0px;
-                                border-bottom-width: 0px;
-                                color: {color};
-                                ">CREDITS</h5>
-                                """,
-                        unsafe_allow_html=True)
+                            pass
                         else:
-                            crd = st.number_input("", key=f'cr{i}', placeholder='Credits:', min_value=0, step=1, value=num[i])
+                            crd = st.number_input("CREDITS:", key=f'cr{i}', placeholder='Credits:', min_value=0, step=1, value=num[i])
                             st.session_state.crList.append(crd)
 
                     with sec3:
 
                         if i==0:
-                            st.write(f"""
-                            <h4 style="
-                            text-align: center;
-                            align-items: center;
-                            padding-top: 0px;
-                            border-top-width: 0px;
-                            padding-bottom: 0px;
-                            border-bottom-width: 0px;
-                            color: {color};
-                            ">GRADE</h5>
-                            """,
-                        unsafe_allow_html=True)
+                            pass
                         else:
-                            grd = st.selectbox('', ['O', 'A+', 'A', 'B+', 'B', 'C','P' ,'F'], key=f'grd{i}', index=0)
+                            grd = st.selectbox('GRADE: ', ['O', 'A+', 'A', 'B+', 'B', 'C','P' ,'F'], key=f'grd{i}', index=0)
                             st.session_state.grdList.append(grd)
 
 
