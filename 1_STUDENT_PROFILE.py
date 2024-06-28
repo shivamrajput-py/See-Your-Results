@@ -335,7 +335,9 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 for sd in dt[str(stud_sem)+'_'+str(stud_branch)]:
                     if sd['rolln'] == df_final['rolln'].values[0]:
                         stud_branch_rank = sd['rank']
+                brnch_nofs = len(dt[str(stud_sem)+'_'+str(stud_branch)])
 
+            stud_brnch_percentile = round(float(((brnch_nofs-stud_branch_rank)/brnch_nofs)*100), 4)
             stud_percentile = round(float(((2589.0-stud_university_rank)/2589.0)*100), 4)
 
             # MENU1: FIRST MAIN DIV WITH 3 COLUMNS ---------------------------------------------
@@ -369,9 +371,27 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 """,
                     unsafe_allow_html=True,
                 )
+                st.markdown('<br><br>', unsafe_allow_html=True)
+
+                if stud_percentile>50:
+                    st.write(f"""
+                        <h5>You Are in TOP <span style="color: #87CEFA;">{round(100-stud_percentile, 4)}%</span> Students of University!</h5>
+                        """, unsafe_allow_html=True)
+                else:
+                    st.write(f"""
+                        <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_percentile, 4)}%</span> Students of University!</h5>
+                        """, unsafe_allow_html=True)
+
                 st.markdown('<br>', unsafe_allow_html=True)
 
-                st.text(f"""You performed better than {round(stud_percentile, 6)} Percent Students""")
+                if stud_brnch_percentile>50:
+                    st.write(f"""
+                        <h5>You Are in TOP <span style="color: #87CEFA;">{round(100-stud_brnch_percentile, 4)}%</span> Students of Your Branch!</h5>
+                        """, unsafe_allow_html=True)
+                else:
+                    st.write(f"""
+                        <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_brnch_percentile, 4)}%</span> Students of your Branch</h5>
+                        """, unsafe_allow_html=True)
 
             with r_sec1:
 
@@ -388,9 +408,17 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                     key=None,
                 )
 
-            st.markdown('<br>', unsafe_allow_html=True)
+            # st.markdown('<br>', unsafe_allow_html=True)
+            st.markdown('---')
 
             # MENU1: SECOND MAIN DIV WITH 2 COLUMNS ---------------------------------------------
+
+            st.write(f"""
+                        <h3 style="
+                        text-align: center;
+                        align-items: center;
+                        ">Your Branch <span style="color: {color};">{stud_branch}'27</span> and Your CGPA Distribution Stats:</h3>
+                        """, unsafe_allow_html=True)
 
             _, l_sec2, _,r_sec2, _ = st.columns([0.9,3.1,1,3.1,0.5])
 
@@ -426,9 +454,10 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 st.plotly_chart(px.bar(df, title=f'University CGPA Distribution', range_y=[0,10] ,text_auto='', width=430).update_layout({'dragmode':False}), config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'zoomOut2d', 'select2d']})
 
+
             #MENU1: THIRD MAIN DIV WITH 1 COLUMNS--------------------------------------------------------------------------------------------------
 
-            st.markdown('<br>', unsafe_allow_html=True)
+            st.markdown('---')
 
             df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/1_{stud_branch}_ranked_results.csv', dtype=str, index_col=None).fillna("")
 
@@ -439,13 +468,14 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             ">Your Branch <span style="color: {color};">{stud_branch}'27</span> Students Rankings: </h3>
             """,unsafe_allow_html=True)
 
+            st.markdown("<br>", unsafe_allow_html=True)
             _,mm,_ = st.columns([1,4,1])
             with mm:
                 ranklist = st.empty()
                 ranklist.dataframe(df, hide_index=True, use_container_width=True, height= 425)
 
-            st.markdown("<br><br>", unsafe_allow_html=True)
-
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown('---')
             #MENU1: FOURTH MAIN DIV WITH 3 COLUMNS --------------------------------------------------------------------------------------------------
 
             st.write(f"""
@@ -522,6 +552,9 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             with bar2: st.plotly_chart(max_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
             with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
 
+            st.markdown('---')
+
+
 
     elif year_choosed=='2026' and result_search_box:
         descripE.empty()
@@ -555,7 +588,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             m1 = fl['ROLL NO.'].str.contains(result_search_box.upper())
             fl_final = fl[m1]
             stud_branch_rank = fl_final['RANK'].values[0]
-
+            stud_brnch_percentile = round(float(((len(fl.values)-stud_branch_rank)/len(fl.values))*100), 4)
             stud_percentile = round(float(((2579.0 - stud_university_rank) / 2579.0) * 100), 4)
 
             l_c, m_c, r_c = st.columns([1.5, 2, 1])
@@ -589,9 +622,28 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                             """,
                     unsafe_allow_html=True,
                 )
+                st.markdown('<br><br>', unsafe_allow_html=True)
+
+                if stud_percentile > 50:
+                    st.write(f"""
+                            <h5>You Are in TOP <span style="color: #87CEFA;">{round(100 - stud_percentile, 4)}%</span> Students of University!</h5>
+                            """, unsafe_allow_html=True)
+                else:
+                    st.write(f"""
+                            <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_percentile, 4)}%</span> Students of University!</h5>
+                            """, unsafe_allow_html=True)
+
                 st.markdown('<br>', unsafe_allow_html=True)
 
-                st.text(f"You performed better than {round(stud_percentile, 6)} Percent Students")
+                if stud_brnch_percentile > 50:
+                    st.write(f"""
+                            <h5>You Are in TOP <span style="color: #87CEFA;">{round(100 - stud_brnch_percentile, 4)}%</span> Students of Your Branch!</h5>
+                            """, unsafe_allow_html=True)
+                else:
+                    st.write(f"""
+                            <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_brnch_percentile, 4)}%</span> Students of your Branch</h5>
+                            """, unsafe_allow_html=True)
+
 
             with r_c:
 
@@ -609,6 +661,16 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 )
 
             st.markdown('<br>', unsafe_allow_html=True)
+            st.markdown("---")
+
+            st.write(f"""
+                        <h3 style="
+                        text-align: center;
+                        align-items: center;
+                        ">Your Branch <span style="color: {color};">{stud_branch}'26 </span>and Your CGPA Distribution Stats: </h3>
+                        """,
+         unsafe_allow_html=True)
+
 
             _, left_c, _, right_c, _ = st.columns([1, 3, 1, 3, 1])
 
@@ -640,16 +702,6 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 st.plotly_chart(px.bar(df, title=f'University CGPA Distribution 2026', text_auto='').update_layout({'dragmode':False}), use_container_width=True,  config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d', 'zoomOut2d', 'hoverClosestCartesian']})
 
-            st.markdown('<br>', unsafe_allow_html=True)
-
-            df = pd.read_csv(
-                f'./Extracting_Result_Data/ranked_results_csv/26_{stud_branch}_ranked_results.csv',
-                dtype=str,
-                index_col=None).fillna("")
-
-
-            st.markdown('<br>', unsafe_allow_html=True)
-
             df1 = pd.DataFrame(
                 {
                     'SEMESTER': ['1ST SEM', '2ND SEM', '3RD SEM'],
@@ -660,7 +712,14 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             _, mid , _ =  st.columns([1,2.5,1])
             with mid: st.plotly_chart(px.line(df1, x="SEMESTER", y="CGPA", title='YOUR CGPA CHART: ', range_y=[0,10]).update_layout({'dragmode':False}), use_container_width=True)
 
-            st.markdown('<br><br>', unsafe_allow_html=True)
+            st.markdown('<br>', unsafe_allow_html=True)
+            st.markdown("---")
+
+
+            df = pd.read_csv(
+                f'./Extracting_Result_Data/ranked_results_csv/26_{stud_branch}_ranked_results.csv',
+                dtype=str,
+                index_col=None).fillna("")
 
             st.write(f"""
                         <h3 style="
@@ -670,12 +729,16 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                         """,
                      unsafe_allow_html=True)
 
+            st.markdown("<br>", unsafe_allow_html=True)
+
             _, mm, _ = st.columns([1, 4, 1])
             dataspace = mm.empty()
 
             dataspace.dataframe(df, hide_index=True, use_container_width=True, height=450)
 
-            st.markdown("<br><br>", unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("---")
+
 
             st.write(f"""
                         <h3 style="
@@ -748,6 +811,8 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             with bar1: st.plotly_chart(avg_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
             with bar2: st.plotly_chart(max_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
             with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
+
+            st.markdown("---")
 
 
 #------------------------------MENU: UNIVERSITY RANK STARTED--------------------------------------------------------------------------------------------------------------
@@ -898,7 +963,9 @@ elif selected=='PLACEMENTS':
 
     #____________________ 2022 PALCEMENTS
 
-    st.markdown("""<br><br><br>""", unsafe_allow_html=True)
+    st.markdown("""<br>""", unsafe_allow_html=True)
+    st.markdown("---")
+    st.markdown("""<br>""", unsafe_allow_html=True)
 
     st.write(f"""
             <h2 style="
@@ -949,7 +1016,10 @@ elif selected=='PLACEMENTS':
 
     #____________________ 2021 PLACEMENTS
 
-    st.markdown("""<br><br><br>""", unsafe_allow_html=True)
+    st.markdown("""<br>""", unsafe_allow_html=True)
+    st.markdown("---")
+    st.markdown("""<br>""", unsafe_allow_html=True)
+
 
     st.write(f"""
             <h2 style="
@@ -999,6 +1069,10 @@ elif selected=='PLACEMENTS':
 
     with m2: st.plotly_chart(px.bar(df,title= 'Percentage of Student placed from every Branch in 2021',  range_y=[0, 100], text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']} ,use_container_width=True)
 
+    st.markdown("""<br>""", unsafe_allow_html=True)
+    st.markdown("---")
+
+
 #--------------------------------MENU: GPA CALCULATOR STARTED------------------------------------------------------------------------------------------------------------------
 
 elif selected=='GPA':
@@ -1021,31 +1095,31 @@ elif selected=='GPA':
             st.markdown("######")
             subbut = st.button('CALCULATE YOUR SGPA ACCORDING TO THESE GRADES:')
 
-        if subbut:
-            try:
-                nofs = st.session_state.nofs
-                total, crdtotal = 0, 0
+            if subbut:
+                try:
+                    nofs = st.session_state.nofs
+                    total, crdtotal = 0, 0
 
-                for i in range(nofs):
-                    total += float(int(st.session_state.crList[i]) * (int(grdpoint[st.session_state.grdList[i]])))
-                    crdtotal += float(st.session_state.crList[i])
+                    for i in range(nofs):
+                        total += float(int(st.session_state.crList[i]) * (int(grdpoint[st.session_state.grdList[i]])))
+                        crdtotal += float(st.session_state.crList[i])
 
-                st.markdown('---')
+                    st.markdown('---')
 
-                st.write(f"""
-                        <h3 style="
-                        text-align: center;
-                        align-items: center;
-                        padding-bottom: 0px;
-                        border-bottom-width: 0px;
-                        ">Predicted SGPA: <span style="color: {color};">{float(total / crdtotal)}</span></h3>
-                        """,
-                         unsafe_allow_html=True)
+                    st.write(f"""
+                            <h3 style="
+                            text-align: center;
+                            align-items: center;
+                            padding-bottom: 0px;
+                            border-bottom-width: 0px;
+                            ">Predicted SGPA: <span style="color: {color};">{float(total / crdtotal)}</span></h3>
+                            """,
+                             unsafe_allow_html=True)
 
-                st.markdown('---')
+                    st.markdown('---')
 
-            except:
-                st.warning('PLEASE ENTER VALID INFORMAION! ')
+                except:
+                    st.warning('PLEASE ENTER VALID INFORMAION! ')
 
     with rightsec:
 
