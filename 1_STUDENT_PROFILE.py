@@ -168,7 +168,7 @@ if selected=='PROFILE':
         st.subheader('IS KIRTI :pouting_cat: HERE ? WTF ARE YOU DOING HERE!')
         st.write("I actually don't know whether you are the kri-tikka ik or someone else?")
         st.write('Give me the right answer of the question written below:')
-        kiritbox = st.text_input(label='', value='', placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
+        kiritbox = st.text_input(label='kiritbox',label_visibility="hidden", value='', placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
         if kiritbox:
             if kiritbox == 'kirit' or kiritbox == 'Kirit' or kiritbox == 'KIRIT':
                 st.warning("YOU ARE THE KRITIKA :smile_cat: I KNOW, I MEAN KIRIT BKL 🥰")
