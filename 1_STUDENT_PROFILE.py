@@ -999,7 +999,7 @@ elif selected=='PLACEMENTS':
 
     with m2: st.plotly_chart(px.bar(df,title= 'Percentage of Student placed from every Branch in 2021',  range_y=[0, 100], text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']} ,use_container_width=True)
 
-#--------------------------------MENU: ABOUT STARTED------------------------------------------------------------------------------------------------------------------
+#--------------------------------MENU: GPA CALCULATOR STARTED------------------------------------------------------------------------------------------------------------------
 
 elif selected=='GPA':
 
@@ -1089,6 +1089,7 @@ elif selected=='GPA':
             except:
                 st.warning('ERROR OCCURED ENTER VALID IMFORMATION! ')
 
+#--------------------------------MENU: ABOUT STARTED------------------------------------------------------------------------------------------------------------------
 
 elif selected=='ABOUT':
 
