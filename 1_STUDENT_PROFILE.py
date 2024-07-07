@@ -142,8 +142,8 @@ with mainmenu_left:
     )
 
 with mainmenu_middle:
-    selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','STUDY' ,'GPA' ,'ABOUT'],
-                           default_index=3,
+    selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','STUDY' ,'SGPA' ,'ABOUT'],
+                           default_index=0,
                            icons=['person-vcard', 'bar-chart-line','clipboard-data','journals', 'calculator-fill' ,'info-square'],
                            orientation='horizontal'
                            )
@@ -1114,7 +1114,7 @@ elif selected=='PLACEMENTS':
 
 #--------------------------------MENU: GPA CALCULATOR STARTED------------------------------------------------------------------------------------------------------------------
 
-elif selected=='GPA':
+elif selected=='SGPA':
 
     leftsec , rightsec, _ = st.columns([1.5,1,0.5])
 
