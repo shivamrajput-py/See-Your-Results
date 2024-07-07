@@ -1284,6 +1284,15 @@ elif selected=='STUDY':
                 "><span style="color: {color};"></span>STUDY MATERIALS</h2>
                 """, unsafe_allow_html=True)
 
+    st.write(f"""
+                <h6 style="
+                text-align: center;
+                align-items: center;
+                font-size: 13px;
+                ">WE ARE WORKING ON ADDING BEST RESOURCES, IT IS TAKING TIME BUT WILL MAKE SURE TO COMPLETE UPLOADING ALL THE IMPORTANT RESOURCES BEFORE THIS MIDSEMS!</h6>
+                """,
+             unsafe_allow_html=True)
+
     st.markdown("---")
 
     s1, s2, s3, s4 = st.columns(4)
