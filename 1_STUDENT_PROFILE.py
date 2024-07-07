@@ -1,4 +1,6 @@
 import csv
+
+import streamlit
 import streamlit as st
 import json
 import pandas as pd
@@ -14,9 +16,9 @@ import warnings
 warnings.filterwarnings('ignore')
 countedview = 0
 WEBONSERVER = True
+
 grdpoint = {
-    'O':10, 'A+':9, 'A':8, 'B+':7, 'B':6, 'C':5, 'P':4,'F': 0
-}
+    'O':10, 'A+':9, 'A':8, 'B+':7, 'B':6, 'C':5, 'P':4,'F': 0}
 
 shortf_branch26 = {
     'CO': 'Computer Science',
@@ -35,6 +37,8 @@ shortf_branch26 = {
     'BT': 'Bio-Technology'
 }
 
+shortf_branch26REV = dict((v,k) for k,v in shortf_branch26.items())
+
 shortf_branch27 = {
     'CS': 'Computer Science',
     'IT': 'Information Technology',
@@ -51,6 +55,8 @@ shortf_branch27 = {
     'EN': 'Environmental Engineering',
     'BT': 'Bio-Technology'
 }
+
+shortf_branch27REV = dict((v,k) for k,v in shortf_branch27.items())
 
 
 placem_branch_name = {
@@ -71,6 +77,9 @@ placem_branch_name = {
     'ME': 'Mechanical Engineering'
 }
 
+
+# color_discrete_sequence=['#0573ff']
+
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🎓')
 
 color = '#1F51FF' # USE FOR HIGHLIGHTING A SPECIFIC WORD
@@ -90,8 +99,35 @@ def load_lottieurl(isjson: bool, url_or_path: str):
             return None
         return r.json()
 
+
+def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
+    # TODO: FINDING MORE SUBJECT CODE GROUPS AND ADDING THEM INTO THIS
+    SUBJECT_GROUP_STR = [" CO101 | CO102 | CO116 | CO105 ", ]
+
+    for sub_grp in SUBJECT_GROUP_STR:
+        if SUBC in sub_grp:
+            SUBC = sub_grp
+
+    with open(r'DATA_MAIN2.json', 'r') as fl:
+        doc = json.load(fl)
+
+    if SUBC in doc[0][TYPE].keys():
+        req_dic = {}
+        if sendsorted:
+            for key in doc[0][TYPE][SUBC].keys():
+                if doc[0][TYPE][SUBC][key]!="":
+                   req_dic[key] = doc[0][TYPE][SUBC][key]
+
+            return req_dic
+        else:
+            return doc[0][TYPE][SUBC]
+    else:
+        return False
+
+
+
 # MAIN MENU COLUMNS FOR LOGO ANIMATION AND REAL MAIN MENU
-mainmenu_left, mainmenu_middle,_ = st.columns([0.6,3,0.6])
+mainmenu_left, mainmenu_middle,_ = st.columns([0.4,3,0.4])
 
 with mainmenu_left:
     st_lottie(
@@ -106,9 +142,9 @@ with mainmenu_left:
     )
 
 with mainmenu_middle:
-    selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','GPA' , 'ABOUT'],
-                           default_index=0,
-                           icons=['person-vcard', 'bar-chart-line','clipboard-data', 'calculator-fill' ,'info-square'],
+    selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','STUDY' ,'GPA' ,'ABOUT'],
+                           default_index=3,
+                           icons=['person-vcard', 'bar-chart-line','clipboard-data','journals', 'calculator-fill' ,'info-square'],
                            orientation='horizontal'
                            )
 
@@ -923,7 +959,7 @@ elif selected=='PLACEMENTS':
     data23 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package23.csv').dropna()
 
     df = pd.DataFrame({
-        'Branch': ['BT', 'CE', 'CS', 'EE', 'ECE', 'EP', 'ENE', 'IT', 'MAC', 'ME', 'AE', 'CH', 'PIE', 'SE'],
+        'Branch': ['BT', 'CE', 'CS', 'EE', 'EC', 'EP', 'EN', 'IT', 'MC', 'ME', 'AE', 'CH', 'PE', 'SE'],
         'Avg CTC (in LPA)': data23['Avg CTC (in LPA)'].values
     })
 
@@ -932,7 +968,8 @@ elif selected=='PLACEMENTS':
 
     r,l = st.columns([1, 1])
     _, m, _ = st.columns([0.3,1,0.3])
-    with r: st.plotly_chart(px.bar(df,  title='Average Package of Every Branch in 2023', text_auto='').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
+
+    with r: st.plotly_chart(px.bar(df, title='Average Package of Every Branch in 2023', text_auto='').update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
     data23 = pd.read_csv('./Extracting_Result_Data/placement_data/highest_package23.csv').dropna()
 
@@ -1029,6 +1066,8 @@ elif selected=='PLACEMENTS':
             """,
              unsafe_allow_html=True)
 
+
+
     r2, l2 = st.columns([1,1])
     _, m2, _ = st.columns([0.3, 1, 0.3])
 
@@ -1091,7 +1130,7 @@ elif selected=='GPA':
 
         _, mm, _ = st.columns([0.35,1,0.35])
         with mm:
-            nofs = st.number_input("", value=6, key='nofs', label_visibility='collapsed', max_value=12, min_value=0)
+            nofs = st.number_input("", value=6, key='nofs', label_visibility='hidden', max_value=12, min_value=0)
             st.markdown("######")
             subbut = st.button('CALCULATE YOUR SGPA ACCORDING TO THESE GRADES:')
 
@@ -1139,7 +1178,7 @@ elif selected=='GPA':
                             st.write(f"""
                                 <h5 style="
                                 padding-top: 35px;
-                                color: skyblue;
+                                color: #9DB4C0;
                                 ">SUBJECT {i} -</h5>
                                 """,
                         unsafe_allow_html=True)
@@ -1201,13 +1240,13 @@ elif selected=='ABOUT':
         with m_:
             st.markdown('######')
             st.markdown(
-                '''<a id="social1" href="https://www.instagram.com/shivammm20_/"><button class="button-62" type="button">INSTAGRAM</button>''',
+                '''<a id="social1" href="https://www.instagram.com/shivammm20_/"><button class="button-62" type="button">INSTA</button>''',
                 unsafe_allow_html=True)
 
         with r_:
             st.markdown('######')
             st.markdown(
-                '''<a id="social2" href="https://www.linkedin.com/in/shivam-rajput-3928a328a/"><button class="button-18" type="button">  LINKDIN  </button>''',
+                '''<a id="social2" href="https://www.linkedin.com/in/shivam-rajput-3928a328a/"><button class="button-18" type="button">LINKEDIN</button>''',
                 unsafe_allow_html=True)
 
     with lc:
@@ -1230,6 +1269,148 @@ elif selected=='ABOUT':
 
         st.markdown('<br><br><br>', unsafe_allow_html=True)
 
-    st.warning("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF'S, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR YOU FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE CONTACT ME, I WILL SOLVE IT ASAP!")
+    # st.warning("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF'S, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR YOU FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE CONTACT ME, I WILL SOLVE IT ASAP!")
+
+
+
+#----------------------------------------MAIN MENU: STUDY MATERIAL AND RESOURCES PART ------------------------------------------------------------------------------
+elif selected=='STUDY':
+
+    study_mtitle = st.empty()
+
+    with study_mtitle:
+         st.write(f"""
+                <h2 style="text-align: center; align-items: center; padding-top: 0px; padding-botton: 0px;
+                "><span style="color: {color};"></span>STUDY MATERIALS</h2>
+                """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    s1, s2, s3, s4 = st.columns(4)
+
+    st.markdown("---")
+
+
+    with open("DATA_MAIN1.json", 'r') as fl:
+        DATA = json.load(fl)
+
+    with s1: RESOURCE_BRNCH = st.selectbox("CHOOSE BRANCH: ", shortf_branch27.values(), placeholder='BRANCH')
+
+    if RESOURCE_BRNCH:
+        RESOURCE_BRNCH = shortf_branch27REV[RESOURCE_BRNCH]
+        RESOURCE_SEM = "2"
+        with study_mtitle:
+            st.write(f"""
+                    <h2 style="text-align: center; align-items: center; padding-top: 5px; padding-botton: 5px
+                    "><span style="color: {color};"></span>{RESOURCE_BRNCH} SEM{RESOURCE_SEM} STUDY MATERIALS</h2>
+                    """, unsafe_allow_html=True)
+
+
+        if RESOURCE_BRNCH in DATA[0].keys():
+            with s2: RESOURCE_SEM = st.selectbox("CHOOSE SEMESTER: ",  DATA[0][RESOURCE_BRNCH].keys(), placeholder='SEMEMSTER', index=1)
+            if RESOURCE_SEM:
+                with s3: RESOURCE_SUBJECT = st.selectbox("CHOOSE SUBJECT: ", DATA[0][RESOURCE_BRNCH][RESOURCE_SEM].keys(),placeholder='SUBJECT')
+
+                with study_mtitle:
+                    st.write(f"""
+                            <h2 style="text-align: center; align-items: center; padding-top: 5px; padding-botton: 5px
+                            "><span style="color: {color};">| {RESOURCE_BRNCH} | SEM{RESOURCE_SEM} | </span>STUDY MATERIAL</h2>
+                            """, unsafe_allow_html=True)
+
+                if RESOURCE_SUBJECT:
+                    with s4: RESOURCE_TYPE = st.selectbox("CHOOSE TYPE: ", ['PYQ', 'NOTES', 'PLAYLISTS', 'ASSIGNMENTS', 'BOOKS'], index=0, placeholder='TYPE')
+                    RESOURCE_SUBCODE = DATA[0][RESOURCE_BRNCH][RESOURCE_SEM][RESOURCE_SUBJECT]
+                    if RESOURCE_SUBCODE!="NONE":
+                        with open('DATA_MAIN2.json', 'r') as fl2:
+                            DATA2 = json.load(fl2)
+
+                        if RESOURCE_TYPE:
+                            material = find(RESOURCE_SUBCODE, RESOURCE_TYPE, True)
+                            if material==False:
+                                st.markdown("<br><br>", unsafe_allow_html=True)
+                                st.warning(f"SORRY :< CURRENTLY WE DON'T HAVE ANY RESOURCES RELATED TO [ {RESOURCE_BRNCH} | SEM{RESOURCE_SEM} | {RESOURCE_SUBJECT} ]")
+                                st.warning(f"WE ARE WORKING ON ADDING MORE BEST RESOURCES, IT WILL TAKE TIME! WE HAVE JUST STARTED WITH THIS 'RESOURCES' PART.")
+                            else:
+                                st.markdown("<br>", unsafe_allow_html=True)
+
+                                last_Rest, no_of_row = len(material)%3, len(material)//3 + 1
+                                if last_Rest==0: no_of_row -= 1
+
+                                if len(material)>3:
+                                    for i in range(no_of_row):
+                                        if i+1!=no_of_row:
+                                            bt1, bt2, bt3 = st.columns(3)
+                                            with bt1:
+                                                st.markdown(
+                                                    f'''<a class="social1_" href="{list(material.values())[0+(3*i)]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[0 + 3*i]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[0 + 3*i]}</span></button>''',
+                                                    unsafe_allow_html=True)
+                                            with bt2:
+                                                st.markdown(
+                                                    f'''<a class="social1_" href="{list(material.values())[1+(3*i)]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[1 + 3*i]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[1 + 3*i]}</span></button>''',
+                                                    unsafe_allow_html=True)
+                                            with bt3:
+                                                st.markdown(
+                                                    f'''<a class="social1_" href="{list(material.values())[2+(3*i)]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[2 + 3*i]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[2 + 3*i]}</span></button>''',
+                                                    unsafe_allow_html=True)
+                                        else:
+                                            if last_Rest==1:
+                                                bt1, bt2, bt3 = st.columns(3)
+                                                with bt1:
+                                                    st.markdown(
+                                                        f'''<a class="social1_" href="{list(material.values())[-1]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[-1]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[-1]}</span></button>''',
+                                                        unsafe_allow_html=True)
+                                            elif last_Rest==2:
+                                                bt1, bt2, bt3 = st.columns(3)
+                                                with bt1:
+                                                    st.markdown(
+                                                        f'''<a class="social1_" href="{list(material.values())[-2]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[-2]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[-2]}</span></button>''',
+                                                        unsafe_allow_html=True)
+                                                with bt2:
+                                                    st.markdown(
+                                                        f'''<a class="social1_" href="{list(material.values())[-1]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[-1]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[-1]}</span></button>''',
+                                                        unsafe_allow_html=True)
+
+                                else:
+                                    if len(material)==3:
+                                        bt1, bt2, bt3 = st.columns(3)
+                                        with bt1:
+                                            st.markdown(
+                                                f'''<a class="social1_" href="{list(material.values())[0]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[0]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[0]}</span></button>''',
+                                                unsafe_allow_html=True)
+                                        with bt2:
+                                            st.markdown(
+                                                f'''<a class="social1_" href="{list(material.values())[1]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[1]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[1]}</span></button>''',
+                                                unsafe_allow_html=True)
+                                        with bt3:
+                                            st.markdown(
+                                                f'''<a class="social1_" href="{list(material.values())[2]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[2]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[2]}</span></button>''',
+                                                unsafe_allow_html=True)
+                                    elif len(material)==2:
+                                        bt1, bt2, bt3 = st.columns(3)
+                                        with bt1:
+                                            st.markdown(
+                                                f'''<a class="social1_" href="{list(material.values())[0]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[0]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[0]}</span></button>''',
+                                                unsafe_allow_html=True)
+                                        with bt2:
+                                            st.markdown(
+                                                f'''<a class="social1_" href="{list(material.values())[1]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[1]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[1]}</span></button>''',
+                                                unsafe_allow_html=True)
+
+                                    elif len(material)==1:
+                                        bt1, bt2, bt3 = st.columns(3)
+                                        with bt1:
+                                            st.markdown(
+                                                f'''<a class="social1_" href="{list(material.values())[0]}"><button class="button-res" type="button"><span class="text">{list(material.keys())[0]}</span><span class="alt-text">{RESOURCE_SUBJECT}<br>{list(material.keys())[0]}</span></button>''',
+                                                unsafe_allow_html=True)
+
+
+                    else:
+                        st.markdown("<br><br>", unsafe_allow_html=True)
+                        st.warning(f"SORRY :< CURRENTLY WE DON'T HAVE ANY RESOURCES RELATED TO [ {RESOURCE_BRNCH} | SEM{RESOURCE_SEM} | {RESOURCE_SUBJECT} ]")
+                        st.warning(f"WE ARE WORKING ON ADDING MORE BEST RESOURCES, IT WILL TAKE TIME! WE HAVE JUST STARTED WITH THIS 'RESOURCES' PART.")
+
+        else:
+            st.warning(f"SORRY, SOME PROBLEM OCCURED :< OR MAYBE WE DO NOT HAVE RESOURCES RELATED TO THIS BRANCH!")
+
 
 #---------------------------------------------------END-----------------------------------------------------------------------------------------------

@@ -1,0 +1,253 @@
+
+[
+  {
+      "EP": {
+        "1": {
+          "Maths-I": "AM101",
+          "Chemistry": "AC101",
+          "Physics": "AP101",
+          "EP Workshop I": "EP103",
+          "Basic EE-II": "EE105"
+        },
+        "2": {
+          "Maths 2": "AM102",
+          "Programming Fundamentals": "CO102",
+          "Computational Method": "EP102",
+          "Electrodynamic": "EP104",
+          "EP Workshop II": "EP106"
+        },
+        "3": {
+          "Engineering Mechanics": "NONE",
+          "Intro to Computing": "NONE",
+          "Mathematical Physics": "NONE",
+          "Classical and Quantum Mechanics": "NONE",
+          "Digital Electronics ep": "NONE"
+        },
+        "4": {
+          "Communication System ep": "NONE",
+          "Condensd Matter Physics": "NONE",
+          "Microprocessor and Interfacing": "NONE",
+          "Optics": "NONE",
+          "Computational Method": "NONE"
+        },
+        "5": {
+          "Quantum Information & Computing": "NONE",
+          "Semiconductor": "NONE",
+          "Electromagnetic Theory": "NONE",
+          "Data Structure and Algorithms": "NONE",
+          "Electromagnetics": "NONE",
+          "Biophysics EP": "NONE"
+        }
+      },
+      "SE": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Basic EE-1": "EE101",
+          "Basics Electronics & Communication": "EC101",
+          "Computer Workshop-1": "SE103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Fundamentals of Computer": "SE102",
+          "Fundamentals of Software Workshop_2": "SE104",
+          "Programming Fundamental": "CO102",
+          "Computer Workshop II": "SE106"
+        }
+      },
+      "PE": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Chemistry": "AC101",
+          "Basic EE-2": "EE105",
+          "Workshop Practice": "PE103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Programming Fundamental": "CO102",
+          "ECE Concepts for Mechanical Eng": "PE102",
+          "Engineering Materials & Metallurgy": "PE104",
+          "Engineering Graphics": "PE106"
+        }
+      },
+      "EN": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Chemistry": "AC101",
+          "Basic Civil Engineering": "CE101",
+          "Water & Wastewater Analysis": "EN103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Programming Fundamental": "CO102",
+          "Environmental Awareness": "EN102",
+          "Basic Environmental Engineering": "EN104",
+          "Air Pollution & Waste Management": "EN106"
+        }
+      },
+      "AE": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Basic EE-1": "EE101",
+          "Basic Civil Engineering": "CE101",
+          "Workshop Practice": "AE103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Programming Fundamental": "CO102",
+          "ECE Concepts for Mechanical Eng": "AE102",
+          "Engineering Mechanics": "AE104",
+          "Engineering Graphics": "AE106"
+        }
+      },
+      "EC": {
+        "1": {
+          "Maths I": "AM101",
+          "Programming Fundamental": "CO101",
+          "Basic EE-2": "EE105",
+          "Chemistry": "AC101",
+          "Electronics Workshop 1": "EC103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Physics": "AP102",
+          "Data Structure & Algorithms": "EC102",
+          "Network Analysis & Synthesis": "EC104",
+          "Electronics Workshop 2": "EC106"
+        }
+      },
+      "MC": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Engineering Graphics-2": "ME105",
+          "Basics Electronics & Communication": "EC101",
+          "Python Programming": "MC103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Discrete Structure": "MC102",
+          "Complex Analysis": "MC104",
+          "Programming Fundamental": "CO102",
+          "MATLAB Programming": "MC106"
+        }
+      },
+      "EE": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Programming Fundamentals": "CO101",
+          "Basics of Civil Engineering": "CE101",
+          "Engineering Graphics-1": "ME101",
+          "Electrical Workshop": "EE103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Physics": "AP102",
+          "Data Structure and Algo": "EE102",
+          "Circuit and Field Theory": "EE104",
+          "PCB Fabricatioon and Test": "EE106"
+        }
+      },
+      "BT": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Chemistry": "AC101",
+          "Basics Electronics & Communication": "EC101",
+          "Applied Aquaculture": "BT103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Intro to Biotechnology": "BT104",
+          "Biochemical Engineering Principle": "BT102",
+          "Programming Fundamental": "CO102",
+          "Dev of Scientific Instrumentations": "BT106"
+        }
+      },
+      "CH": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Basic EE-2": "EE105",
+          "Engineering Graphics-1": "ME101",
+          "Process in Chemical Synthesis-1": "CH103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Programming Fundamental": "CO102",
+          "ME Concepts for Chemical Eng": "CH102",
+          "Intro to Chemical Engineering": "CH104",
+          "Process in CHemical Synthesis-2": "CH106"
+        }
+      },
+      "CE": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Basic EE-2": "EE105",
+          "Basic Mechanical Engineering": "ME107",
+          "Testing Civil Engineering Materials": "CE103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Programming Fundamental": "CO102",
+          "Statical Methods for Engineers": "CE102",
+          "Mechanics of Solids": "CE104",
+          "Eng Graphics & Building Design": "CE106"
+        }
+      },
+      "IT": {
+        "1": {
+          "Maths-I": "AM101",
+          "Programming Fundamentals": "CO101",
+          "Basics Electronics & Communication": "EC101",
+          "Basics of EE-1": "EE101",
+          "Fundamentals of Web Design": "IT103"
+        },
+        "2": {
+          "Discrete structure": "IT102",
+          "Maths II": "AM102",
+          "Physics": "AP102",
+          "Object Oriented Programming": "IT104",
+          "Open Source Programming": "IT106"
+        }
+      },
+      "CS": {
+        "1": {
+          "Maths I": "AM101",
+          "Programming Fundamentals": "CO101",
+          "Basic Electronics & Communication": "EC101",
+          "Engineering Graphics-2": "ME105",
+          "Web Designing": "CS103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Physics": "AP102",
+          "Discrete Structure": "CS102",
+          "Data Structures": "CS104",
+          "Basics of ML & Applications": "CS106"
+        }
+      },
+      "ME": {
+        "1": {
+          "Maths I": "AM101",
+          "Physics": "AP101",
+          "Basic EE-1": "EE101",
+          "Basic Civil Engineering": "CE101",
+          "Workshop Practice": "ME103"
+        },
+        "2": {
+          "Maths II": "AM102",
+          "Programming Fundamental": "CO102",
+          "ECE Concepts for Mechanical Eng": "ME102",
+          "Mechanics Of Solids": "ME104",
+          "Engineering Graphics": "ME106"
+        }
+      }
+
+  }
+]
