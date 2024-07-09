@@ -1,0 +1,258 @@
+.nametit {
+    text-align: center;
+    align-items: center;
+    color: 	hsl(218, 36%, 72%); /*hsl(210, 30%, 58%)*/
+    font-size: 65px;
+
+}
+
+.nametitm {
+    text-align: center;
+    align-items: center;
+    color: 	#475f96; /*hsl(210, 30%, 58%)*/
+    font-size: 65px;
+
+}
+
+.nametit__ {
+    color:	#1F51FF;
+}
+
+.cgline {
+    margin: 0px;
+    margin-bottom: 5px;
+
+}
+
+/* Hide the link button */
+
+
+#social1,#social2, .social1_ {
+    display: inline-block !important;
+}
+
+
+.ssbtn {
+    background-color: lightgrey;
+    border-radius: 3px;
+    color: white;
+    border: solid;
+    border-width: 2px
+    border-color: blue;
+    }
+
+/* CSS */
+.button-18 {
+  white-space: nowrap;
+  align-items: center;
+  background-color: #0A66C2;
+  border: 0;
+  border-radius: 12px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+}
+
+.button-18:hover,
+.button-18:focus {
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+.button-18:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-18:disabled {
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
+
+/* CSS */
+.button-62 {
+  white-space: nowrap;
+  background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+  border: 0;
+  max-width: 480px;
+  min-width: 0px;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.button-62:not([disabled]):focus {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.button-62:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+
+/*
+.css-15zrgzn {display: none}
+.css-eczf16 {display: none}
+.css-jn99sy {display: none}*/
+
+
+/*
+#root > div:nth-child(1) > div.withScreencast > div > div > div > section:nth-child(2) {
+                    height: 3rem !important; */
+                }
+/* FOR ADJUSTING EXTRA SPACE AROUND THE WHOLE PAGE*/
+
+.block-container {
+                    padding-top: 30px;
+                    padding-bottom: 5rem;
+                    padding-left: 3rem;
+                    padding-right: 3rem;
+                }
+
+
+
+
+.button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+.about {
+
+}
+
+
+/* CSS */
+.button-res {
+  flex-shrink: 0;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #18181a;
+  color: white;
+  display: inline-block;
+  font-size: 21px;
+  font-weight:600;
+  line-height: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  background: #8098b2;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  border-radius: 12px;
+  padding: 26px 63px 26px 63px;
+  margin: 33px 0px 33px 110px;
+}
+
+.button-res span:first-child {
+  position: relative;
+    padding-right: 7px;
+    padding-left: 7px;
+
+  transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
+  z-index: 10;
+
+
+}
+
+.button-res span:last-child {
+
+  color: white;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+  z-index: 100;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translateY(225%) translateX(-50%);
+  height: 14px;
+  line-height: 13px;
+
+
+}
+
+.button-res:after {
+  content: "";
+
+  position: absolute;
+  bottom: -50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #213A5C;
+  transform-origin: bottom center;
+  transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+  transform: skewY(9.3deg) scaleY(0);
+  z-index: 50;
+
+
+}
+
+.button-res:hover:after {
+  transform-origin: bottom center;
+
+  transform: skewY(9.3deg) scaleY(2);
+
+}
+
+.button-res:hover span:last-child {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 1;
+
+  transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+
+
+}
+
+.alt-text {
+    font-size: 14px !important;
+    font-weight:500;
+    line-height: 12px !important;
+
+}

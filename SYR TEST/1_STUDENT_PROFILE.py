@@ -11,6 +11,7 @@ from streamlit_option_menu import option_menu
 import os
 import datetime
 import statistics
+from streamlit_js_eval import streamlit_js_eval
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -83,9 +84,14 @@ placem_branch_name = {
 # color_discrete_sequence=['#0573ff']
 
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🎓')
-
+st.logo("logoog.png" )
 color = '#1F51FF' # USE FOR HIGHLIGHTING A SPECIFIC WORD
 other= False
+
+@st.experimental_fragment
+def screenwidth():
+    size = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
+    st.write(f"Screen width is {size}")
 
 with open('style.css', 'r') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -101,10 +107,6 @@ def load_lottieurl(isjson: bool, url_or_path: str):
             return None
         return r.json()
 
-@st.experimental_fragment
-def screenwidth():
-    size = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
-    st.write(f"Screen width is {size}")
 
 def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
     # TODO: FINDING MORE SUBJECT CODE GROUPS AND ADDING THEM INTO THIS
@@ -146,6 +148,8 @@ with mainmenu_left:
         width=80,
         key=None,
     )
+
+
 
 with mainmenu_middle:
     selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','STUDY' ,'SGPA' ,'ABOUT'],
