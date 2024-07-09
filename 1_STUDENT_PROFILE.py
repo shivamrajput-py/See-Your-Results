@@ -1,13 +1,11 @@
 import csv
-
-import streamlit
 import streamlit as st
 import json
 import pandas as pd
 import plotly_express as px
 from streamlit_lottie import st_lottie
-import requests
 from streamlit_option_menu import option_menu
+import requests
 import os
 import datetime
 import statistics
