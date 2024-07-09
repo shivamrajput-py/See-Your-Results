@@ -103,7 +103,7 @@ def load_lottieurl(isjson: bool, url_or_path: str):
 
 @st.experimental_fragment
 def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
-    # TODO: FINDING MORE SUBJECT CODE GROUPS AND ADDING THEM INTO THIS
+    
     SUBJECT_GROUP_STR = [" CO101 | CO102 | CO116 | CO105 ", ]
 
     for sub_grp in SUBJECT_GROUP_STR:
