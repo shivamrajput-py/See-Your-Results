@@ -1,11 +1,13 @@
 import csv
+
+import streamlit
 import streamlit as st
 import json
 import pandas as pd
 import plotly_express as px
 from streamlit_lottie import st_lottie
-from streamlit_option_menu import option_menu
 import requests
+from streamlit_option_menu import option_menu
 import os
 import datetime
 import statistics
@@ -54,8 +56,6 @@ shortf_branch27 = {
     'BT': 'Bio-Technology'
 }
 
-
-
 shortf_branch27REV = dict((v,k) for k,v in shortf_branch27.items())
 
 
@@ -98,6 +98,7 @@ def load_lottieurl(isjson: bool, url_or_path: str):
         if r.status_code != 200:
             return None
         return r.json()
+
 
 def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
     # TODO: FINDING MORE SUBJECT CODE GROUPS AND ADDING THEM INTO THIS
