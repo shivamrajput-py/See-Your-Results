@@ -8,7 +8,6 @@ import plotly_express as px
 from streamlit_lottie import st_lottie
 import requests
 from streamlit_option_menu import option_menu
-from streamlit_js_eval import streamlit_js_eval
 import os
 import datetime
 import statistics
@@ -102,11 +101,6 @@ def load_lottieurl(isjson: bool, url_or_path: str):
             return None
         return r.json()
 
-
-def screenwidth():
-    size = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
-    st.write(f"Screen width is {size}")
-
 def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
     # TODO: FINDING MORE SUBJECT CODE GROUPS AND ADDING THEM INTO THIS
     SUBJECT_GROUP_STR = [" CO101 | CO102 | CO116 | CO105 ", ]
@@ -158,8 +152,6 @@ with mainmenu_middle:
 #--------------------------------------------------MENU: [STUDENT PROFILE] STARTED-----------------------------------------------------------------------------------------------------------------------
 
 if selected=='PROFILE':
-
-    screenwidth()
 
     _,search_middle, _ = st.columns([0.5,1,0.5])
 
