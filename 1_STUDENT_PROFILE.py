@@ -102,7 +102,7 @@ def load_lottieurl(isjson: bool, url_or_path: str):
             return None
         return r.json()
 
-@st.experimental_fragment
+
 def screenwidth():
     size = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
     st.write(f"Screen width is {size}")
