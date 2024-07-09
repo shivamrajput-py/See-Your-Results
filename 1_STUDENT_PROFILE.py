@@ -8,6 +8,7 @@ import plotly_express as px
 from streamlit_lottie import st_lottie
 import requests
 from streamlit_option_menu import option_menu
+from streamlit_js_eval import streamlit_js_eval
 import os
 import datetime
 import statistics
