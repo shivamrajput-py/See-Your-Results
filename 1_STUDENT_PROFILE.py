@@ -89,6 +89,7 @@ with open('style.css', 'r') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # FOR LOADING THE ANIMATION !!
+@st.experimental_fragment
 def load_lottieurl(isjson: bool, url_or_path: str):
     if isjson:
         with open(url_or_path, 'r') as fl:
@@ -100,6 +101,7 @@ def load_lottieurl(isjson: bool, url_or_path: str):
         return r.json()
 
 
+@st.experimental_fragment
 def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
     # TODO: FINDING MORE SUBJECT CODE GROUPS AND ADDING THEM INTO THIS
     SUBJECT_GROUP_STR = [" CO101 | CO102 | CO116 | CO105 ", ]
