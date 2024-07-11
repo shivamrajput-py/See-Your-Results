@@ -1201,7 +1201,7 @@ elif selected=='ABOUT':
     with rc:
 
         st.write('<h6>This Website is Developed and Maintained By ME.</h6>', unsafe_allow_html=True)
-        l_, m_, r_ = st.columns([5, 2.5, 2.5], vertical_alignment="center")
+        l_, m_, r_ = st.columns([5, 2.5, 2.5])
 
         st_lottie(
             load_lottieurl(True,"./animation/boy_workingBack.json"),
