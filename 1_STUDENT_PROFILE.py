@@ -197,7 +197,7 @@ def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
 
 
 # MAIN MENU COLUMNS FOR LOGO ANIMATION AND REAL MAIN MENU
-mainmenu_left, mainmenu_middle,_ = st.columns(spec=[0.8,3,0.8], vertical_alignment="center")
+mainmenu_left, mainmenu_middle,_ = st.columns(spec=[0.8,3,0.8])
 
 with mainmenu_left:
     pass
