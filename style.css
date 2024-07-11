@@ -3,7 +3,6 @@
     align-items: center;
     color: 	hsl(218, 36%, 72%); /*hsl(210, 30%, 58%)*/
     font-size: 65px;
-
 }
 
 .nametitm {
@@ -11,7 +10,6 @@
     align-items: center;
     color: 	#475f96; /*hsl(210, 30%, 58%)*/
     font-size: 65px;
-
 }
 
 .nametit__ {
@@ -21,18 +19,16 @@
 .cgline {
     margin: 0px;
     margin-bottom: 5px;
-
 }
 
 /* Hide the link button */
 .stApp a:first-child {
         display: none;
-    }
+}
 
 #social1,#social2, .social1_ {
     display: inline-block !important;
 }
-
 
 .ssbtn {
     background-color: lightgrey;
@@ -41,9 +37,9 @@
     border: solid;
     border-width: 2px
     border-color: blue;
-    }
+}
 
-/* CSS */
+/* BUTTON-18! LINKEDIN CSS */
 .button-18 {
   white-space: nowrap;
   align-items: center;
@@ -90,8 +86,10 @@
   background: rgba(0, 0, 0, .08);
   color: rgba(0, 0, 0, .3);
 }
+/* BUTTON-18! LINKEDIN CSS */
 
-/* CSS */
+
+/* BUTTON-62! INSTAGRAM CSS */
 .button-62 {
   white-space: nowrap;
   background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
@@ -124,12 +122,11 @@
 .button-62:not([disabled]):hover {
   box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }
+/* BUTTON-62! INSTAGRAM CSS */
 
-
-/*
 .css-15zrgzn {display: none}
 .css-eczf16 {display: none}
-.css-jn99sy {display: none}*/
+.css-jn99sy {display: none}
 
 /* FOR REMOVING THE SIDE BAR COMPLETELY */
 [data-testid="collapsedControl"] {
@@ -139,13 +136,14 @@
 #root > div:nth-child(1) > div.withScreencast > div > div > div > section:nth-child(2) {
                     height: 3rem !important;
                 }
-/* FOR ADJUSTING EXTRA SPACE AROUND THE WHOLE PAGE*/
+/* FOR ADJUSTING EXTRA SPACE AROUND THE WHOLE PAGE */
 .block-container {
-                    padding-top: 30px;
-                    padding-bottom: 5rem;
-                    padding-left: 3rem;
-                    padding-right: 3rem;
-                }
+    padding-top: 23px;
+    padding-bottom: 5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
 
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
@@ -154,25 +152,20 @@ header {visibility: hidden;}
 [data-testid="stToolbar"] {visibility: hidden !important;}
 footer {visibility: hidden !important;}
 
+/* RESOURCES STUDY BUTTON CSS */
 .button-link {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-        }
-
-.about {
-
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
 }
 
-
-/* CSS */
 .button-res {
   flex-shrink: 0;
   white-space: nowrap;
@@ -198,17 +191,13 @@ footer {visibility: hidden !important;}
 
 .button-res span:first-child {
   position: relative;
-    padding-right: 7px;
-    padding-left: 7px;
-
+  padding-right: 7px;
+  padding-left: 7px;
   transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
   z-index: 10;
-
-
 }
 
 .button-res span:last-child {
-
   color: white;
   display: block;
   position: absolute;
@@ -221,13 +210,10 @@ footer {visibility: hidden !important;}
   transform: translateY(225%) translateX(-50%);
   height: 14px;
   line-height: 13px;
-
-
 }
 
 .button-res:after {
   content: "";
-
   position: absolute;
   bottom: -50%;
   left: 0;
@@ -238,29 +224,26 @@ footer {visibility: hidden !important;}
   transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
   transform: skewY(9.3deg) scaleY(0);
   z-index: 50;
-
-
 }
 
 .button-res:hover:after {
   transform-origin: bottom center;
-
   transform: skewY(9.3deg) scaleY(2);
-
 }
 
 .button-res:hover span:last-child {
   transform: translateX(-50%) translateY(-100%);
   opacity: 1;
-
   transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
-
-
 }
 
 .alt-text {
     font-size: 14px !important;
     font-weight:500;
     line-height: 12px !important;
-
 }
+
+/* RESOURCES STUDY BUTTON CSS */
+
+
+

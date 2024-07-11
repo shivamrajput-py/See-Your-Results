@@ -1,5 +1,4 @@
 import csv
-
 import streamlit
 import streamlit as st
 import json
@@ -58,7 +57,6 @@ shortf_branch27 = {
 
 shortf_branch27REV = dict((v,k) for k,v in shortf_branch27.items())
 
-
 placem_branch_name = {
     'EP': 'Engineering Physics',
     'AE': 'Mechanical Engineering with Specialization in Automotive',
@@ -77,10 +75,9 @@ placem_branch_name = {
     'ME': 'Mechanical Engineering'
 }
 
+# color_discrete_sequence=['#50aef6']
 
-# color_discrete_sequence=['#0573ff']
-
-st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU Student Profile', page_icon='🎓')
+st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU ANALYSIS', page_icon='🎓')
 
 color = '#1F51FF' # USE FOR HIGHLIGHTING A SPECIFIC WORD
 other= False
@@ -101,9 +98,81 @@ def load_lottieurl(isjson: bool, url_or_path: str):
         return r.json()
 
 
+# SGPA CALCULATOR FUNCTION WITH A EXPERIMENTAL DIALOG
+@st.experimental_dialog("SGPA CALCULATOR", width="small")
+def sgpacal():
+
+    st.write(f"""
+                <h4 style="
+                text-align: center;
+                align-items: center;
+                padding-bottom: 0px;
+                "><span style="color: {color};"></span>Enter How Many subjects do you have? :</h4>
+                """,
+             unsafe_allow_html=True)
+
+    with st.columns([0.35, 1, 0.35])[1]:
+        nofs = st.number_input("", value=6, key='nofs', label_visibility='hidden', max_value=12, min_value=0)
+        st.markdown("######")
+        subbut = st.button('CALCULATE YOUR SGPA ACCORDING TO THESE GRADES:')
+
+        if subbut:
+            try:
+                nofs = st.session_state.nofs
+                total, crdtotal = 0, 0
+
+                for i in range(nofs):
+                    total += float(int(st.session_state.crList[i]) * (int(grdpoint[st.session_state.grdList[i]])))
+                    crdtotal += float(st.session_state.crList[i])
+
+                st.markdown('---')
+
+                st.write(f"""
+                            <h3 style="
+                            text-align: center;
+                            align-items: center;
+                            padding-bottom: 0px;
+                            border-bottom-width: 0px;
+                            ">Predicted SGPA: <span style="color: {color};">{float(total / crdtotal)}</span></h3>
+                            """,
+                         unsafe_allow_html=True)
+
+                st.markdown('---')
+
+            except:
+                st.warning('PLEASE ENTER VALID INFORMAION! ')
+
+    if nofs:
+        st.session_state.crList = []
+        st.session_state.grdList = []
+
+        try:
+            num = ([4] * (int(nofs) - 1)) + [2, 2]
+
+            for i in range(int(nofs) + 1):
+                sec1, sec2 = st.columns([1,1], vertical_alignment='center')
+
+                with sec1:
+                    if i == 0: pass
+                    else:
+                        crd = st.number_input(f"Subject {i} Credits:", placeholder='Credits:', min_value=0, step=1,value=num[i])
+                        st.session_state.crList.append(crd)
+
+                with sec2:
+                    if i == 0: pass
+                    else:
+                        grd = st.selectbox(f'Subject {i} Grade:', ['O', 'A+', 'A', 'B+', 'B', 'C', 'P', 'F'], index=0)
+                        st.session_state.grdList.append(grd)
+
+                st.markdown("---")
+
+        except:
+            st.warning('ERROR OCCURED ENTER VALID IMFORMATION! ')
+
+
 @st.experimental_fragment
 def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
-    
+
     SUBJECT_GROUP_STR = [" CO101 | CO102 | CO116 | CO105 ", ]
 
     for sub_grp in SUBJECT_GROUP_STR:
@@ -127,14 +196,16 @@ def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
         return False
 
 
-
 # MAIN MENU COLUMNS FOR LOGO ANIMATION AND REAL MAIN MENU
-mainmenu_left, mainmenu_middle,_ = st.columns([0.4,3,0.4])
+mainmenu_left, mainmenu_middle,_ = st.columns([0.8,3,0.8], vertical_alignment="center")
 
 with mainmenu_left:
+    pass
+    # st.image("") CAN PUT YOUR LOGO HERE !!!
+
     st_lottie(
         load_lottieurl(True, "./animation/hat_w_books.json"),
-        speed=0.8,
+        speed=0.7,
         reverse=False,
         loop=True,
         quality="low",  # medium ; high
@@ -143,11 +214,19 @@ with mainmenu_left:
         key=None,
     )
 
+# FOR MAKING THE MENU TRANSPARENT!! #0e1117
+
 with mainmenu_middle:
-    selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','STUDY' ,'SGPA' ,'ABOUT'],
+    selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','STUDY' ,'ABOUT'],
                            default_index=0,
-                           icons=['person-vcard', 'bar-chart-line','clipboard-data','journals', 'calculator-fill' ,'info-square'],
-                           orientation='horizontal'
+                           icons=['person-vcard', 'bar-chart-line','clipboard-data','journals','info-square'],
+                           menu_icon='cast',
+                           orientation='horizontal',
+                           styles={
+                               "container": {"padding": "1!important", "background-color": "#262730"},
+                               "icon": {"color": "white", "font-size": "14px"},
+                               "nav-link": {"font-size": "14px", "text-align": "center", "margin": "2px"},
+                               "nav-link-selected": {"background-color": "#05acff", "font-weight": "800"}}
                            )
 
 #--------------------------------------------------MENU: [STUDENT PROFILE] STARTED-----------------------------------------------------------------------------------------------------------------------
@@ -168,7 +247,6 @@ if selected=='PROFILE':
     <h5 style="text-align: center; align-items: center;">Enter your roll number to access a comprehensive summary of your semester grades and academic performance. A detailed report will be generated upon entry.</h2>
     """, unsafe_allow_html=True)
 
-
     _,filt1,filt2, _ = st.columns([2.2,1,1,2.2])
 
     with filt1:
@@ -176,7 +254,7 @@ if selected=='PROFILE':
         year_choosed = st.selectbox("Choose Year", ['2027' ,'2026'], index=0)
     with filt2:
         st.markdown('<br>', unsafe_allow_html=True)
-        result_search_box = st.text_input("Enter Your Roll Number Here", value='', placeholder='__/__/___')
+        result_search_box = st.text_input("Enter Your Roll Number", value='', placeholder='__/__/___')
 
     if year_choosed=='2026':
         Mtitle.write(f"""
@@ -193,11 +271,11 @@ if selected=='PROFILE':
             countedview += 1
             with open('user_webViewsData.txt', 'a') as fl:
                 fl.write(f"""USER AT {datetime.datetime.now()} SEARCHED "{result_search_box}"\n""")
-                fl.flush()
+
         elif countedview==1:
             with open('user_webViewsData.txt', 'a') as fl:
                 fl.write(f"""SAME USER SEARCHED "{result_search_box}"\n""")
-                fl.flush()
+
 
 
     if result_search_box and '19012007' == result_search_box:
@@ -446,7 +524,6 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                     key=None,
                 )
 
-            # st.markdown('<br>', unsafe_allow_html=True)
             st.markdown('---')
 
             # MENU1: SECOND MAIN DIV WITH 2 COLUMNS ---------------------------------------------
@@ -591,7 +668,6 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             with bar3: st.plotly_chart(percent_placement_barc, use_container_width=True, config={"modeBarButtonsToRemove": [ 'lasso2d', 'autoScale2d', 'select2d']})
 
             st.markdown('---')
-
 
 
     elif year_choosed=='2026' and result_search_box:
@@ -862,19 +938,17 @@ elif selected=='RANKS':
         countedview+=1
         with open('user_webViewsData.txt', 'a') as fl:
             fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "RESULTS/RANKS" (VIEW COUNTED)\n""")
-            fl.flush()
 
     lf, rt = st.columns([0.5, 3])
 
     with lf:
-        st.markdown('<br><br><br>', unsafe_allow_html=True)
+        st.markdown('<br>', unsafe_allow_html=True)
 
         year_choosed = st.selectbox('Choose Year', ['2027', '2026'] ,index=0)
         if year_choosed=='2026': shortf_branch = shortf_branch26
         elif year_choosed=='2027': shortf_branch = shortf_branch27
 
-        brnch_choosed = st.selectbox('Choose Branch', ['Cumulative'] + list(shortf_branch.values()),
-                                     index=0)
+        brnch_choosed = st.selectbox('Choose Branch', ['Cumulative'] + list(shortf_branch.values()),index=0)
 
         text_search = st.text_input(label="Enter Roll Number Or Name To Search Students", value="")
 
@@ -937,8 +1011,7 @@ elif selected=='PLACEMENTS':
             fl.write(f"""USER AT {datetime.datetime.now()} CLICKED "PLACEMENTS" (VIEW COUNTED)\n""")
             fl.flush()
 
-
-    #____________ 2023 PLACEMENTTS
+    # ----------------------------- 2023 PALCEMENTS ----------------------------------------------
 
     st.write(f"""
             <h6 style="
@@ -1000,7 +1073,7 @@ elif selected=='PLACEMENTS':
     with m: st.plotly_chart(px.bar(df, title='Percentage Of Students placed from every Branch in 2023',text_auto='', range_y=[0,100]).update_layout({'dragmode':False}), use_container_width=True,config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']})
 
 
-    #____________________ 2022 PALCEMENTS
+    #----------------------------- 2022 PALCEMENTS ----------------------------------------------
 
     st.markdown("""<br>""", unsafe_allow_html=True)
     st.markdown("---")
@@ -1053,7 +1126,7 @@ elif selected=='PLACEMENTS':
 
     with m1: st.plotly_chart(px.bar(df,  title='Percentage Of Students placed from every Branch in 2022' ,range_y=[0, 100], text_auto='').update_layout({'dragmode':False}),config={"modeBarButtonsToRemove": [ 'lasso2d', 'select2d']}, use_container_width=True)
 
-    #____________________ 2021 PLACEMENTS
+    # ----------------------------- 2021 PALCEMENTS ----------------------------------------------
 
     st.markdown("""<br>""", unsafe_allow_html=True)
     st.markdown("---")
@@ -1067,7 +1140,6 @@ elif selected=='PLACEMENTS':
             ">OVERALL <span style="color: {color};">2021</span> PLACEMENT STATS:</h2>
             """,
              unsafe_allow_html=True)
-
 
 
     r2, l2 = st.columns([1,1])
@@ -1113,97 +1185,6 @@ elif selected=='PLACEMENTS':
     st.markdown("""<br>""", unsafe_allow_html=True)
     st.markdown("---")
 
-
-#--------------------------------MENU: GPA CALCULATOR STARTED------------------------------------------------------------------------------------------------------------------
-
-elif selected=='SGPA':
-
-    leftsec , rightsec, _ = st.columns([1.5,1,0.5])
-
-    with leftsec:
-
-        st.write(f"""
-                    <h5 style="
-                    text-align: center;
-                    align-items: center;
-                    "><span style="color: {color};"></span>Enter How Many subjects do you have? :</h5>
-                    """,
-                 unsafe_allow_html=True)
-
-        _, mm, _ = st.columns([0.35,1,0.35])
-        with mm:
-            nofs = st.number_input("", value=6, key='nofs', label_visibility='hidden', max_value=12, min_value=0)
-            st.markdown("######")
-            subbut = st.button('CALCULATE YOUR SGPA ACCORDING TO THESE GRADES:')
-
-            if subbut:
-                try:
-                    nofs = st.session_state.nofs
-                    total, crdtotal = 0, 0
-
-                    for i in range(nofs):
-                        total += float(int(st.session_state.crList[i]) * (int(grdpoint[st.session_state.grdList[i]])))
-                        crdtotal += float(st.session_state.crList[i])
-
-                    st.markdown('---')
-
-                    st.write(f"""
-                            <h3 style="
-                            text-align: center;
-                            align-items: center;
-                            padding-bottom: 0px;
-                            border-bottom-width: 0px;
-                            ">Predicted SGPA: <span style="color: {color};">{float(total / crdtotal)}</span></h3>
-                            """,
-                             unsafe_allow_html=True)
-
-                    st.markdown('---')
-
-                except:
-                    st.warning('PLEASE ENTER VALID INFORMAION! ')
-
-    with rightsec:
-
-        if nofs:
-            st.session_state.crList = []
-            st.session_state.grdList = []
-
-            try:
-                num = ([4]*(int(nofs)-1)) + [2,2]
-
-                for i in range(int(nofs)+1):
-                    sec1, sec2, sec3 = st.columns([1.2, 0.95, 0.95])
-                    with sec1:
-                        if i==0:
-                            pass
-                        else:
-                            st.write(f"""
-                                <h5 style="
-                                padding-top: 35px;
-                                color: #9DB4C0;
-                                ">SUBJECT {i} -</h5>
-                                """,
-                        unsafe_allow_html=True)
-                    with sec2:
-
-                        if i==0:
-                            pass
-                        else:
-                            crd = st.number_input("CREDITS:", key=f'cr{i}', placeholder='Credits:', min_value=0, step=1, value=num[i])
-                            st.session_state.crList.append(crd)
-
-                    with sec3:
-
-                        if i==0:
-                            pass
-                        else:
-                            grd = st.selectbox('GRADE: ', ['O', 'A+', 'A', 'B+', 'B', 'C','P' ,'F'], key=f'grd{i}', index=0)
-                            st.session_state.grdList.append(grd)
-
-
-            except:
-                st.warning('ERROR OCCURED ENTER VALID IMFORMATION! ')
-
 #--------------------------------MENU: ABOUT STARTED------------------------------------------------------------------------------------------------------------------
 
 elif selected=='ABOUT':
@@ -1220,7 +1201,7 @@ elif selected=='ABOUT':
     with rc:
 
         st.write('<h6>This Website is Developed and Maintained By ME.</h6>', unsafe_allow_html=True)
-        l_, m_, r_ = st.columns([5, 2.5, 2.5])
+        l_, m_, r_ = st.columns([5, 2.5, 2.5], vertical_alignment="center")
 
         st_lottie(
             load_lottieurl(True,"./animation/boy_workingBack.json"),
@@ -1235,20 +1216,20 @@ elif selected=='ABOUT':
 
         with l_:
             st.write(f"""
-                            <h4>Hey, SHIVAM Here<br>Engineering Physics 2027</h4>
-                            """,
-                     unsafe_allow_html=True)
+                <h4>Hey, SHIVAM Here<br>Engineering Physics 2027</h4>
+                """,
+                unsafe_allow_html=True)
 
         with m_:
             st.markdown('######')
             st.markdown(
-                '''<a id="social1" href="https://www.instagram.com/shivammm20_/"><button class="button-62" type="button">INSTA</button>''',
+                '''<a class="social1_" href="https://www.instagram.com/shivammm20_/"><button class="button-62" type="button">INSTA</button>''',
                 unsafe_allow_html=True)
 
         with r_:
             st.markdown('######')
             st.markdown(
-                '''<a id="social2" href="https://www.linkedin.com/in/shivam-rajput-3928a328a/"><button class="button-18" type="button">LINKEDIN</button>''',
+                '''<a class="social1_" href="https://www.linkedin.com/in/shivam-rajput-3928a328a/"><button class="button-18" type="button">LINKEDIN</button>''',
                 unsafe_allow_html=True)
 
     with lc:
@@ -1260,11 +1241,14 @@ elif selected=='ABOUT':
 
         st.markdown('<br>', unsafe_allow_html=True)
 
+        sgpcalButton = st.button("WANNA CALCULATE YOUR SGPA ?")
+        if sgpcalButton:
+            sgpacal()
+
         st.write(f"""
             <h3 class="about">MORE <span style="color: #1F51FF;">FEATURES</span> TO COME, IN FURTHER UPDATES</h3>
             <h6 class="about">- 2nd Sem results ? YES I WILL UPDATE, After Results, ASAP!</h6>
             <h6 class="about">- What about 2025 Results etc? YES I am going to add them too, it will take time. </h6>
-            <h6 class="about">- Study Material and Resources that will help during exams</h6>
             <h6 class="about">- Other than this, Suggest me what more should i add ?</h6>
             """,
          unsafe_allow_html=True)
@@ -1272,7 +1256,6 @@ elif selected=='ABOUT':
         st.markdown('<br><br><br>', unsafe_allow_html=True)
 
     # st.warning("I HAVE EXTRACTED RESULT DATA FROM RESULT PDF'S, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR YOU FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE CONTACT ME, I WILL SOLVE IT ASAP!")
-
 
 
 #----------------------------------------MAIN MENU: STUDY MATERIAL AND RESOURCES PART ------------------------------------------------------------------------------
