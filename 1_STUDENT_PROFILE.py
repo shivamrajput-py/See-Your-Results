@@ -94,7 +94,7 @@ def sgpacal():
         num = ([4] * (int(nofs) - 1)) + [2, 2]
 
         for i in range(int(nofs) + 1):
-            sec1, sec2 = st.columns([1,1])
+            sec1, sec2 = st.columns([1,1], vertical_alignment='center')
 
             with sec1:
                 if i == 0: pass
@@ -562,6 +562,7 @@ def studyResources_menu():
 
 # ABOUT SECTIOO OF MAIN MENU FUNCTION STARTS HERE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+@st.experimental_fragment
 def aboutsection_menu():
     lc, rc = st.columns([1.3, 1])
 
@@ -576,9 +577,7 @@ def aboutsection_menu():
             loop=True,
             quality="low",
             height=None,
-            width=530,
-            key=None,
-        )
+            width=530,)
 
         with l_:
             st.write(f"""
@@ -606,7 +605,6 @@ def aboutsection_menu():
         st.markdown('<br>', unsafe_allow_html=True)
 
         sgpcalButton = st.button("WANNA CALCULATE YOUR SGPA ?")
-
         if sgpcalButton:
             sgpacal()
             st.experimental_rerun()
