@@ -61,30 +61,31 @@ def sgpacal():
         subbut = st.button('CALCULATE YOUR SGPA ACCORDING TO THESE GRADES:')
 
         if subbut:
-            try:
-                nofs = st.session_state.nofs
-                total, crdtotal = 0, 0
+            # try:
 
-                for i in range(nofs):
-                    total += float(int(st.session_state.crList[i]) * (int(grdpoint[st.session_state.grdList[i]])))
-                    crdtotal += float(st.session_state.crList[i])
+            nofs = st.session_state.nofs
+            total, crdtotal = 0, 0
 
-                st.markdown('---')
+            for i in range(nofs):
+                total += float(int(st.session_state.crList[i]) * (int(grdpoint[st.session_state.grdList[i]])))
+                crdtotal += float(st.session_state.crList[i])
 
-                st.write(f"""
-                            <h3 style="
-                            text-align: center;
-                            align-items: center;
-                            padding-bottom: 0px;
-                            border-bottom-width: 0px;
-                            ">Predicted SGPA: <span style="color: {color};">{float(total / crdtotal)}</span></h3>
-                            """,
-                         unsafe_allow_html=True)
+            st.markdown('---')
 
-                st.markdown('---')
+            st.write(f"""
+                        <h3 style="
+                        text-align: center;
+                        align-items: center;
+                        padding-bottom: 0px;
+                        border-bottom-width: 0px;
+                        ">Predicted SGPA: <span style="color: {color};">{float(total / crdtotal)}</span></h3>
+                        """,
+                     unsafe_allow_html=True)
 
-            except:
-                st.warning('PLEASE ENTER VALID INFORMAION! ')
+            st.markdown('---')
+
+            # except:
+            #     st.warning('PLEASE ENTER VALID INFORMAION! ')
 
     if nofs:
         st.session_state.crList = []
