@@ -608,7 +608,7 @@ def aboutsection_menu():
         sgpcalButton = st.button("WANNA CALCULATE YOUR SGPA ?")
         if sgpcalButton:
             sgpacal()
-            st.experimental_rerun()
+            st.rerun()
 
         st.write(f"""
                 <h3 class="about">MORE <span style="color: #1F51FF;">FEATURES</span> TO COME, IN FURTHER UPDATES</h3>
