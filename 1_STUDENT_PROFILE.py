@@ -94,7 +94,7 @@ def sgpacal():
         num = ([4] * (int(nofs) - 1)) + [2, 2]
 
         for i in range(int(nofs) + 1):
-            sec1, sec2 = st.columns([1,1], vertical_alignment='center')
+            sec1, sec2 = st.columns([1,1])
 
             with sec1:
                 if i == 0: pass
