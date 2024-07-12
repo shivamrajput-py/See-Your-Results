@@ -45,7 +45,7 @@ def load_lottieurl(isjson: bool, url_or_path: str):
 # SGPA CALCULATOR FUNCTION WITH A EXPERIMENTAL DIALOG
 @st.experimental_dialog("SGPA CALCULATOR", width="small")
 def sgpacal():
-
+    st.rerun()
     st.write(f"""
                 <h4 style="
                 text-align: center;
