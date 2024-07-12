@@ -563,6 +563,7 @@ def studyResources_menu():
 # ABOUT SECTIOO OF MAIN MENU FUNCTION STARTS HERE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 @st.experimental_fragment
+
 def aboutsection_menu():
     lc, rc = st.columns([1.3, 1])
 
