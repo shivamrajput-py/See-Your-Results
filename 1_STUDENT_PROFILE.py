@@ -646,6 +646,7 @@ with mainmenu_left:
 
 # FOR MAKING THE MENU TRANSPARENT!! #0e1117
 
+
 with mainmenu_middle:
     selected = option_menu(menu_title=None, options= ['PROFILE', 'RANKS','PLACEMENTS','STUDY' ,'ABOUT'],
                            default_index=0,
