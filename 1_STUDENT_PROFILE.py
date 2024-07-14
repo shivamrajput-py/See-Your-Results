@@ -693,6 +693,8 @@ if selected=='PROFILE':
             """,unsafe_allow_html=True)
 
 
+
+
 #-----------------------------SPECIAL ADDITION IN THE WEBSITE, KIRTI--------------------------------------------------------------------------------------------------------
 
     if 'best gc' in result_search_box.lower() or 'sexy gc' in result_search_box.lower() or 'w gc'  in result_search_box.lower():
