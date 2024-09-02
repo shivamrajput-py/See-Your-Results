@@ -593,7 +593,7 @@ def aboutsection_menu():
         with m_:
             st.markdown('######')
             st.markdown(
-                '''<a class="social1_" href="https://www.instagram.com/shivammm20_/"><button class="button-62" type="button">INSTA</button>''',
+                '''<a class="social1_" href="https://www.instagram.com/shvm191/"><button class="button-62" type="button">INSTA</button>''',
                 unsafe_allow_html=True)
 
         with r_:
