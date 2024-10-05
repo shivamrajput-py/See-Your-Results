@@ -98,8 +98,8 @@ if False:
         }
 
     # INFO JSON
-    with open('./ranked_results_csv/cg_analysis.json', 'w') as fl:
-        fl.write(json.dumps(INFO, indent=3))
+    # with open('./ranked_results_csv/cg_analysis.json', 'w') as fl:
+    #     fl.write(json.dumps(INFO, indent=3))
 
 
     #__________________________________CG ANALYSIS CSV BRANCHWISE AND UNIWISE BOTH_________________________________________
@@ -173,35 +173,35 @@ if True:
 
     # CG ANALYSIS FOR UNIVERSITY DATA
 
-    cg_list = cum_data['CUMULATIVE CGPA'].values[:]
-    INFO['UNI'] = {
-            'Average': statistics.mean(cg_list),
-            'Median': statistics.median(cg_list),
-            'Mode': statistics.mode(cg_list),
-            'Highest': max(cg_list),
-            'Lowest': min(cg_list)
-        }
+    # cg_list = cum_data['CUMULATIVE CGPA'].values[:]
+    # INFO['UNI'] = {
+    #         'Average': statistics.mean(cg_list),
+    #         'Median': statistics.median(cg_list),
+    #         'Mode': statistics.mode(cg_list),
+    #         'Highest': max(cg_list),
+    #         'Lowest': min(cg_list)
+    #     }
 
     # INFO JSON
-    with open('./ranked_results_csv/cg_analysis_26.json', 'w') as fl:
-        fl.write(json.dumps(INFO, indent=3))
+    # with open('./ranked_results_csv/cg_analysis_26.json', 'w') as fl:
+    #     fl.write(json.dumps(INFO, indent=3))
 
 
     #__________________________________CG ANALYSIS CSV BRANCHWISE AND UNIWISE BOTH_________________________________________
 
-    data_file = open('./ranked_results_csv/cg_analysis_26.csv', 'w')
-    csv_writer = csv.writer(data_file)
-    csv_writer.writerow(['BRANCH',  'Highest', 'Average' ,'Your', 'Median', 'Max Appeared', 'Lowest'])
-
-    for branch in INFO.keys():
-
-        # Writing data of CSV file
-        csv_writer.writerow([branch,
-                            INFO[branch]['Highest'],
-                            round(INFO[branch]['Average'], 2),
-                            None,
-                            INFO[branch]['Median'],
-                            INFO[branch]['Mode'],
-                            INFO[branch]['Lowest']])
-
-    data_file.close()
+    # data_file = open('./ranked_results_csv/cg_analysis_26.csv', 'w')
+    # csv_writer = csv.writer(data_file)
+    # csv_writer.writerow(['BRANCH',  'Highest', 'Average' ,'Your', 'Median', 'Max Appeared', 'Lowest'])
+    #
+    # for branch in INFO.keys():
+    #
+    #     # Writing data of CSV file
+    #     csv_writer.writerow([branch,
+    #                         INFO[branch]['Highest'],
+    #                         round(INFO[branch]['Average'], 2),
+    #                         None,
+    #                         INFO[branch]['Median'],
+    #                         INFO[branch]['Mode'],
+    #                         INFO[branch]['Lowest']])
+    #
+    # data_file.close()
