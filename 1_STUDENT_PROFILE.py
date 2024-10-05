@@ -628,7 +628,6 @@ def aboutsection_menu():
                 <h3 class="about">MORE <span style="color: #1F51FF;">FEATURES</span> TO COME, IN FURTHER UPDATES</h3>
                 <h6 class="about">- What about 2025 Results etc? YES I am going to add them too, it will take time. </h6>
                 <h6 class="about">- Soon will be Adding a ReportCard Feature</h6>
-                <h6 class="about">- Soon will be Adding a ReportCard Feature</h6>
                 <h6 class="about">- Other than this, Suggest me what more should i add ?</h6>
                 """,
                  unsafe_allow_html=True)
