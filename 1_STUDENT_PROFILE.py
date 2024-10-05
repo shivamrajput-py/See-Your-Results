@@ -927,29 +927,24 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             )
             st.markdown('<br>', unsafe_allow_html=True)
 
-            # st.markdown("""
-            #  <h6 style="
-            #      font-size: 15px;"> >> PERCENTILE STATS:-
-            #  """, unsafe_allow_html=True)
-
             if stud_percentile > 50:
                 st.write(f"""
-                        <h5>| You are in TOP <span style="color: #87CEFA;">{round(100 - stud_percentile, 3)}%</span> Students of University |</h5>
+                        <h5>You are in TOP <span style="color: #87CEFA;">{round(100 - stud_percentile, 3)}%</span> Students of University</h5>
                         """, unsafe_allow_html=True)
             else:
                 st.write(f"""
-                        <h5>| You Performed better than <span style="color: #87CEFA;">{round(stud_percentile, 3)}%</span> Students of University |</h5>
+                        <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_percentile, 3)}%</span> Students of University</h5>
                         """, unsafe_allow_html=True)
 
             st.markdown('<br>', unsafe_allow_html=True)
 
             if stud_brnch_percentile > 50:
                 st.write(f"""
-                        <h5>| You are in TOP <span style="color: #87CEFA;">{round(100 - stud_brnch_percentile, 3)}%</span> Students of Your Dept |</h5>
+                        <h5>You are in TOP <span style="color: #87CEFA;">{round(100 - stud_brnch_percentile, 3)}%</span> Students of Your Dept</h5>
                         """, unsafe_allow_html=True)
             else:
                 st.write(f"""
-                        <h5>| You Performed better than <span style="color: #87CEFA;">{round(stud_brnch_percentile, 3)}%</span> Students of your Dept |</h5>
+                        <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_brnch_percentile, 3)}%</span> Students of your Dept</h5>
                         """, unsafe_allow_html=True)
 
         with r_sec1:
