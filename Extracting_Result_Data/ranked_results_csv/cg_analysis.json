@@ -1,0 +1,93 @@
+{
+   "CS": {
+      "Average": 7.501081871345029,
+      "Median": 7.8,
+      "Mode": 8.8,
+      "Highest": 9.85,
+      "Lowest": 1.4
+   },
+   "SE": {
+      "Average": 7.51720207253886,
+      "Median": 7.7,
+      "Mode": 8.7,
+      "Highest": 9.9,
+      "Lowest": 0.0
+   },
+   "MC": {
+      "Average": 7.179592391304348,
+      "Median": 7.4,
+      "Mode": 7.15,
+      "Highest": 9.65,
+      "Lowest": 0.2
+   },
+   "EC": {
+      "Average": 6.840281124497992,
+      "Median": 7.2,
+      "Mode": 8.2,
+      "Highest": 9.9,
+      "Lowest": 0.0
+   },
+   "EE": {
+      "Average": 7.180481727574751,
+      "Median": 7.35,
+      "Mode": 7.9,
+      "Highest": 9.65,
+      "Lowest": 2.45
+   },
+   "EP": {
+      "Average": 6.937304347826087,
+      "Median": 7.1,
+      "Mode": 7.85,
+      "Highest": 9.6,
+      "Lowest": 2.8
+   },
+   "ME": {
+      "Average": 6.976852459016394,
+      "Median": 7.1,
+      "Mode": 6.95,
+      "Highest": 9.95,
+      "Lowest": 1.95
+   },
+   "AE": {
+      "Average": 6.654453125,
+      "Median": 6.9,
+      "Mode": 7.75,
+      "Highest": 9.95,
+      "Lowest": 2.25
+   },
+   "CE": {
+      "Average": 6.322248322147651,
+      "Median": 6.4,
+      "Mode": 6.0,
+      "Highest": 9.6,
+      "Lowest": 1.6
+   },
+   "CH": {
+      "Average": 7.046776315789474,
+      "Median": 7.07,
+      "Mode": 6.0,
+      "Highest": 9.8,
+      "Lowest": 3.24
+   },
+   "PE": {
+      "Average": 6.3175333333333334,
+      "Median": 6.45,
+      "Mode": 7.15,
+      "Highest": 9.4,
+      "Lowest": 1.5
+   },
+   "BT": {
+      "Average": 6.7841525423728815,
+      "Median": 7.1,
+      "Mode": 7.1,
+      "Highest": 9.55,
+      "Lowest": 1.25
+   },
+   "UNI": {
+      "Average": 7.0905562855891375,
+      "Median": 7.3,
+      "Mode": 7.85,
+      "Highest": 9.95,
+      "Lowest": 0.0
+   }
+}

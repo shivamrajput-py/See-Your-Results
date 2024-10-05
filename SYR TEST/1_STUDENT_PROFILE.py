@@ -641,7 +641,7 @@ def studentprofile():
         if len(result_search_box) == 8:
             result_search_box = result_search_box[0:6] + '0' + result_search_box[6:]
 
-        data26std = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv')
+        data26std = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26Batch_allStudent.csv')
         m1 = data26std['ROLL NO.'].str.contains(result_search_box.upper())
         df_final = data26std[m1]
 
@@ -771,7 +771,7 @@ def studentprofile():
 
             with right_c:
 
-                uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv',
+                uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26Batch_allStudent.csv',
                                      index_col=False)
 
                 df = pd.DataFrame({
@@ -947,7 +947,7 @@ elif selected=='RANKS':
     if brnch_choosed:
         if brnch_choosed == 'Cumulative':
             if year_choosed=='2026':
-                flname, title_help = f'26_UNI_ranked_results.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2026'
+                flname, title_help = f'26Batch_allStudent.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2026'
             elif year_choosed=='2027':
                 flname, title_help = f'1_UNI_ranked_results.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2027'
         else:

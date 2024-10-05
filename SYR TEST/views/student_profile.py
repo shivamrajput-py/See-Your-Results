@@ -588,7 +588,7 @@ elif year_choosed=='2026' and result_search_box:
     if len(result_search_box)==8:
         result_search_box  = result_search_box[0:6] + '0' + result_search_box[6:]
 
-    data26std = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv')
+    data26std = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26Batch_allStudent.csv')
     m1 = data26std['ROLL NO.'].str.contains(result_search_box.upper())
     df_final = data26std[m1]
 
@@ -711,7 +711,7 @@ elif year_choosed=='2026' and result_search_box:
 
         with right_c:
 
-            uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv', index_col=False)
+            uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26Batch_allStudent.csv', index_col=False)
 
             df = pd.DataFrame({
                 'University Stats': ['Highest', 'Average', 'Your', 'Max Appeared'],

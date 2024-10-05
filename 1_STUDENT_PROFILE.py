@@ -15,6 +15,7 @@ import statistics
 import warnings
 warnings.filterwarnings('ignore')
 
+
 # color_discrete_sequence=['#50aef6']
 
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU ANALYSIS', page_icon='🎓')
@@ -122,7 +123,7 @@ def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
         if SUBC in sub_grp:
             SUBC = sub_grp
 
-    with open(r'DATA_MAIN2.json', 'r') as fl:
+    with open(r'./Extracting_Result_Data/StudyMaterialData/DATA_MAIN2.json', 'r') as fl:
         doc = json.load(fl)
 
     if SUBC in doc[0][TYPE].keys():
@@ -160,17 +161,17 @@ def ranksNresults_menu():
     if brnch_choosed:
         if brnch_choosed == 'Cumulative':
             if year_choosed == '2026':
-                flname, title_help = f'26_UNI_ranked_results.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2026'
+                flname, title_help = f'UNI_rankedR26.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2026'
             elif year_choosed == '2027':
-                flname, title_help = f'1_UNI_ranked_results.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2027'
+                flname, title_help = f'UNI_rankedR27.csv', f'<span style="color: {color};">UNIVERSITY WISE</span> Students CGPA Ranking 2027'
         else:
             for key in shortf_branch.keys():
                 if shortf_branch[key] == brnch_choosed:
                     if year_choosed == '2027':
-                        flname = f'1_{key}_ranked_results.csv'
+                        flname = f'{key}_rankedR27.csv'
                         title_help = f'<span style="color: {color};">{shortf_branch[key]}</span> Students CGPA Ranking 2027'
                     elif year_choosed == '2026':
-                        flname = f'26_{key}_ranked_results.csv'
+                        flname = f'{key}_rankedR26.csv'
                         title_help = f'<span style="color: {color};">{shortf_branch[key]}</span> Students CGPA Ranking 2026'
 
     rt.write(f"""
@@ -182,6 +183,11 @@ def ranksNresults_menu():
              unsafe_allow_html=True)
 
     df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{flname}', dtype=str, index_col=None).fillna("")
+
+    if year_choosed=='2027':
+        df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'CUMULATIVE CGPA']]
+    elif year_choosed=='2026':
+        df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2','SGPA3' ,'SGPA4' , 'CUMULATIVE CGPA']]
 
     dataspace = rt.empty()
     dataspace.dataframe(df, hide_index=True, height=900, use_container_width=True)
@@ -426,7 +432,7 @@ def studyResources_menu():
     s1, s2, s3, s4 = st.columns(4)
     st.markdown("---")
 
-    with open("DATA_MAIN1.json", 'r') as fl:
+    with open("./Extracting_Result_Data/StudyMaterialData/DATA_MAIN1.json", 'r') as fl:
         DATA = json.load(fl)
 
     with s1:
@@ -466,7 +472,7 @@ def studyResources_menu():
 
                     if RESOURCE_SUBCODE != "NONE":
 
-                        with open('DATA_MAIN2.json', 'r') as fl2:
+                        with open('./Extracting_Result_Data/StudyMaterialData/DATA_MAIN2.json', 'r') as fl2:
                             DATA2 = json.load(fl2)
 
                         if RESOURCE_TYPE:
@@ -616,8 +622,9 @@ def aboutsection_menu():
 
         st.write(f"""
                 <h3 class="about">MORE <span style="color: #1F51FF;">FEATURES</span> TO COME, IN FURTHER UPDATES</h3>
-                <h6 class="about">- 2nd Sem results ? YES I WILL UPDATE, After Results, ASAP!</h6>
                 <h6 class="about">- What about 2025 Results etc? YES I am going to add them too, it will take time. </h6>
+                <h6 class="about">- Soon will be Adding a ReportCard Feature</h6>
+                <h6 class="about">- Soon will be Adding a ReportCard Feature</h6>
                 <h6 class="about">- Other than this, Suggest me what more should i add ?</h6>
                 """,
                  unsafe_allow_html=True)
@@ -638,7 +645,7 @@ with mainmenu_left:
 
     st_lottie(
         load_lottieurl(True, "./animation/hat_w_books.json"),
-        speed=0.7,
+        speed=0.8,
         reverse=False,
         loop=True,
         quality="low",  # medium ; high
@@ -846,10 +853,12 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
         if len(result_search_box)==8:
             result_search_box  = result_search_box[0:6] + '0' + result_search_box[6:]
 
-        # AFTER SEM2 RESULTS THERE GONNA BE JUST 1 FILE 27UNI_ranked_results.csv !!!!!
-        jsondf = pd.read_json("./Extracting_Result_Data/extracted_data_json/uniwise_ranked_results.json")
-        m1 = jsondf['rolln'].str.contains(result_search_box.upper())
-        df_final = jsondf[m1]
+        # AFTER SEM2 RESULTS THERE GONNA BE JUST 1 FILE 27_UNI_ranked_results.csv !!!!!
+        csvdf = pd.read_csv("Extracting_Result_Data/ranked_results_csv/UNI_rankedR27.csv")
+        m1 = csvdf['ROLL NO.'].str.contains(result_search_box.upper())
+        df_final = csvdf[m1]
+
+        uni_stdcount27 = len(csvdf.values)
 
         if (len(df_final)>1 or len(df_final)<1) and not other:
             st.markdown('<br><br><br>', unsafe_allow_html=True)
@@ -858,20 +867,28 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
         elif len(df_final)==1:
 
-            stud_branch = str(df_final['rolln'].values[0])[3:5]
-            stud_sem = 1 # A VERY UNNECESSARY VARIABLE, SEM2 UPDATE THIS GONNA BE REMOVED
+            stud_branch = str(df_final['ROLL NO.'].values[0])[3:5]
+            stud_cum_cgpa = df_final['CUMULATIVE CGPA'].values[0]
+            stud_university_rank = df_final['RANK'].values[0]
             stud_branch_rank = None
-            stud_university_rank = df_final['rank'].values[0]
 
-            with open('./Extracting_Result_Data/extracted_data_json/branchwise_ranked_results.json', 'r') as fl:
-                dt = json.loads(fl.read())
-                for sd in dt[str(stud_sem)+'_'+str(stud_branch)]:
-                    if sd['rolln'] == df_final['rolln'].values[0]:
-                        stud_branch_rank = sd['rank']
-                brnch_nofs = len(dt[str(stud_sem)+'_'+str(stud_branch)])
+            # HAD TO FIND THE BRANCH RANK ALAG SE !
+            fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR27.csv')
+            m1 = fl['ROLL NO.'].str.contains(result_search_box.upper())
+            fl_final = fl[m1]
+            stud_branch_rank = fl_final['RANK'].values[0]
+            stud_total_credits = df_final['CREDITS1'].values[0]+df_final['CREDITS2'].values[0]
+            stud_brnch_percentile = round(float(((len(fl.values) - stud_branch_rank) / len(fl.values)) * 100), 4)
+            stud_percentile = round(float(((uni_stdcount27 - stud_university_rank) / uni_stdcount27) * 100), 4)
 
-            stud_brnch_percentile = round(float(((brnch_nofs-stud_branch_rank)/brnch_nofs)*100), 4)
-            stud_percentile = round(float(((2589.0-stud_university_rank)/2589.0)*100), 4)
+            stud_grade1List = (df_final['GRADE1'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(',')
+            stud_grade2List = (df_final['GRADE2'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(',')
+
+            if len(stud_grade1List)<6:
+                for _ in range(len(6-len(stud_grade1List))): stud_grade1List.append('  ')
+            if len(stud_grade2List)<6:
+                for _ in range(len(6-len(stud_grade2List))): stud_grade2List.append('  ')
+
 
             # MENU1: FIRST MAIN DIV WITH 3 COLUMNS ---------------------------------------------
             l_sec1 ,m_sec1,  r_sec1 = st.columns([1.5,2,1])
@@ -881,16 +898,17 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 st.markdown('<br><br>', unsafe_allow_html=True)
 
                 st.write(f"""
-                <h2 class="nametit__">HELLO, {df_final['name'].values[0]}</h2>
+                <h2 class="nametit__">HELLO, {df_final['NAME'].values[0]}</h2>
                 <h5>{stud_branch}, {shortf_branch27[stud_branch]}, B. TECH</h5>
-                <h5>{df_final['rolln'].values[0]}</h5>
+                <h5>{df_final['ROLL NO.'].values[0]}</h5>
                 <h5>1st SEMESTER: </h5>
                 """,
                 unsafe_allow_html=True)
 
-                l1,l2 = st.columns(2)
-                l1.metric(label="Credits Completed" , value=df_final['credits'].values[0] )
-                l2.metric(label="Cumulative CGPA" , value=+df_final['sgpa'].values[0])
+                l1,l2,l3 = st.columns(3)
+                l1.metric(label="Credits Completed" , value=stud_total_credits)
+                l2.metric(label="**SEM 1 | CGPA**" , value=+df_final['SGPA1'].values[0])
+                l3.metric(label="**SEM 2 | CGPA**", value=+df_final['SGPA2'].values[0], delta=round(float(df_final['SGPA2'].values[0])-float(df_final['SGPA1'].values[0]), 2))
 
             with m_sec1:
 
@@ -898,33 +916,40 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 st.markdown(
                     f"""
-                | Credits Completed | Cumulative CGPA | University Rank | Branch Rank |
+                | Credits Completed | Cumulative CGPA | University Rank | Dept Rank |
                 | :------------ | :--------------- | :---------------| :---------------|
-                | {df_final['credits'].values[0]}<br> | {df_final['sgpa'].values[0]}<br> | {stud_university_rank}<br> | {stud_branch_rank}<br> |
+                | {stud_total_credits}<br> | {df_final['CUMULATIVE CGPA'].values[0]}<br> | {stud_university_rank}<br> | {stud_branch_rank}<br> |
                 """,
                     unsafe_allow_html=True,
                 )
-                st.markdown('<br><br>', unsafe_allow_html=True)
+                st.markdown('<br>', unsafe_allow_html=True)
+
+                # st.markdown("""
+                #  <h6 style="
+                #      font-size: 15px;"> >> PERCENTILE STATS:-
+                #  """, unsafe_allow_html=True)
+
 
                 if stud_percentile>50:
                     st.write(f"""
-                        <h5>You Are in TOP <span style="color: #87CEFA;">{round(100-stud_percentile, 4)}%</span> Students of University!</h5>
+                        <h5>| You are in TOP <span style="color: #87CEFA;">{round(100-stud_percentile, 3)}%</span> Students of University |</h5>
                         """, unsafe_allow_html=True)
                 else:
                     st.write(f"""
-                        <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_percentile, 4)}%</span> Students of University!</h5>
+                        <h5>| You Performed better than <span style="color: #87CEFA;">{round(stud_percentile, 3)}%</span> Students of University |</h5>
                         """, unsafe_allow_html=True)
 
                 st.markdown('<br>', unsafe_allow_html=True)
 
                 if stud_brnch_percentile>50:
                     st.write(f"""
-                        <h5>You Are in TOP <span style="color: #87CEFA;">{round(100-stud_brnch_percentile, 4)}%</span> Students of Your Branch!</h5>
+                        <h5>| You are in TOP <span style="color: #87CEFA;">{round(100-stud_brnch_percentile, 3)}%</span> Students of Your Dept |</h5>
                         """, unsafe_allow_html=True)
                 else:
                     st.write(f"""
-                        <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_brnch_percentile, 4)}%</span> Students of your Branch</h5>
+                        <h5>| You Performed better than <span style="color: #87CEFA;">{round(stud_brnch_percentile, 3)}%</span> Students of your Dept |</h5>
                         """, unsafe_allow_html=True)
+
 
             with r_sec1:
 
@@ -940,6 +965,52 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                     width=None,
                     key=None,
                 )
+
+
+            st.markdown(f"""
+<div style="display: flex; justify-content: center; margin: 20px;">
+    <table style="width: 80%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); background-color: #121212; border-radius: 12px; overflow: hidden;">
+        <thead>
+            <tr style="background-color: #1F1F1F; text-align: center;">
+                <th style="padding: 12px; border: 1px solid #333;">Semester</th>
+                <th style="padding: 12px; border: 1px solid #333;">S1</th>
+                <th style="padding: 12px; border: 1px solid #333;">S2</th>
+                <th style="padding: 12px; border: 1px solid #333;">S3</th>
+                <th style="padding: 12px; border: 1px solid #333;">S4</th>
+                <th style="padding: 12px; border: 1px solid #333;">S5</th>
+                <th style="padding: 12px; border: 1px solid #333;">S6</th>
+                <th style="padding: 12px; border: 1px solid #333;">Credits</th>
+                <th style="padding: 12px; border: 1px solid #333;">CGPA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align: center;">
+                <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 1</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[0]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[1]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[2]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[3]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[4]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[5]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS1'].values[0]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA1'].values[0]}</td>
+            </tr>
+            <tr style="text-align: center;">
+                <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 2</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[0]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[1]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[2]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[3]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[4]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[5]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS2'].values[0]}</td>
+                <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA2'].values[0]}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+            
+            """, unsafe_allow_html=True)
 
             st.markdown('---')
 
@@ -961,7 +1032,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 for brnach_srn, branch_name in enumerate(brnch_cg['BRANCH'].values):
                     if stud_branch in branch_name: i=brnach_srn
 
-                brnch_cg['Your'][i] = df_final['sgpa'].values[0]
+                brnch_cg['Your'][i] = stud_cum_cgpa
 
                 df = pd.DataFrame({
                     'Branch Stats': ['Highest', 'Average', 'Your', 'Max Appeared', 'Lowest'],
@@ -975,7 +1046,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             with r_sec2:
 
                 uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/cg_analysis.csv', index_col=None)
-                brnch_cg['Your'][0] = df_final['sgpa'].values[0]
+                brnch_cg['Your'][0] = stud_cum_cgpa
 
                 df = pd.DataFrame({
                     'University Stats': ['Highest', 'Average', 'Your', 'Max Appeared', 'Lowest'],
@@ -991,7 +1062,8 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
             st.markdown('---')
 
-            df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/1_{stud_branch}_ranked_results.csv', dtype=str, index_col=None).fillna("")
+            df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR27.csv', dtype=str, index_col=None).fillna("")
+            df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'CUMULATIVE CGPA']]
 
             st.write(f"""
             <h3 style="
@@ -1098,9 +1170,11 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
         if len(result_search_box)==8:
             result_search_box  = result_search_box[0:6] + '0' + result_search_box[6:]
 
-        data26std = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv')
+        data26std = pd.read_csv('Extracting_Result_Data/ranked_results_csv/UNI_rankedR26.csv')
         m1 = data26std['ROLL NO.'].str.contains(result_search_box.upper())
         df_final = data26std[m1]
+
+        uni_stdcount26 = len(data26std.values)
 
         if (len(df_final)>1 or len(df_final)<1) and not other:
             st.markdown('<br><br><br>', unsafe_allow_html=True)
@@ -1110,17 +1184,17 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
         elif len(df_final)==1:
 
             stud_branch = str(df_final['ROLL NO.'].values[0])[3:5]
-            stud_cum_cgpa = df_final['Cumulative CGPA'].values[0]
+            stud_cum_cgpa = df_final['CUMULATIVE CGPA'].values[0]
             stud_branch_rank = None
             stud_university_rank = df_final['RANK'].values[0]
 
             # HAD TO FIND THE BRANCH RANK ALAG SE !
-            fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/26_{stud_branch}_ranked_results.csv')
+            fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR26.csv')
             m1 = fl['ROLL NO.'].str.contains(result_search_box.upper())
             fl_final = fl[m1]
             stud_branch_rank = fl_final['RANK'].values[0]
             stud_brnch_percentile = round(float(((len(fl.values)-stud_branch_rank)/len(fl.values))*100), 4)
-            stud_percentile = round(float(((2579.0 - stud_university_rank) / 2579.0) * 100), 4)
+            stud_percentile = round(float(((uni_stdcount26 - stud_university_rank) / uni_stdcount26) * 100), 4)
 
             l_c, m_c, r_c = st.columns([1.5, 2, 1])
 
@@ -1136,10 +1210,14 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                             """,
                          unsafe_allow_html=True)
 
-                l1, l2, l3  = st.columns(3)
-                l1.metric(label="1ST SEM CG", value=df_final['SEM1'].values[0])
-                l2.metric(label="2ND SEM CG", value=df_final['SEM2'].values[0], delta=round(float(df_final['SEM2'].values[0])-float(df_final['SEM1'].values[0]), 2))
-                l3.metric(label="3RD SEM CG", value=df_final['SEM3'].values[0], delta=round(float(df_final['SEM3'].values[0])-float(df_final['SEM2'].values[0]), 2))
+                l1, l2, l3, l4  = st.columns(4)
+                l1.metric(label="**1ST SEM CG**", value=df_final['SGPA1'].values[0])
+                l2.metric(label="**2ND SEM CG**", value=df_final['SGPA2'].values[0],
+                          delta=round(float(df_final['SGPA2'].values[0])-float(df_final['SGPA1'].values[0]), 2))
+                l3.metric(label="**3RD SEM CG**", value=df_final['SGPA3'].values[0],
+                          delta=round(float(df_final['SGPA3'].values[0])-float(df_final['SGPA2'].values[0]), 2))
+                l4.metric(label="**4TH SEM CG**", value=df_final['SGPA4'].values[0],
+                          delta=round(float(df_final['SGPA4'].values[0]) - float(df_final['SGPA3'].values[0]), 2))
 
             with m_c:
 
@@ -1147,9 +1225,9 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 st.markdown(
                     f"""
-                            | Total Credits | Cumulative CGPA | University Rank | Branch Rank |
-                            | :--------------- | :--------------- | :---------------| :---------------|
-                            | Yet to Add | {df_final['Cumulative CGPA'].values[0]}<br> | {stud_university_rank}<br> | {stud_branch_rank}<br> |
+                            | Cumulative CGPA | University Rank | Dept Rank |
+                            | :--------------- | :---------------| :---------------|
+                            | {df_final['CUMULATIVE CGPA'].values[0]}<br> | {stud_university_rank}<br> | {stud_branch_rank}<br> |
                             """,
                     unsafe_allow_html=True,
                 )
@@ -1157,22 +1235,22 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
                 if stud_percentile > 50:
                     st.write(f"""
-                            <h5>You Are in TOP <span style="color: #87CEFA;">{round(100 - stud_percentile, 4)}%</span> Students of University!</h5>
+                            <h5> | You are in TOP <span style="color: #87CEFA;">{round(100 - stud_percentile, 3)}%</span> Students of University |</h5>
                             """, unsafe_allow_html=True)
                 else:
                     st.write(f"""
-                            <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_percentile, 4)}%</span> Students of University!</h5>
+                            <h5> | You Performed better than <span style="color: #87CEFA;">{round(stud_percentile, 3)}%</span> Students of University | </h5>
                             """, unsafe_allow_html=True)
 
                 st.markdown('<br>', unsafe_allow_html=True)
 
                 if stud_brnch_percentile > 50:
                     st.write(f"""
-                            <h5>You Are in TOP <span style="color: #87CEFA;">{round(100 - stud_brnch_percentile, 4)}%</span> Students of Your Branch!</h5>
+                            <h5> | You are in TOP <span style="color: #87CEFA;">{round(100 - stud_brnch_percentile, 3)}%</span> Students of your Dept | </h5>
                             """, unsafe_allow_html=True)
                 else:
                     st.write(f"""
-                            <h5>You Performed better than <span style="color: #87CEFA;">{round(stud_brnch_percentile, 4)}%</span> Students of your Branch</h5>
+                            <h5> | You Performed better than <span style="color: #87CEFA;">{round(stud_brnch_percentile, 3)}%</span> Students of your Dept | </h5>
                             """, unsafe_allow_html=True)
 
 
@@ -1207,12 +1285,12 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
             with left_c:
 
-                brnch_cg = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/26_{stud_branch}_ranked_results.csv', index_col=False)
+                brnch_cg = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR26.csv', index_col=False)
 
                 df = pd.DataFrame({
                     'Branch Stats': ['Highest', 'Average', 'Your', 'Max Appeared'],
-                    'CGPA': [max(brnch_cg['Cumulative CGPA'].values), round(statistics.mean(brnch_cg['Cumulative CGPA'].values) ,4),
-                             stud_cum_cgpa, round(statistics.mode(brnch_cg['Cumulative CGPA'].values), 4)]})
+                    'CGPA': [max(brnch_cg['CUMULATIVE CGPA'].values), round(statistics.mean(brnch_cg['CUMULATIVE CGPA'].values) ,4),
+                             stud_cum_cgpa, round(statistics.mode(brnch_cg['CUMULATIVE CGPA'].values), 4)]})
 
                 df.reset_index(drop=True)
                 df.set_index('Branch Stats', inplace=True)
@@ -1221,12 +1299,12 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
             with right_c:
 
-                uni_cg = pd.read_csv('./Extracting_Result_Data/ranked_results_csv/26_UNI_ranked_results.csv', index_col=False)
+                uni_cg = pd.read_csv('Extracting_Result_Data/ranked_results_csv/UNI_rankedR26.csv', index_col=False)
 
                 df = pd.DataFrame({
                     'University Stats': ['Highest', 'Average', 'Your', 'Max Appeared'],
-                    'CGPA': [max(uni_cg['Cumulative CGPA'].values), round(statistics.mean(uni_cg['Cumulative CGPA'].values) ,4),
-                             stud_cum_cgpa, round(statistics.mode(uni_cg['Cumulative CGPA'].values), 4)]})
+                    'CGPA': [max(uni_cg['CUMULATIVE CGPA'].values), round(statistics.mean(uni_cg['CUMULATIVE CGPA'].values) ,4),
+                             stud_cum_cgpa, round(statistics.mode(uni_cg['CUMULATIVE CGPA'].values), 4)]})
 
                 df.reset_index(drop=True)
                 df.set_index('University Stats', inplace=True)
@@ -1235,8 +1313,8 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
             df1 = pd.DataFrame(
                 {
-                    'SEMESTER': ['1ST SEM', '2ND SEM', '3RD SEM'],
-                    'CGPA': [df_final['SEM1'].values[0], df_final['SEM2'].values[0], df_final['SEM3'].values[0]]
+                    'SEMESTER': ['1ST SEM', '2ND SEM', '3RD SEM', '4TH SEM'],
+                    'CGPA': [df_final['SGPA1'].values[0], df_final['SGPA2'].values[0], df_final['SGPA3'].values[0], df_final['SGPA4'].values[0]]
                 }
             )
 
@@ -1248,9 +1326,11 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
 
             df = pd.read_csv(
-                f'./Extracting_Result_Data/ranked_results_csv/26_{stud_branch}_ranked_results.csv',
+                f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR26.csv',
                 dtype=str,
                 index_col=None).fillna("")
+
+            df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'SGPA3', 'SGPA4', 'CUMULATIVE CGPA']]
 
             st.write(f"""
                         <h3 style="
@@ -1262,7 +1342,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
             st.markdown("<br>", unsafe_allow_html=True)
 
-            _, mm, _ = st.columns([1, 4, 1])
+            _, mm, _ = st.columns([0.7, 4, 0.7])
             dataspace = mm.empty()
 
             dataspace.dataframe(df, hide_index=True, use_container_width=True, height=450)
