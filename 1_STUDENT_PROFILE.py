@@ -8,17 +8,15 @@ from streamlit_lottie import st_lottie
 import requests
 from streamlit_option_menu import option_menu
 from MainConstant import *
-from streamlit_extras.let_it_rain import rain
 import os
 import datetime
 import statistics
 import warnings
 warnings.filterwarnings('ignore')
 
-
 # color_discrete_sequence=['#50aef6']
 
-st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTU ANALYSIS', page_icon='🎓')
+st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTURESULTS ANALYSIS', page_icon='🎓')
 
 color = '#1F51FF' # USE FOR HIGHLIGHTING A SPECIFIC WORD
 other= False
@@ -26,7 +24,7 @@ other= False
 with open('style.css', 'r') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # FOR LOADING THE ANIMATION !!
 @st.experimental_fragment
@@ -41,7 +39,7 @@ def load_lottieurl(isjson: bool, url_or_path: str):
         return r.json()
 
 
-#SGPA CALCULATOR FUNCTION!!!!!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#SGPA CALCULATOR FUNCTION!!!!!--------------------------------------------------------------------------------------------------------------------------------------------------
 
 # SGPA CALCULATOR FUNCTION WITH A EXPERIMENTAL DIALOG
 @st.experimental_dialog("SGPA CALCULATOR", width="small")
@@ -186,8 +184,11 @@ def ranksNresults_menu():
 
     if year_choosed=='2027':
         df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'CUMULATIVE CGPA']]
+        df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 1', 'SEM 2', 'CUMULATIVE CGPA']
+
     elif year_choosed=='2026':
         df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2','SGPA3' ,'SGPA4' , 'CUMULATIVE CGPA']]
+        df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 1', 'SEM 2', 'SEM 3', 'SEM 4', 'CUMULATIVE CGPA']
 
     dataspace = rt.empty()
     dataspace.dataframe(df, hide_index=True, height=900, use_container_width=True)
@@ -1064,6 +1065,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
             df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR27.csv', dtype=str, index_col=None).fillna("")
             df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'CUMULATIVE CGPA']]
+            df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 1', 'SEM 2', 'CUMULATIVE CGPA']
 
             st.write(f"""
             <h3 style="
@@ -1331,6 +1333,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 index_col=None).fillna("")
 
             df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'SGPA3', 'SGPA4', 'CUMULATIVE CGPA']]
+            df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 1', 'SEM 2', 'SEM 3', 'SEM 4', 'CUMULATIVE CGPA']
 
             st.write(f"""
                         <h3 style="
