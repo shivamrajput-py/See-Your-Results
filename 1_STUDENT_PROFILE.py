@@ -63,8 +63,32 @@ def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
     else:
         return False
 
-
 # -----------------------------------------------------------------------------------------------------------------------
+
+# SGPA CALCULATOR FUNCTION WITH A EXPERIMENTAL DIALOG
+@st.experimental_dialog("GAINERS LIST", width="large")
+def gainerList(stud_branch: str):
+    df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_gainersR27.csv', dtype=str,
+                     index_col=None).fillna("")
+    df = df[['RANK', 'NAME', 'ROLL NO.', 'SEM1', 'SEM2', 'IMPROVEMENT']]
+    df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 1', 'SEM 2', 'CGPA IMPROVEMENT']
+
+    st.write(f"""
+                        <h3 style="
+                        text-align: center;
+                        align-items: center;
+                        "><span style="color: {color};">{stud_branch}'27</span> Top Gainers: </h3>
+                        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    _, mm, _ = st.columns([1, 4, 1])
+    with mm:
+        ranklist = st.empty()
+        ranklist.dataframe(df, hide_index=True, use_container_width=True, height=460)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('---')
 
 # SGPA CALCULATOR FUNCTION WITH A EXPERIMENTAL DIALOG
 @st.experimental_dialog("SGPA CALCULATOR", width="small")
@@ -1077,8 +1101,16 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
             ranklist = st.empty()
             ranklist.dataframe(df, hide_index=True, use_container_width=True, height=425)
 
-        st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+
+        _, _, mm2, _, _ = st.columns([2,1 ,1, 1,2])
+        with mm2:
+            gainerButton = st.button("WANNA SEE THE TOP GAINERS THIS SEM?")
+            if gainerButton:
+                gainerList(stud_branch)
+
         st.markdown('---')
+
         # MENU1: FOURTH MAIN DIV WITH 3 COLUMNS --------------------------------------------------------------------------------------------------
 
         st.write(f"""

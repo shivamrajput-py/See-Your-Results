@@ -41,7 +41,6 @@ shortf_branch26 = {
 
 if False:
 
-    INFO = {}
 
     # BRANCH WISE SEPARATION OF SORTED CSV WITH RANK COLUMNS
     mncsv = pd.read_csv("./ranked_results_csv/27Batch_allStudent.csv")
@@ -60,19 +59,6 @@ if False:
         # SORTED BRANCHWISE RANKED CSV
         branch_wise.to_csv(f'./ranked_results_csv/{branch}_rankedR27.csv')
 
-        # CG ANALYSIS OF THESE BRANCH CG
-        cg_list_branchwise = branch_wise['CUMULATIVE CGPA'].values[:]
-
-        if len(cg_list_branchwise)<1: continue
-
-        INFO[branch] = {
-                    'Average': statistics.mean(cg_list_branchwise),
-                    'Median': statistics.median(cg_list_branchwise),
-                    'Mode': statistics.mode(cg_list_branchwise),
-                    'Highest': max(cg_list_branchwise),
-                    'Lowest': min(cg_list_branchwise)
-        }
-
     #---------------------------------------------------------------------------------------------------------------------------
 
     # MAIN FINAL UNI SORTED CSV WITH RNK COLUMN
@@ -84,47 +70,9 @@ if False:
     cum_data.to_csv('./ranked_results_csv/UNI_rankedR27.csv')
 
 
-    #---------------------------------------------------------------------------------------------------------------------------
-
-    # CG ANALYSIS FOR UNIVERSITY DATA
-
-    cg_list = cum_data['CUMULATIVE CGPA'].values[:]
-    INFO['UNI'] = {
-            'Average': statistics.mean(cg_list),
-            'Median': statistics.median(cg_list),
-            'Mode': statistics.mode(cg_list),
-            'Highest': max(cg_list),
-            'Lowest': min(cg_list)
-        }
-
-    # INFO JSON
-    # with open('./ranked_results_csv/cg_analysis.json', 'w') as fl:
-    #     fl.write(json.dumps(INFO, indent=3))
-
-
-    #__________________________________CG ANALYSIS CSV BRANCHWISE AND UNIWISE BOTH_________________________________________
-
-    data_file = open('./ranked_results_csv/cg_analysis.csv', 'w')
-    csv_writer = csv.writer(data_file)
-    csv_writer.writerow(['BRANCH',  'Highest', 'Average' ,'Your', 'Median', 'Max Appeared', 'Lowest'])
-
-    for branch in INFO.keys():
-
-        # Writing data of CSV file
-        csv_writer.writerow([branch,
-                            INFO[branch]['Highest'],
-                            round(INFO[branch]['Average'], 2),
-                            None,
-                            INFO[branch]['Median'],
-                            INFO[branch]['Mode'],
-                            INFO[branch]['Lowest']])
-
-    data_file.close()
-
-
 #2026---------------------------------------------------------------------------------------------------------------------------
 
-if True:
+if False:
 
     INFO = {}
 
@@ -145,19 +93,6 @@ if True:
         # SORTED BRANCHWISE RANKED CSV
         branch_wise.to_csv(f'./ranked_results_csv/{branch}_rankedR26.csv')
 
-        # CG ANALYSIS OF THESE BRANCH CG
-        cg_list_branchwise = branch_wise['CUMULATIVE CGPA'].values[:]
-
-        if len(cg_list_branchwise)<1: continue
-
-        INFO[branch] = {
-                    'Average': statistics.mean(cg_list_branchwise),
-                    'Median': statistics.median(cg_list_branchwise),
-                    'Mode': statistics.mode(cg_list_branchwise),
-                    'Highest': max(cg_list_branchwise),
-                    'Lowest': min(cg_list_branchwise)
-        }
-
     #---------------------------------------------------------------------------------------------------------------------------
 
     # MAIN FINAL UNI SORTED CSV WITH RNK COLUMN
@@ -169,39 +104,31 @@ if True:
     cum_data.to_csv('./ranked_results_csv/UNI_rankedR26.csv')
 
 
-    #---------------------------------------------------------------------------------------------------------------------------
+#   GAINER CSV MAKERRR ------------------------------------------------------------------
+if True:
+    for branch in shortf_branch27.keys():
 
-    # CG ANALYSIS FOR UNIVERSITY DATA
+        brnch_csv = pd.read_csv(f'./ranked_results_csv/{branch}_rankedR27.csv')
 
-    # cg_list = cum_data['CUMULATIVE CGPA'].values[:]
-    # INFO['UNI'] = {
-    #         'Average': statistics.mean(cg_list),
-    #         'Median': statistics.median(cg_list),
-    #         'Mode': statistics.mode(cg_list),
-    #         'Highest': max(cg_list),
-    #         'Lowest': min(cg_list)
-    #     }
+        fll = open(f'./ranked_results_csv/{branch}_gainersR27.csv', 'w')
+        gainer_csv = csv.writer(fll)
+        gainer_csv.writerow(['RANK','NAME', 'ROLL NO.', 'SEM1', 'SEM2', 'IMPROVEMENT'])
 
-    # INFO JSON
-    # with open('./ranked_results_csv/cg_analysis_26.json', 'w') as fl:
-    #     fl.write(json.dumps(INFO, indent=3))
+        for i, _ in enumerate(brnch_csv['ROLL NO.'].values):
+            gainer_csv.writerow([1, brnch_csv['NAME'].values[i],
+                                 brnch_csv['ROLL NO.'].values[i],
+                                 brnch_csv['SGPA1'].values[i],
+                                 brnch_csv['SGPA2'].values[i],
+                                 round(brnch_csv['SGPA2'].values[i]-brnch_csv['SGPA1'].values[i], 3)])
+
+        fll.close()
+        gainer_csv= pd.read_csv(f'./ranked_results_csv/{branch}_gainersR27.csv')
+        gainer_csv = gainer_csv.sort_values(by= [gainer_csv.columns[-1], gainer_csv.columns[1]], ascending=[False, True])
+
+        for i, _ in enumerate(gainer_csv['RANK'].values):
+            gainer_csv.iloc[i, 0] = i + 1
+
+        gainer_csv.to_csv(f'./ranked_results_csv/{branch}_gainersR27.csv')
 
 
-    #__________________________________CG ANALYSIS CSV BRANCHWISE AND UNIWISE BOTH_________________________________________
 
-    # data_file = open('./ranked_results_csv/cg_analysis_26.csv', 'w')
-    # csv_writer = csv.writer(data_file)
-    # csv_writer.writerow(['BRANCH',  'Highest', 'Average' ,'Your', 'Median', 'Max Appeared', 'Lowest'])
-    #
-    # for branch in INFO.keys():
-    #
-    #     # Writing data of CSV file
-    #     csv_writer.writerow([branch,
-    #                         INFO[branch]['Highest'],
-    #                         round(INFO[branch]['Average'], 2),
-    #                         None,
-    #                         INFO[branch]['Median'],
-    #                         INFO[branch]['Mode'],
-    #                         INFO[branch]['Lowest']])
-    #
-    # data_file.close()
