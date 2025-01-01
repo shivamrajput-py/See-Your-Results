@@ -742,6 +742,21 @@ if selected == 'PROFILE':
         if kiritbox:
             if kiritbox == 'kirit' or kiritbox == 'Kirit' or kiritbox == 'KIRIT':
                 st.warning("YOU ARE THE KRITIKA :smile_cat: I KNOW, I MEAN KIRIT BKL 🥰")
+
+                st.markdown('# ')
+
+                st.markdown('# HAPPYYY NEW YEARRR KRITIKA 🎀')
+                st.markdown('# साली जी को नए साल की शुभकामनाएँ 🫶')
+                st.markdown('###### have a superb yearrrr and NIGGA WE BALLIN THIS YEAR FOR SUREEE! letsss fuking go n grow, 2025!🧿')
+
+
+                st.markdown('# ')
+                st.markdown('# ')
+
+                st.markdown('# HAPPY BIRTHDAYYYY KIRIT IN ADVANCE, 19 DAYS TO GO YAYAYAY 🫶')
+                st.markdown('# ')
+
+
                 kiriti = ['WELCOME TO', 'MY WEBSITE', 'MISS CERTIFIED', 'BIG W YAPPER', 'KRITIKA SINHA :smirk_cat:']
                 for i in range(52):
                     st.markdown("""<br>""", unsafe_allow_html=True)
@@ -768,7 +783,6 @@ if selected == 'PROFILE':
                         _, _, _, _, k = st.columns(5)
                         k.markdown(f'# {kiriti[4]}')
                         k.markdown('<h6 style="color: pink;">Kirti THE gori niggru, fr <3</h6>', unsafe_allow_html=True)
-
                 kiriti = ['YOU ARE REALLY', 'A PERFECT W', 'A 10/10 BADDIE', 'PRETTY BICH',
                           'MY SALI, LITERALLY THE BEST SALI 🎀']
 
@@ -876,7 +890,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
     # --------------------------ENDING OF SPECIAL ADDITION IN THE WEBSITE-----------------------------------------------------------------------------------------------------
 
-    if year_choosed == '2027' and result_search_box:
+    elif year_choosed == '2027' and result_search_box:
         descripE.empty()
 
         # IF USER HAS PUTTEN 2K/2k IN THE ROLL NUMBER, REMOVING THAT CAUSE, OUR DATA DOES NOT CONTAIN THAT
