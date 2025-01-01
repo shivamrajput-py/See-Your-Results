@@ -891,6 +891,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
     # --------------------------ENDING OF SPECIAL ADDITION IN THE WEBSITE-----------------------------------------------------------------------------------------------------
 
     elif year_choosed == '2027' and result_search_box:
+        
         descripE.empty()
 
         # IF USER HAS PUTTEN 2K/2k IN THE ROLL NUMBER, REMOVING THAT CAUSE, OUR DATA DOES NOT CONTAIN THAT
