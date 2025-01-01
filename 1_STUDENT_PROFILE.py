@@ -741,7 +741,7 @@ if selected == 'PROFILE':
                                  placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
         if kiritbox:
             if kiritbox == 'kirit' or kiritbox == 'Kirit' or kiritbox == 'KIRIT':
-                st.warning("YOU ARE THE KRITIKA :smile_cat: I KNOW, I MEAN KIRIT BKL 🥰")
+                st.warning("YOU ARE THE KRITIKA :smile_cat: I KNOW, I MEAN KIRIT BKL 🥰 ")
 
                 st.markdown('# ')
 
@@ -891,7 +891,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
     # --------------------------ENDING OF SPECIAL ADDITION IN THE WEBSITE-----------------------------------------------------------------------------------------------------
 
     elif year_choosed == '2027' and result_search_box:
-        
+
         descripE.empty()
 
         # IF USER HAS PUTTEN 2K/2k IN THE ROLL NUMBER, REMOVING THAT CAUSE, OUR DATA DOES NOT CONTAIN THAT
