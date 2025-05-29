@@ -39,11 +39,11 @@ shortf_branch26 = {
 
 #2027---------------------------------------------------------------------------------------------------------------------------
 
-if False:
+if True:
 
 
     # BRANCH WISE SEPARATION OF SORTED CSV WITH RANK COLUMNS
-    mncsv = pd.read_csv("./ranked_results_csv/27Batch_allStudent.csv")
+    mncsv = pd.read_csv("./ranked_results_csv/27Batch_allStudentTILL3S.csv")
 
     for branch in shortf_branch27.keys():
 
@@ -112,14 +112,14 @@ if True:
 
         fll = open(f'./ranked_results_csv/{branch}_gainersR27.csv', 'w')
         gainer_csv = csv.writer(fll)
-        gainer_csv.writerow(['RANK','NAME', 'ROLL NO.', 'SEM1', 'SEM2', 'IMPROVEMENT'])
+        gainer_csv.writerow(['RANK','NAME', 'ROLL NO.', 'SEM2', 'SEM3', 'IMPROVEMENT'])
 
         for i, _ in enumerate(brnch_csv['ROLL NO.'].values):
             gainer_csv.writerow([1, brnch_csv['NAME'].values[i],
                                  brnch_csv['ROLL NO.'].values[i],
-                                 brnch_csv['SGPA1'].values[i],
                                  brnch_csv['SGPA2'].values[i],
-                                 round(brnch_csv['SGPA2'].values[i]-brnch_csv['SGPA1'].values[i], 3)])
+                                 brnch_csv['SGPA3'].values[i],
+                                 round(brnch_csv['SGPA3'].values[i]-brnch_csv['SGPA2'].values[i], 3)])
 
         fll.close()
         gainer_csv= pd.read_csv(f'./ranked_results_csv/{branch}_gainersR27.csv')
