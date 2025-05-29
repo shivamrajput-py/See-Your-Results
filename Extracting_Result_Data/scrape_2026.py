@@ -47,7 +47,7 @@ try:
         for i , tb_row in enumerate(tb_rows):
 
             if i==0:
-                header = ['RANK', 'NAME', 'ROLL NO.', 'SEM1', 'SEM2', 'SEM3', 'Cumulative CGPA']
+                header = ['RANK', 'NAME', 'ROLL NO.', 'SEM1', 'SEM2', 'SEM3','SEM4', 'SEM5', 'Cumulative CGPA']
                 csv_writer.writerow(header)
                 continue
 
@@ -59,7 +59,7 @@ try:
             else:
                 ROLLNO = (elements[2].text).replace('2K', '')
 
-            csv_writer.writerow([elements[0].text,elements[1].text,ROLLNO,elements[3].text,elements[4].text,elements[5].text,elements[6].text])
+            csv_writer.writerow([elements[0].text,elements[1].text,ROLLNO,elements[3].text,elements[4].text,elements[5].text,elements[6].text, elements[7].text,elements[8].text])
 
 
         data_file.close()
