@@ -1,13 +1,12 @@
+.nametitprofile {
+    color:	#1F51FF;
+}
+
 .nametit {
     text-align: center;
     align-items: center;
     color: 	hsl(218, 36%, 72%); /*hsl(210, 30%, 58%)*/
     font-size: 65px;
-}
-
-
-.nametit__ {
-    color:	#1F51FF;
 }
 
 .nametitm {

@@ -10,9 +10,19 @@ import requests
 from streamlit_option_menu import option_menu
 from MainConstant import *
 import os
-import datetime
+from datetime import datetime
 import statistics
 import warnings
+# Add these imports at the top of your file
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
+from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+import io
+import base64
 
 warnings.filterwarnings('ignore')
 
@@ -93,18 +103,8 @@ def gainerList(stud_branch: str):
     st.markdown('---')
 
 
-# Add these imports at the top of your file
-from reportlab.lib.pagesizes import letter, A4
-from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
-from reportlab.lib.units import inch
-from reportlab.pdfgen import canvas
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
-import io
-import base64
-from datetime import datetime
-
+# ----------------------------------------------------------------------------------------------------------------------
+# PDF PART !!
 
 # Function to create PDF report card
 def create_report_card_pdf(student_data):
@@ -394,13 +394,6 @@ def add_report_card_button(df_final, stud_branch, shortf_branch27, stud_universi
         # Show report card dialog
         show_report_card_dialog(student_data)
 
-        # Add close button
-        # col1, col2, col3 = st.columns([2, 1, 2])
-        # with col2:
-        #     if st.button("❌ Close Report Card", use_container_width=True):
-        #         st.session_state.show_report_card = False
-        #         # st.experimental_rerun()
-
 
 # Simpler direct download approach (alternative)
 def add_direct_download_button(df_final, stud_branch, shortf_branch27, stud_university_rank,
@@ -517,7 +510,6 @@ def sgpacal():
                     st.session_state.grdList.append(grd)
 
             st.markdown("---")
-
 
 # -----------------------------------------------------------------------------------------------------------------------
 
@@ -1327,7 +1319,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 st.markdown('<br><br>', unsafe_allow_html=True)
 
                 st.write(f"""
-                    <h2 class="nametit__">HELLO, {df_final['NAME'].values[0]}</h2>
+                    <h2 class="nametitprofile">HELLO, {df_final['NAME'].values[0]}</h2>
                     <h5>{stud_branch}, {shortf_branch27[stud_branch]}, B. TECH</h5>
                     <h5>{df_final['ROLL NO.'].values[0]}</h5>
                     <h5>YOUR RESULTS:</h5>
@@ -1695,7 +1687,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 st.markdown('<br><br>', unsafe_allow_html=True)
 
                 st.write(f"""
-                            <h2 class="nametit__">HELLO, {df_final['NAME'].values[0]}</h2>
+                            <h2 class="nametitprofile">HELLO, {df_final['NAME'].values[0]}</h2>
                             <h5>{stud_branch}, {shortf_branch26[stud_branch]}, B. TECH</h5>
                             <h5>{df_final['ROLL NO.'].values[0]}</h5>
                             <h5>RESULTS:- </h5>
