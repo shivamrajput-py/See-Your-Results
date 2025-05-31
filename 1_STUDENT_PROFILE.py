@@ -802,7 +802,7 @@ def studyResources_menu():
                     text-align: center;
                     align-items: center;
                     font-size: 13px;
-                    ">WE ARE WORKING ON ADDING BEST RESOURCES, IT IS TAKING TIME BUT WILL MAKE SURE TO COMPLETE UPLOADING ALL THE IMPORTANT RESOURCES BEFORE THIS MIDSEMS!</h6>
+                    ">WE ARE WORKING ON ADDING BEST RESOURCES. IT IS TAKING TIME BUT, WILL MAKE SURE TO COMPLETE UPLOADING ALL THE IMPORTANT RESOURCES BEFORE THIS MID-SEMS!</h6>
                     """,
              unsafe_allow_html=True)
 
@@ -959,7 +959,7 @@ def aboutsection_menu():
     lc, rc = st.columns([1.3, 1])
 
     with rc:
-        st.write('<h6>This Website is Developed and Maintained By ME.</h6>', unsafe_allow_html=True)
+        st.write('<h6>This Website is Developed and Maintained By Shivam Rajput.</h6>', unsafe_allow_html=True)
         l_, m_, r_ = st.columns([5, 2.5, 2.5])
 
         st_lottie(
@@ -973,7 +973,7 @@ def aboutsection_menu():
 
         with l_:
             st.write(f"""
-                    <h4>Hey, SHIVAM Here<br>Engineering Physics 2027</h4>
+                    <h4>Hey, Shivam Here<br>Engineering Physics 2027</h4>
                     """,
                      unsafe_allow_html=True)
 
@@ -1001,9 +1001,9 @@ def aboutsection_menu():
             sgpacal()
 
         st.write(f"""
-                <h3 class="about">MORE <span style="color: #1F51FF;">FEATURES</span> TO COME, IN FURTHER UPDATES</h3>
-                <h6 class="about">- What about 2025 Results etc? YES I am going to add them too, it will take time. </h6>
-                <h6 class="about">- Soon will be Adding a ReportCard Feature</h6>
+                <h3 class="about">MORE <span style="color: #1F51FF;">FEATURES</span> TO COME IN FUTURE UPDATES</h3>
+                <h6 class="about">- 2026 & 2028 Batch Results? These will be updated soon!</h6>
+                <h6 class="about">- Report Card Feature? This feature has been added!</h6>
                 <h6 class="about">- Other than this, Suggest me what more should i add ?</h6>
                 """,
                  unsafe_allow_html=True)
@@ -1278,10 +1278,9 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
         if (len(df_final) > 1 or len(df_final) < 1) and not other:
             st.markdown('<br><br><br>', unsafe_allow_html=True)
-            st.error(
-                "No student was found with the provided roll number. Please verify the roll number and try again. If you believe this is a mistake, please contact the Project Maintainer.")
-            st.error(
-                "I HAVE EXTRACTED RESULT DATA FROM RESULT PDF, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE SHARE (GO TO ABOUT SECTION), I WILL SOLVE IT ASAP!")
+            _, mmn, _ = st.columns([0.5,2.5,0.5])
+            mmn.error(
+                "If your result is not found or appears incorrect—despite being extracted from official result PDFs—please verify your roll number and, if the issue persists, contact the project maintainer via the About section for prompt resolution.")
 
         else:
             uni_stdcount27 = len(csvdf.values)
@@ -1660,10 +1659,9 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
         if (len(df_final) > 1 or len(df_final) < 1) and not other:
             st.markdown('<br><br><br>', unsafe_allow_html=True)
-            st.error(
-                "No student was found with the provided roll number. Please verify the roll number and try again. If you believe this is a mistake, please contact the Project Maintainer.")
-            st.error(
-                "I HAVE EXTRACTED RESULT DATA FROM RESULT PDF, SO IF YOU ARE UNABLE TO FIND YOUR RESULT OR FIND ANY ERROR RELATED TO YOUR RESULT, PLEASE SHARE (GO TO ABOUT SECTION), I WILL SOLVE IT ASAP!")
+            _, mmn, _ = st.columns([0.5,2.5,0.5])
+            mmn.error(
+                "If your result is not found or appears incorrect—despite being extracted from official result PDFs—please verify your roll number and, if the issue persists, contact the project maintainer via the About section for prompt resolution.")
 
         elif len(df_final) == 1:
 
