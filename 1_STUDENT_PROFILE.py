@@ -1319,7 +1319,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 st.markdown('<br><br>', unsafe_allow_html=True)
 
                 st.write(f"""
-                    <h2 style="color: #1F51FF;">HELLO, {df_final['NAME'].values[0]}</h2>
+                    <span style="font-size: 32px; color: #1F51FF;">HELLO, {df_final['NAME'].values[0]}</span><br>
                     <h5>{stud_branch}, {shortf_branch27[stud_branch]}, B. TECH</h5>
                     <h5>{df_final['ROLL NO.'].values[0]}</h5>
                     <h5>YOUR RESULTS:</h5>
