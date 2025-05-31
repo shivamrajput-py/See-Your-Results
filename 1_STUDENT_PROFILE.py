@@ -21,6 +21,7 @@ st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title=
 color = '#1F51FF'  # USE FOR HIGHLIGHTING A SPECIFIC WORD
 BAR_COLOR = '#1E90FF'
 other = False
+st.session_state.yeartitle = '2027'
 
 with open('style.css', 'r') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -90,6 +91,362 @@ def gainerList(stud_branch: str):
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('---')
+
+
+# Add these imports at the top of your file
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
+from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+import io
+import base64
+from datetime import datetime
+
+
+# Function to create PDF report card
+def create_report_card_pdf(student_data):
+    """
+    Creates a PDF report card for the student
+    """
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4,
+                            rightMargin=50, leftMargin=50,
+                            topMargin=50, bottomMargin=50)
+
+    # Container for the 'Flowable' objects
+    elements = []
+
+    # Define styles
+    styles = getSampleStyleSheet()
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=24,
+        spaceAfter=30,
+        alignment=TA_CENTER,
+        textColor=colors.darkblue
+    )
+
+    header_style = ParagraphStyle(
+        'CustomHeader',
+        parent=styles['Heading2'],
+        fontSize=16,
+        spaceAfter=12,
+        alignment=TA_CENTER,
+        textColor=colors.black
+    )
+
+    normal_style = ParagraphStyle(
+        'CustomNormal',
+        parent=styles['Normal'],
+        fontSize=12,
+        alignment=TA_CENTER,
+        spaceAfter=6
+    )
+
+    # Title
+    title = Paragraph("DELHI TECHNOLOGICAL UNIVERSITY", title_style)
+    subtitle = Paragraph("ACADEMIC REPORT CARD", header_style)
+    elements.append(title)
+    elements.append(subtitle)
+    elements.append(Spacer(1, 20))
+
+    # Student Information
+    student_info = [
+        ['Student Name:', student_data['name']],
+        ['Roll Number:', student_data['roll_no']],
+        ['Branch:', f"{student_data['branch']} - {student_data['branch_full']}"],
+        ['Academic Year:', student_data['year']],
+        # ['Report Generated:', datetime.now().strftime("%d-%m-%Y %H:%M")]
+    ]
+
+    info_table = Table(student_info, colWidths=[2 * inch, 3 * inch])
+    info_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (0, -1), colors.lightgrey),
+        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, -1), 11),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ]))
+
+    elements.append(info_table)
+    elements.append(Spacer(1, 20))
+
+    # Academic Performance Summary
+    elements.append(Paragraph("ACADEMIC PERFORMANCE SUMMARY", header_style))
+    elements.append(Spacer(1, 10))
+
+    performance_data = [
+        ['Metric', 'Value'],
+        ['Cumulative CGPA', str(student_data['cumulative_cgpa'])],
+        ['Total Credits Completed', str(student_data['total_credits'])],
+        ['University Rank', str(student_data['university_rank'])],
+        ['Department Rank', str(student_data['department_rank'])],
+        ['University Percentile', f"{student_data['university_percentile']}%"],
+        ['Department Percentile', f"{student_data['department_percentile']}%"]
+    ]
+
+    performance_table = Table(performance_data, colWidths=[2.5 * inch, 2.5 * inch])
+    performance_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.darkblue),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 12),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 11),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ]))
+
+    elements.append(performance_table)
+    elements.append(Spacer(1, 20))
+
+    # Semester-wise Results
+    elements.append(Paragraph("SEMESTER-WISE ACADEMIC RECORD", header_style))
+    elements.append(Spacer(1, 10))
+
+    semester_data = [
+        ['Semester', 'SGPA', 'Credits', 'Status']
+    ]
+
+    for i, sem_data in enumerate(student_data['semesters'], 1):
+        semester_data.append([
+            f'Semester {i}',
+            str(sem_data['sgpa']),
+            str(sem_data['credits']),
+            'Completed'
+        ])
+
+    semester_table = Table(semester_data, colWidths=[1.5 * inch, 1.5 * inch, 1.5 * inch, 1.5 * inch])
+    semester_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.darkblue),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 12),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 11),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ]))
+
+    elements.append(semester_table)
+    elements.append(Spacer(1, 30))
+
+    # Footer
+    footer_text = """
+    This is a computer-generated report card based on the available data. 
+    For any queries, please contact through the about section.
+    """
+    footer = Paragraph(footer_text, normal_style)
+    elements.append(footer)
+
+    elements.append(Spacer(1, 10))
+
+    footer_date_gen = Paragraph(f'Report Generated: {datetime.now().strftime("%d-%m-%Y %H:%M")}', normal_style)
+    elements.append(footer_date_gen)
+    # Build PDF
+    doc.build(elements)
+    buffer.seek(0)
+    return buffer
+
+
+# Function to display report card dialog
+def show_report_card_dialog(student_data):
+    """
+    Shows a modal dialog with report card information
+    """
+    with st.expander("📄 STUDENT REPORT CARD", expanded=True):
+
+        # Header Section
+        st.markdown(f"""
+        <div style="text-align: center; padding: 20px; background: linear-gradient(90deg, #1e3c72, #2a5298); border-radius: 10px; margin-bottom: 20px;">
+            <h2 style="color: white; margin: 0;">DELHI TECHNOLOGICAL UNIVERSITY</h2>
+            <h4 style="color: #e8f4fd; margin: 5px 0;">ACADEMIC REPORT CARD</h4>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Student Information
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("**📋 STUDENT INFORMATION**")
+            st.write(f"**Name:** {student_data['name']}")
+            st.write(f"**Roll Number:** {student_data['roll_no']}")
+            st.write(f"**Branch:** {student_data['branch']} - {student_data['branch_full']}")
+
+        with col2:
+            st.markdown("**📊 ACADEMIC SUMMARY**")
+            st.write(f"**CGPA:** {student_data['cumulative_cgpa']}")
+            st.write(f"**Credits:** {student_data['total_credits']}")
+            st.write(f"**University Rank:** {student_data['university_rank']}")
+
+        st.markdown("---")
+
+        # Performance Metrics
+        st.markdown("**🎯 PERFORMANCE METRICS**")
+
+        metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+        with metric_col1:
+            st.metric("Department Rank", student_data['department_rank'])
+        with metric_col2:
+            st.metric("University Percentile", f"{student_data['university_percentile']}%")
+        with metric_col3:
+            st.metric("Department Percentile", f"{student_data['department_percentile']}%")
+        with metric_col4:
+            st.metric("Total Credits", student_data['total_credits'])
+
+        st.markdown("---")
+
+        # Semester Performance
+        st.markdown("**📚 SEMESTER-WISE PERFORMANCE**")
+
+        semester_df = pd.DataFrame({
+            'Semester': [f'SEM {i + 1}' for i in range(len(student_data['semesters']))],
+            'SGPA': [sem['sgpa'] for sem in student_data['semesters']],
+            'Credits': [sem['credits'] for sem in student_data['semesters']],
+            'Status': ['Completed'] * len(student_data['semesters'])
+        })
+
+        st.dataframe(semester_df, use_container_width=True, hide_index=True)
+
+        st.markdown("---")
+
+        # Download Section
+        st.markdown("**📥 DOWNLOAD REPORT CARD**")
+
+        # Generate PDF and provide download button
+        try:
+            pdf_buffer = create_report_card_pdf(student_data)
+
+            col1, col2, col3 = st.columns([1, 1, 2])
+
+            with col1:
+                st.download_button(
+                    label="📄 Download PDF Report",
+                    data=pdf_buffer.getvalue(),
+                    file_name=f"Report_Card_{student_data['roll_no']}.pdf",
+                    mime="application/pdf",
+                    type="primary"
+                )
+
+            with col3:
+                st.markdown(f"""
+                <small style="color: #666;">
+                Report generated on: {datetime.now().strftime("%d-%m-%Y at %H:%M")}
+                </small>
+                """, unsafe_allow_html=True)
+
+        except Exception as e:
+            st.error(f"Error generating PDF: {str(e)}")
+            st.info("Please try again or contact support if the issue persists.")
+
+
+# Alternative approach using session state for better UX
+def add_report_card_button(df_final, stud_branch, shortf_branch27, stud_university_rank,
+                           stud_branch_rank, stud_percentile, stud_brnch_percentile,
+                           stud_total_credits):
+    """
+    Add report card button to your existing results display
+    """
+
+    # Initialize session state
+    if 'show_report_card' not in st.session_state:
+        st.session_state.show_report_card = False
+
+    # Add this after your existing student info display
+    st.markdown("---")
+
+    col1, col2, col3 = st.columns([2, 1, 2])
+    with col2:
+        if st.button("📄 GENERATE REPORT CARD", type="primary", use_container_width=True):
+            st.session_state.show_report_card = True
+
+    # Show report card if button was clicked
+    if st.session_state.show_report_card:
+        # Prepare student data
+        student_data = {
+            'name': df_final['NAME'].values[0],
+            'roll_no': df_final['ROLL NO.'].values[0],
+            'branch': stud_branch,
+            'branch_full': shortf_branch27[stud_branch],
+            'year': '2027',  # or get from year_choosed
+            'cumulative_cgpa': df_final['CUMULATIVE CGPA'].values[0],
+            'total_credits': stud_total_credits,
+            'university_rank': stud_university_rank,
+            'department_rank': stud_branch_rank,
+            'university_percentile': stud_percentile,
+            'department_percentile': stud_brnch_percentile,
+            'semesters': [
+                {'sgpa': df_final['SGPA1'].values[0], 'credits': df_final['CREDITS1'].values[0]},
+                {'sgpa': df_final['SGPA2'].values[0], 'credits': df_final['CREDITS2'].values[0]},
+                {'sgpa': df_final['SGPA3'].values[0], 'credits': df_final['CREDITS3'].values[0]}
+            ]
+        }
+
+        # Show report card dialog
+        show_report_card_dialog(student_data)
+
+        # Add close button
+        # col1, col2, col3 = st.columns([2, 1, 2])
+        # with col2:
+        #     if st.button("❌ Close Report Card", use_container_width=True):
+        #         st.session_state.show_report_card = False
+        #         # st.experimental_rerun()
+
+
+# Simpler direct download approach (alternative)
+def add_direct_download_button(df_final, stud_branch, shortf_branch27, stud_university_rank,
+                               stud_branch_rank, stud_percentile, stud_brnch_percentile,
+                               stud_total_credits):
+    """
+    Direct download approach - generates PDF immediately when clicked
+    """
+    st.markdown("---")
+
+    # Prepare student data
+    student_data = {
+        'name': df_final['NAME'].values[0],
+        'roll_no': df_final['ROLL NO.'].values[0],
+        'branch': stud_branch,
+        'branch_full': shortf_branch27[stud_branch],
+        'year': '2027',
+        'cumulative_cgpa': df_final['CUMULATIVE CGPA'].values[0],
+        'total_credits': stud_total_credits,
+        'university_rank': stud_university_rank,
+        'department_rank': stud_branch_rank,
+        'university_percentile': stud_percentile,
+        'department_percentile': stud_brnch_percentile,
+        'semesters': [
+            {'sgpa': df_final['SGPA1'].values[0], 'credits': df_final['CREDITS1'].values[0]},
+            {'sgpa': df_final['SGPA2'].values[0], 'credits': df_final['CREDITS2'].values[0]},
+            {'sgpa': df_final['SGPA3'].values[0], 'credits': df_final['CREDITS3'].values[0]}
+        ]
+    }
+
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        try:
+            pdf_buffer = create_report_card_pdf(student_data)
+            st.download_button(
+                label="📄 Download Report Card (PDF)",
+                data=pdf_buffer.getvalue(),
+                file_name=f"Report_Card_{student_data['roll_no']}.pdf",
+                mime="application/pdf",
+                type="primary",
+                use_container_width=True
+            )
+        except Exception as e:
+            st.error(f"Error generating PDF: {str(e)}")
+            st.info("Please try refreshing the page if the issue persists.")
+
 
 # SGPA CALCULATOR FUNCTION WITH A EXPERIMENTAL DIALOG
 @st.dialog("SGPA CALCULATOR", width="small")
@@ -708,7 +1065,7 @@ if selected == 'PROFILE':
 
     Mtitle = search_middle.empty()
     Mtitle.write(f"""
-    <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile 2027</h2>
+    <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile {st.session_state.yeartitle}</h2>
     """,
                  unsafe_allow_html=True)
 
@@ -716,17 +1073,17 @@ if selected == 'PROFILE':
     descripE = description.empty()
     with descripE:
         st.markdown("""
-    <h5 style="text-align: center; align-items: center;">Enter your roll number to access a comprehensive summary of your semester grades and academic performance. A detailed report will be generated upon entry.</h2>
+    <h5 style="text-align: center; align-items: center;">Enter your roll number to view your latest results and detailed summary of your academic performance & analysis. <span style="color: #CCCCCC;">Scroll down to download your REPORT CARD</span></h2>
     """, unsafe_allow_html=True)
 
     _, filt1, filt2, _ = st.columns([2.2, 1, 1, 2.2])
 
     with filt1:
         st.markdown('<br>', unsafe_allow_html=True)
-        year_choosed = st.selectbox("Choose Year", ['2027', '2026'], index=0)
+        year_choosed = st.selectbox("Choose Year", ['2027', '2026 (NOT UPDATED YET)', '2028'], index=0)
     with filt2:
         st.markdown('<br>', unsafe_allow_html=True)
-        result_search_box = st.text_input("Enter Your Roll Number", value='', placeholder='__/__/___')
+        result_search_box = st.text_input("Enter Your Roll Number Here", value='', placeholder='__/__/___')
 
     if year_choosed == '2026':
         Mtitle.write(f"""
@@ -892,9 +1249,28 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
 
     # --------------------------ENDING OF SPECIAL ADDITION IN THE WEBSITE-----------------------------------------------------------------------------------------------------
 
+    elif year_choosed == '2028' and result_search_box and not other:
+
+        descripE.empty()
+
+        Mtitle.write(f"""
+            <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile 2028</h2>
+            """,
+                     unsafe_allow_html=True)
+
+        st.write('# ')
+        _, mm28, _ = st.columns([0.75,2.5,0.75])
+        with mm28:
+            st.info("1ST SEM RESULTS OF 2028 BATCH IS YET TO BE DECLARED. I WILL UPDATE IT HERE, AS SOON AS THE RESULTS GET OUT")
+
     elif year_choosed == '2027' and result_search_box and not other:
 
         descripE.empty()
+        st.session_state.yeartitle = '2027'
+        Mtitle.write(f"""
+            <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile 2027</h2>
+            """,
+                     unsafe_allow_html=True)
 
         # IF USER HAS PUTTEN 2K/2k IN THE ROLL NUMBER, REMOVING THAT CAUSE, OUR DATA DOES NOT CONTAIN THAT
         if '2k' in result_search_box or '2K' in result_search_box:
@@ -959,10 +1335,10 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                          unsafe_allow_html=True)
 
                 l1, l2, l3 = st.columns(3)
-                l1.metric(label="**SEM 1 | CGPA**", value=+df_final['SGPA1'].values[0])
-                l2.metric(label="**SEM 2 | CGPA**", value=+df_final['SGPA2'].values[0],
+                l1.metric(label="**SEM 1 | SGPA**", value=+df_final['SGPA1'].values[0])
+                l2.metric(label="**SEM 2 | SGPA**", value=+df_final['SGPA2'].values[0],
                           delta=round(float(df_final['SGPA2'].values[0]) - float(df_final['SGPA1'].values[0]), 2))
-                l3.metric(label="**SEM 3 | CGPA**", value=+df_final['SGPA3'].values[0],
+                l3.metric(label="**SEM 3 | SGPA**", value=+df_final['SGPA3'].values[0],
                           delta=round(float(df_final['SGPA3'].values[0]) - float(df_final['SGPA2'].values[0]), 2))
 
             with m_sec1:
@@ -1036,7 +1412,7 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                     <th style="padding: 12px; border: 1px solid #333;">S6</th>
                     <th style="padding: 12px; border: 1px solid #333;">S7</th>
                     <th style="padding: 12px; border: 1px solid #333;">Credits</th>
-                    <th style="padding: 12px; border: 1px solid #333;">CGPA</th>
+                    <th style="padding: 12px; border: 1px solid #333;">SGPA</th>
                 </tr>
             </thead>
             <tbody>
@@ -1267,11 +1643,14 @@ arguements skills, homour got improved somehow by daily this fighting bkchodi wi
                 st.plotly_chart(percent_placement_barc, use_container_width=True,
                                 config={"modeBarButtonsToRemove": ['lasso2d', 'autoScale2d', 'select2d']})
 
-            st.markdown('---')
+            add_report_card_button(df_final, stud_branch, shortf_branch27, stud_university_rank,
+                                   stud_branch_rank, stud_percentile, stud_brnch_percentile, stud_total_credits)
 
 
-    elif year_choosed == '2026' and result_search_box:
+    elif year_choosed == '2026 (NOT UPDATED YET)' and result_search_box:
+
         descripE.empty()
+        st.session_state.yeartitle = '2026'
 
         # IF USER HAS PUTTEN 2K/2k IN THE ROLL NUMBER, REMOVING THAT CAUSE, OUR DATA DOES NOT CONTAIN THAT
         if '2k' in result_search_box or '2K' in result_search_box:

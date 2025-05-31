@@ -5,15 +5,16 @@
     font-size: 65px;
 }
 
+
+.nametit__ {
+    color:	#1F51FF;
+}
+
 .nametitm {
     text-align: center;
     align-items: center;
     color: 	#475f96; /*hsl(210, 30%, 58%)*/
     font-size: 65px;
-}
-
-.nametit__ {
-    color:	#1F51FF;
 }
 
 .cgline {
