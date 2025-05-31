@@ -558,7 +558,7 @@ def ranksNresults_menu():
 
     if year_choosed == '2027':
         df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2','SGPA3', 'CUMULATIVE CGPA']]
-        df.columns = ['RANK', 'NAME', 'ROLL NO.', '1ST SEM', '2ND SEM', '3RD SEM','4TH SEM']
+        df.columns = ['RANK', 'NAME', 'ROLL NO.', '1ST SEM', '2ND SEM', '3RD SEM','CUMULATIVE CGPA']
 
     elif year_choosed == '2026':
         df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'SGPA3', 'SGPA4', 'CUMULATIVE CGPA']]
