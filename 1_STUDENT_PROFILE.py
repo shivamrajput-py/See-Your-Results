@@ -317,7 +317,7 @@ def show_report_card_dialog(student_data):
         # Download Section
         st.markdown("**📥 DOWNLOAD REPORT CARD**")
 
-        # Generate PDF and provide download button AND GG 
+        # Generate PDF and provide download button AND GG
         try:
 
             pdf_buffer = create_report_card_pdf(student_data)
@@ -345,7 +345,7 @@ def show_report_card_dialog(student_data):
             st.info("Please try again or contact support if the issue persists.")
 
 
-# Alternative approach using session state for better UX
+# Alternative approach using session state for better UX jjj
 def add_report_card_button(df_final, stud_branch, shortf_branch27, stud_university_rank,
                            stud_branch_rank, stud_percentile, stud_brnch_percentile,
                            stud_total_credits):
