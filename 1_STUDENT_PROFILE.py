@@ -317,8 +317,9 @@ def show_report_card_dialog(student_data):
         # Download Section
         st.markdown("**📥 DOWNLOAD REPORT CARD**")
 
-        # Generate PDF and provide download button
+        # Generate PDF and provide download button AND GG 
         try:
+
             pdf_buffer = create_report_card_pdf(student_data)
 
             col1, col2, col3 = st.columns([1, 1, 2])
