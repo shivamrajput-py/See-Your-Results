@@ -1448,7 +1448,7 @@ if selected == 'PROFILE':
                 elif 70 < stud_percentile <= 100:
                     uni_tile = random.choice(cat_70_100).replace('__X__', str(round(100 - stud_percentile, 3))).replace('__TYPE__', 'university')
 
-                # DEPARTMENT PERCENTILE STATS LINE:
+                # DEPARTMENT PERCENTILE STATISTIC LINE:
 
                 if 0 <= stud_brnch_percentile <= 30:
                     dept_tile = random.choice(cat_0_30).replace('__X__', str(stud_brnch_percentile)).replace('__TYPE__','department')
