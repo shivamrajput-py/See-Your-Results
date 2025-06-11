@@ -1,0 +1,194 @@
+[
+   {
+      "NAME": "PRIYANSHU",
+      "ROLL NO.": "24/BT/501",
+      "CREDITS1": "8.20",
+      "SGPA1": "A",
+      "GRADE1": [
+         "A+",
+         "A",
+         "A",
+         "A",
+         "A"
+      ],
+      "S_NO": "59"
+   },
+   {
+      "NAME": "SARVAGGYA SINGH",
+      "ROLL NO.": "24/BT/507",
+      "CREDITS1": "4.80",
+      "SGPA1": "A",
+      "GRADE1": [
+         "F",
+         "C",
+         "C",
+         "B",
+         "A"
+      ],
+      "S_NO": "60"
+   },
+   {
+      "NAME": "RAMAN KUMAR",
+      "ROLL NO.": "24/BT/502",
+      "CREDITS1": "6.60",
+      "SGPA1": "A",
+      "GRADE1": [
+         "B",
+         "B",
+         "B+",
+         "B+",
+         "B"
+      ],
+      "S_NO": "61"
+   },
+   {
+      "NAME": "SHEETAL",
+      "ROLL NO.": "24/BT/503",
+      "CREDITS1": "6.20",
+      "SGPA1": "A",
+      "GRADE1": [
+         "A",
+         "B",
+         "C",
+         "B",
+         "B"
+      ],
+      "S_NO": "62"
+   },
+   {
+      "NAME": "SURAJ KUMAR",
+      "ROLL NO.": "24/BT/504",
+      "CREDITS1": "6.40",
+      "SGPA1": "A",
+      "GRADE1": [
+         "A",
+         "B",
+         "C",
+         "B",
+         "B+"
+      ],
+      "S_NO": "63"
+   },
+   {
+      "NAME": "KSHITIZ",
+      "ROLL NO.": "24/BT/509",
+      "CREDITS1": "5.40",
+      "SGPA1": "A",
+      "GRADE1": [
+         "B",
+         "B",
+         "C",
+         "P",
+         "C"
+      ],
+      "S_NO": "64"
+   },
+   {
+      "NAME": "DEEPANSHU PAL",
+      "ROLL NO.": "24/BT/510",
+      "CREDITS1": "4.10",
+      "SGPA1": "A",
+      "GRADE1": [
+         "B+",
+         "F",
+         "F",
+         "B+",
+         "B"
+      ],
+      "S_NO": "65"
+   },
+   {
+      "NAME": "RAKSHITA SINGH",
+      "ROLL NO.": "24/BT/511",
+      "CREDITS1": "8.60",
+      "SGPA1": "A",
+      "GRADE1": [
+         "O",
+         "A+",
+         "A",
+         "A+",
+         "A"
+      ],
+      "S_NO": "66"
+   },
+   {
+      "NAME": "SANTOKI TEJAS\nSUNILBHAI",
+      "ROLL NO.": "24/BT/505",
+      "CREDITS1": "5.20",
+      "SGPA1": "B+",
+      "GRADE1": [
+         "B+",
+         "P",
+         "P",
+         "C",
+         "B"
+      ],
+      "S_NO": "67"
+   },
+   {
+      "NAME": "VANSH GULATI",
+      "ROLL NO.": "24/BT/508",
+      "CREDITS1": "5.20",
+      "SGPA1": "A",
+      "GRADE1": [
+         "B",
+         "P",
+         "P",
+         "C",
+         "B"
+      ],
+      "S_NO": "69"
+   },
+   {
+      "NAME": "ABHISHEK SINGH",
+      "ROLL NO.": "24/EN/501",
+      "CREDITS1": "3.33",
+      "SGPA1": "F",
+      "GRADE1": [
+         "F",
+         "C",
+         "B",
+         "P"
+      ],
+      "S_NO": "70"
+   },
+   {
+      "NAME": "AMRIT SINGH",
+      "ROLL NO.": "24/EN/503",
+      "CREDITS1": "6.00",
+      "SGPA1": "F",
+      "GRADE1": [
+         "B+",
+         "B+",
+         "B+",
+         "B"
+      ],
+      "S_NO": "71"
+   },
+   {
+      "NAME": "SAURAV SINGH",
+      "ROLL NO.": "24/EN/504",
+      "CREDITS1": "1.33",
+      "SGPA1": "F",
+      "GRADE1": [
+         "F",
+         "F",
+         "B",
+         "F"
+      ],
+      "S_NO": "72"
+   },
+   {
+      "NAME": "SUMIT KUMAR",
+      "ROLL NO.": "24/EN/502",
+      "CREDITS1": "6.11",
+      "SGPA1": "B+",
+      "GRADE1": [
+         "A+",
+         "P",
+         "C",
+         "B+"
+      ],
+      "S_NO": "73"
+   }
+]

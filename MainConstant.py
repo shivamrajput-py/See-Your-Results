@@ -37,14 +37,35 @@ shortf_branch27 = {
     'CH': 'Chemical Engineering',
     'PE': 'Production Engineering',
     'EN': 'Environmental Engineering',
-    'BT': 'Bio-Technology'
+    'BT': 'Bio-Technology',
+    'AE': 'Mechanical Engineering with Specialization in Automotive'
 }
+
+shortf_branch28 = {
+    'CS': 'Computer Science',
+    'IT': 'Information Technology',
+    'SE': 'Software Engineering',
+    'MC': 'Mathematics and Computing',
+    'EC': 'Electronics and Communication Engineering',
+    'EE': 'Electrical Engineering',
+    'EP': 'Engineering Physics',
+    'ME': 'Mechanical Engineering',
+    'AE': 'Automotive Engineering',
+    'CE': 'Civil Engineering',
+    'CH': 'Chemical Engineering',
+    'PE': 'Production Engineering',
+    'EN': 'Environmental Engineering',
+    'BT': 'Bio-Technology',
+    'MAM': 'Mechanical Engineering with Specialization in Automotive'
+}
+
 
 shortf_branch27REV = dict((v,k) for k,v in shortf_branch27.items())
 
 placem_branch_name = {
     'EP': 'Engineering Physics',
     'AE': 'Mechanical Engineering with Specialization in Automotive',
+    'MAM': 'Mechanical Engineering with Specialization in Automotive',
     'CS': 'Computer Engineering',
     'IT': 'Information Technology',
     'MC': 'Mathematics and Computing',

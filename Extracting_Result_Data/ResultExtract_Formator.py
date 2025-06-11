@@ -90,13 +90,18 @@ if False:
     open('./ranked_results_csv/recentSemData.json', 'w').write(json.dumps(result, indent=3))
 
 # OLD SEMEMSTER RESULT SEM 1 (2027 BATCH) RESULT FORMATOR WITH GRADE
-if False:
+if True:
     result = []
 
     scrapelist = os.listdir('./result_data_pdf')
+    fl = open('./ranked_results_csv/28ALLSTUDENT_TILLS1.csv', 'w')
+    FINALDF = csv.writer(fl)
+    FINALDF.writerow(['RANK', 'NAME', 'ROLL NO.', 'CREDITS1', 'SGPA1', 'GRADE1', 'S_NO'])
+
     for result_file in scrapelist:
         count = 1
-        if 'E24' in str(result_file):
+
+        if 'BTECH_1_' not in str(result_file):
             continue
 
         pdf = pdfplumber.open(f'result_data_pdf/{result_file}')
@@ -105,26 +110,20 @@ if False:
             for table in page.extract_tables():
                 for row in table:
 
-                    if '23/' in str(row[1]):
+                    try:
+                        if row[1]: pass
+                    except:
+                        continue
 
-                        if len(row)<11:
-                            continue
-                        else:
-                            error = len(row)-12
+                    if '24/' in str(row[1]):
 
-                        result.append({
-                            "ROLL NO.": row[1],
-                            "CREDITS1": row[-3],
-                            "SGPA1": row[-4],
-                            "GRADE1": row[3:-4],
-                            "S_NO": row[0]
-                        })
+                        FINALDF.writerow([0, row[2], row[1], row[-3], row[-4], row[3:-4], row[0]])
                         count += 1
 
-    open('./ranked_results_csv/prevSemData.json', 'w').write(json.dumps(result, indent=3))
+    fl.close()
 
 # MERGING PREVIOUS SEM RESULT WITH THE RECENT SEM RESULT!
-if True:
+if False:
 
     main_json = json.loads(open('./ranked_results_csv/recentSemData.json', 'r').read())
     csv_to_json('./ranked_results_csv/UNI_rankedR27.csv', './ranked_results_csv/prevSemData.json')
