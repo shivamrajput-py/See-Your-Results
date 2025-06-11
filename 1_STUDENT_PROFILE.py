@@ -1635,7 +1635,7 @@ if selected == 'PROFILE':
             max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='',
                                         color_discrete_sequence=[BAR_COLOR]).update_layout({'dragmode': False})
 
-            # PERCENTAGE PLACED PLACEMENT
+            # PERCENTAGE PLACED PLACEMENT STATS
 
             data23 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed23.csv')
             data22 = pd.read_csv('./Extracting_Result_Data/placement_data/percentage_placed22.csv')
