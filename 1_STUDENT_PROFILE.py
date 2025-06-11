@@ -345,7 +345,7 @@ def show_report_card_dialog(student_data):
             st.info("Please try again or contact support if the issue persists.")
 
 
-# Alternative approach using session state for better UX jjj
+# Alternative approach using session state for better UX jjj IJBFSFJSBS
 def add_report_card_button(df_final, stud_branch, shortf_branch27, stud_university_rank,
                            stud_branch_rank, stud_percentile, stud_brnch_percentile,
                            stud_total_credits):
