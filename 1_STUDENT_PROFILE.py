@@ -1657,7 +1657,7 @@ if selected == 'PROFILE':
             percent_placement_barc = px.bar(df, title=f"Percentage Of Student Placed", range_y=[0, 100],
                 text_auto='', color_discrete_sequence=[BAR_COLOR]).update_layout({'dragmode': False})
 
-            bar1, bar2, bar3 = st.columns(3)
+            bar1, bar2, bar3 = st.columns(3) # PLEASE GOD
 
             with bar1:
                 st.plotly_chart(avg_placement_barc, use_container_width=True,config={"modeBarButtonsToRemove": ['lasso2d', 'autoScale2d', 'select2d']})
