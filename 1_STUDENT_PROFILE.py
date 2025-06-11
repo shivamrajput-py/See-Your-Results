@@ -98,7 +98,6 @@ def gainerList(stud_branch: str):
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('---')
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 # PDF PART !!
 
@@ -2266,3 +2265,6 @@ elif selected == 'ABOUT':
 
 elif selected == 'STUDY':
     studyResources_menu()
+
+
+# END OF THE CODE
