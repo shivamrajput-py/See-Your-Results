@@ -396,7 +396,7 @@ def add_direct_download_button(df_final, stud_branch, shortf_branch27, stud_univ
                                stud_branch_rank, stud_percentile, stud_brnch_percentile,
                                stud_total_credits):
     """
-    Direct download approach - generates PDF immediately when clicked (------------------)
+    Direct download approach - generates PDF immediately when clicked (--------------------------)
     """
     st.markdown("---")
 
