@@ -25,7 +25,7 @@ import base64
 
 warnings.filterwarnings('ignore')
 
-st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTURESULTS ANALYSIS', page_icon='🎓')
+st.set_page_config(layout='centered', initial_sidebar_state='collapsed', page_title='DTURESULTS ANALYSIS', page_icon='🎓')
 
 color = '#1F51FF'  # USE FOR HIGHLIGHTING A SPECIFIC WORD
 BAR_COLOR = '#1E90FF'
