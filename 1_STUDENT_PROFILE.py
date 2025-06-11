@@ -590,7 +590,7 @@ def placement_menu():
                 text-align: center;
                 align-items: center;
                 font-size: 13px;
-                ">Be on Desktop mode to see the graphs properly!</h6>
+                ">Be on Desktop mode to see the graphs properly! (2024 STATS SOON!)</h6>
                 """,
              unsafe_allow_html=True)
 
