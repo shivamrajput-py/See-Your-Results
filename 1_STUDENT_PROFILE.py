@@ -13,7 +13,6 @@ import os
 from datetime import datetime
 import statistics
 import warnings
-# Add these imports at the top of your file
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -31,7 +30,7 @@ st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title=
 color = '#1F51FF'  # USE FOR HIGHLIGHTING A SPECIFIC WORD
 BAR_COLOR = '#1E90FF'
 other = False
-st.session_state.yeartitle = '2027'
+st.session_state.yeartitle = '2028'
 
 with open('style.css', 'r') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -92,9 +91,6 @@ def gainerList(stud_branch: str):
                         """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-
-    # _, mm, _ = st.columns([1.5, 7, 1.5])
-    # with mm:
 
     ranklist = st.empty()
     ranklist.dataframe(df, hide_index=True, use_container_width=True, height=460)
@@ -459,7 +455,6 @@ def sgpacal():
         subbut = st.button('CALCULATE YOUR SGPA ACCORDING TO THESE GRADES:')
 
         if subbut:
-            # try:
 
             nofs = st.session_state.nofs
             total, crdtotal = 0, 0
@@ -482,9 +477,6 @@ def sgpacal():
 
             st.markdown('---')
 
-            # except:
-            #     st.warning('PLEASE ENTER VALID INFORMAION! ')
-
     if nofs:
         st.session_state.crList = []
         st.session_state.grdList = []
@@ -498,8 +490,7 @@ def sgpacal():
                 if i == 0:
                     pass
                 else:
-                    crd = st.number_input(f"Subject {i} Credits:", placeholder='Credits:', min_value=0, step=1,
-                                          value=num[i])
+                    crd = st.number_input(f"Subject {i} Credits:", placeholder='Credits:', min_value=0, step=1,value=num[i])
                     st.session_state.crList.append(crd)
 
             with sec2:
@@ -783,8 +774,6 @@ def placement_menu():
 
     st.markdown("""<br>""", unsafe_allow_html=True)
     st.markdown("---")
-
-
 
 # -----------------------------------------------------------------------------------------------------------------------
 
