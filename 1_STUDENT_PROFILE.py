@@ -37,7 +37,7 @@ with open('style.css', 'r') as f:
 
 # -----------------------------------------------------------------------------------------------------------------------
 
-# FOR LOADING THE ANIMATION !!
+# FOR LOADING THE ANIMATION !!!!
 @st.fragment
 def load_lottieurl(isjson: bool, url_or_path: str):
     if isjson:
