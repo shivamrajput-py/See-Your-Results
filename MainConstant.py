@@ -50,7 +50,6 @@ shortf_branch28 = {
     'EE': 'Electrical Engineering',
     'EP': 'Engineering Physics',
     'ME': 'Mechanical Engineering',
-    'AE': 'Automotive Engineering',
     'CE': 'Civil Engineering',
     'CH': 'Chemical Engineering',
     'PE': 'Production Engineering',
