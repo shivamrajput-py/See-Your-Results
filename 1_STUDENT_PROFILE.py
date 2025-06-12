@@ -1086,245 +1086,200 @@ if selected == 'PROFILE':
         descripE.empty()
         other = True
 
-        # Header with gradient effect
+        # Add some beautiful styling wrapper
         st.markdown("""
-        <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; margin: 2rem 0;">
-            <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-size: 2.5rem; margin-bottom: 0.5rem;">
-                ✨ Welcome, Kritika! ✨
-            </h1>
-            <p style="color: #f0f0f0; font-size: 1.2rem; margin: 0;">
-                You've discovered something special... 💫
-            </p>
-        </div>
+        <style>
+        .kritika-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+        .fun-header {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        </style>
         """, unsafe_allow_html=True)
 
-        st.markdown('### 🔮 A Little Mystery First...')
-        st.write("I need to make sure you're the Kritika I know! 😊")
-        st.write('**Answer this question:**')
-
-        kiritbox = st.text_input(
-            label='verification',
-            label_visibility="hidden",
-            value='',
-            placeholder='What is that short name you gave yourself, which I started calling you by? 🤔'
-        )
-
+        # Your original content starts here - UNCHANGED
+        st.subheader('IS KIRTI :pouting_cat: HERE ? WTF ARE YOU DOING HERE!')
+        st.write("I actually don't know whether you are the kri-tikka ik or someone else?")
+        st.write('Give me the right answer of the question written below:')
+        kiritbox = st.text_input(label='kiritbox', label_visibility="hidden", value='',
+                                 placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
         if kiritbox:
-            if kiritbox.lower() == 'kirit':
-                # Success message with beautiful styling
-                st.markdown("""
-                <div style="text-align: center; padding: 2rem; background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%); border-radius: 15px; border: 3px solid #ff69b4; margin: 1rem 0;">
-                    <h2 style="color: #d63384; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
-                        🎉 YES! You're THE Kritika I know! 🎉
-                    </h2>
-                    <p style="color: #6f42c1; font-size: 1.1rem; font-weight: 500;">
-                        Kirit, my favorite certified Big W Yapper! 😸💕
-                    </p>
-                </div>
-                """, unsafe_allow_html=True)
+            if kiritbox == 'kirit' or kiritbox == 'Kirit' or kiritbox == 'KIRIT':
+                st.warning("YOU ARE THE KRITIKA :smile_cat: I KNOW, I MEAN KIRIT BKL 🥰 ")
 
-                # Mid-year motivation section
-                st.markdown("""
-                <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 2rem; border-radius: 15px; margin: 2rem 0; border-left: 5px solid #20c997;">
-                    <h2 style="color: #0d6efd; text-align: center; margin-bottom: 1rem;">
-                        🌟 Mid-Year Vibes & Wishes 🌟
-                    </h2>
-                    <div style="color: #495057; font-size: 1.1rem; line-height: 1.6;">
-                        <p><strong>Hey Kirit!</strong> 🫶 We're halfway through the year, and I hope you're absolutely crushing it!</p>
-                        <p>✨ <em>May the next 6 months bring you:</em></p>
-                        <ul style="list-style: none; padding-left: 0;">
-                            <li>🎯 <strong>Success in your CA Foundation</strong> - You've got this, smart cookie!</li>
-                            <li>🌸 <strong>Beautiful moments</strong> that make you smile every day</li>
-                            <li>📚 <strong>Academic excellence</strong> - Keep that nerd energy strong!</li>
-                            <li>💪 <strong>Strength</strong> to overcome any challenges</li>
-                            <li>🎭 <strong>Adventures</strong> that create amazing memories</li>
-                            <li>💝 <strong>Love and laughter</strong> in abundance</li>
-                        </ul>
-                        <p style="text-align: center; font-weight: bold; color: #d63384;">
-                            The best is yet to come, Kritika! 🧿✨
-                        </p>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown('# ')
 
-                # Animated welcome messages
-                welcome_messages = [
-                    ("WELCOME TO", "✨ Step into something special", 8),
-                    ("MY WEBSITE", "🌐 Your personal corner of the internet", 18),
-                    ("MISS CERTIFIED", "🏆 Academic queen in the making", 28),
-                    ("BIG W YAPPER", "💬 The conversation champion", 38),
-                    ("KRITIKA SINHA", "👑 The one and only! 💖", 48)
-                ]
+                st.markdown('### YO KIRIT, HOW WE DOING IN 2025? 🚀')
+                st.markdown('## you are absolutely SLAYING this year so far! 💅')
+                st.markdown('## MISS CA. Kritika Sinha, RIDICULOUSLY GORGEOUS AND DISGUSTINGLY EDUCATED.')
+                st.markdown('##### Next 6 months gonna be FIRE, I can feel it! (FAMOUS INFLUENCER? EXAMS CRACKED? YES, DILLI SHE IS COMING)✨🧿')
 
-                for i in range(55):
-                    st.markdown("""<div style="height: 20px;"></div>""", unsafe_allow_html=True)
+                st.markdown('# ')
 
-                    for msg, subtitle, position in welcome_messages:
-                        if i == position:
-                            col_idx = (position // 10) % 5
-                            cols = st.columns(5)
-                            with cols[col_idx]:
-                                st.markdown(f"""
-                                <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px; backdrop-filter: blur(10px);">
-                                    <h1 style="color: #ff6b6b; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); margin-bottom: 0.5rem;">
-                                        {msg}
-                                    </h1>
-                                    <h6 style="color: #4ecdc4; font-style: italic;">
-                                        {subtitle}
-                                    </h6>
-                                </div>
-                                """, unsafe_allow_html=True)
-
-                # Appreciation section with better styling
-                appreciation_messages = [
-                    ("YOU ARE TRULY", "🌟 A shining star in this world", 6),
-                    ("A PERFECT W", "🏆 Winner in every sense", 16),
-                    ("A 10/10 PERSON", "💯 Inside and out, absolutely amazing", 26),
-                    ("BEAUTIFUL SOUL", "✨ With a heart of gold", 36),
-                    ("MY AMAZING SALI", "👑 The best sister-in-law ever! 🎀", 46)
-                ]
-
+                # Your original welcome sequence - UNCHANGED
+                kiriti = ['WELCOME TO', 'MY WEBSITE', 'MISS CERTIFIED', 'BIG W YAPPER', 'KRITIKA SINHA :smirk_cat:']
                 for i in range(52):
-                    st.markdown("""<div style="height: 25px;"></div>""", unsafe_allow_html=True)
+                    st.markdown("""<br>""", unsafe_allow_html=True)
+                    if (i == 3):
+                        k, _, _, _, _ = st.columns(5)
+                        k.markdown(f'# {kiriti[0]}')
+                        k.markdown('<h6>bhaag ja bhen ki lauri</h6>', unsafe_allow_html=True)
+                    elif (i == 15):
+                        _, k, _, _, _ = st.columns(5)
+                        k.markdown(f'# {kiriti[1]}')
+                        k.markdown('<h6>Consider Yourself Special bich</h6>', unsafe_allow_html=True)
 
-                    for msg, subtitle, position in appreciation_messages:
-                        if i == position:
-                            col_idx = 4 - (position // 10) % 5
-                            cols = st.columns(5)
-                            with cols[col_idx]:
-                                st.markdown(f"""
-                                <div style="text-align: center; padding: 1.5rem; background: linear-gradient(45deg, #ffeaa7, #fab1a0); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                    <h2 style="color: #2d3436; margin-bottom: 0.5rem; font-weight: bold;">
-                                        {msg}
-                                    </h2>
-                                    <h6 style="color: #636e72; font-style: italic;">
-                                        {subtitle}
-                                    </h6>
-                                </div>
-                                """, unsafe_allow_html=True)
+                    elif (i == 27):
+                        _, _, k, _, _ = st.columns(5)
+                        k.markdown(f'# {kiriti[2]}')
+                        k.markdown('<h6>not your average Biharan</h6>', unsafe_allow_html=True)
 
-                # Personal message section
-                st.markdown("""<div style="height: 100px;"></div>""", unsafe_allow_html=True)
+                    elif (i == 39):
+                        _, _, _, k, _ = st.columns(5)
+                        k.markdown(f'# {kiriti[3]}')
+                        k.markdown('<h6>the W in your name stands for WIN</h6>', unsafe_allow_html=True)
 
-                left_col, spacer, right_col = st.columns([1.6, 0.4, 1.6])
+                    elif (i == 51):
+                        _, _, _, _, k = st.columns(5)
+                        k.markdown(f'# {kiriti[4]}')
+                        k.markdown('<h6 style="color: pink;">Kirti THE gori niggru, fr <3</h6>', unsafe_allow_html=True)
 
-                with left_col:
-                    st.markdown("""
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 20px; color: white;">
-                        <h1 style="color: #ffd700; text-align: center; margin-bottom: 1.5rem;">💌 Dear Kirti 💌</h1>
-                        <div style="font-size: 1.1rem; line-height: 1.7; text-align: justify;">
-                            <p>How are you doing, my favorite person? I hope everything is going amazingly well for you! 🌟</p>
+                # Your original second sequence - UNCHANGED
+                kiriti = ['YOU ARE REALLY', 'A PERFECT W', 'A 10/10 BADDIE', 'PRETTY BICH',
+                          'MY SALI, LITERALLY THE BEST SALI 🎀']
 
-                            <p>You know what? You're absolutely incredible at everything you do. Keep pushing forward with your studies because your dedication truly inspires me. CA Foundation is just the beginning of your amazing journey!</p>
+                for i in range(54):
+                    st.markdown("""<br>""", unsafe_allow_html=True)
 
-                            <p>I'm genuinely excited about your future plans and can't wait to see you achieve all your dreams. You have this incredible ability to light up any room you enter! ✨</p>
+                    if (i == 6):
+                        _, _, _, _, k = st.columns(5)
+                        k.markdown(f'## {kiriti[0]}')
+                        k.markdown('<h6>A Magical god-crafted SHIT, yes</h6>', unsafe_allow_html=True)
 
-                            <p>Thank you for being such an amazing part of my life - your support, your humor, and your genuine care mean the world to me. Our silly conversations and friendly arguments always brighten my day! 😊</p>
+                    if (i == 17):
+                        _, _, _, k, _ = st.columns(5)
+                        k.markdown(f'## {kiriti[1]}')
+                        k.markdown('<h6>W = Womp Womp nigggaahhhoee</h6>', unsafe_allow_html=True)
 
-                            <p style="text-align: center; font-weight: bold; color: #ffd700;">
-                                Keep being the wonderful person you are! 💖
-                            </p>
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    if (i == 29):
+                        _, _, k, _, _ = st.columns(5)
+                        k.markdown(f'## {kiriti[2]}')
+                        k.markdown('<h6>you will surely bad-DIE</h6>', unsafe_allow_html=True)
 
-                with right_col:
-                    st.markdown("""
-                    <div style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); padding: 2rem; border-radius: 20px;">
-                        <h1 style="color: #d63384; text-align: center; margin-bottom: 1.5rem;">✨ ~KRITIKA SINHA~ ✨</h1>
-                        <div style="color: #495057; font-size: 1rem;">
-                    """, unsafe_allow_html=True)
+                    if (i == 41):
+                        _, k, _, _, _ = st.columns(5)
+                        k.markdown(f'## {kiriti[3]}')
+                        k.markdown("<h6>It ain't a lie tho, everything is</h6>", unsafe_allow_html=True)
 
-                    traits = [
-                        ("🧠 The **N** in your name", "stands for how **NATURALLY BRILLIANT** you are"),
-                        ("🎯 The **T** in your name", "stands for how **TALENTED** you are"),
-                        ("💪 The **M** in your name", "stands for how **MOTIVATED** you are"),
-                        ("⭐ The **A** in your name", "stands for how **ABSOLUTELY AMAZING** you are"),
-                        ("💎 The **R** in your name", "stands for how **REMARKABLY SPECIAL** you are"),
-                        ("🌟 The **B** in your name", "stands for how **BRILLIANT** your mind is"),
-                        ("😊 The **S** in your name", "stands for how **SWEET & SMART** you are"),
-                        ("❤️ The **H** in your name", "stands for how **HEARTWARMING** your presence is")
-                    ]
+                    if (i == 53):
+                        k, _, _, _, _ = st.columns(5)
+                        k.markdown(f'## {kiriti[4]}')
+                        k.markdown(
+                            """<h6 style="color: pink;">Kya expect kra another reply, NO, it is acutally true ehehehe <3</h6>""",
+                            unsafe_allow_html=True)
 
-                    for letter, meaning in traits:
-                        st.markdown(f"**{letter}** {meaning}")
-
-                    st.markdown("""
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                # Final appreciation messages
-                final_messages = [
-                    ("KRI-TIKKA", "🍗 The sweetest nickname ever! 💅🏻", 5),
-                    ("AMAZING HUMAN", "🎵 With incredible taste in everything! 🙇🏻", 15),
-                    ("YOU'RE WONDERFUL", "🌟 Absolutely perfect just as you are!", 25),
-                    ("SMART & SWEET", "🐥 A perfect combination of brains and heart", 35),
-                    ("MY DEAR SALI", "🎀 The best addition to our family! 💖", 45)
-                ]
-
-                for i in range(50):
-                    st.markdown("""<div style="height: 30px;"></div>""", unsafe_allow_html=True)
-
-                    for msg, subtitle, position in final_messages:
-                        if i == position:
-                            col_idx = position // 10
-                            cols = st.columns(5)
-                            with cols[col_idx]:
-                                if i == 45:  # Final message
-                                    st.markdown(f"""
-                                    <div style="text-align: center; padding: 2rem; background: linear-gradient(45deg, #ff6b6b, #feca57); border-radius: 20px; box-shadow: 0 8px 25px rgba(255,107,107,0.3);">
-                                        <h2 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); margin-bottom: 1rem;">
-                                            {msg}
-                                        </h2>
-                                        <h6 style="color: #fff; font-size: 1rem; font-weight: 500;">
-                                            {subtitle}
-                                        </h6>
-                                        <div style="margin-top: 1rem; font-size: 0.9rem; color: #fff;">
-                                            <p><strong>MERI SALI ✔️ MY SISTER-IN-LAW ❌</strong></p>
-                                            <p><strong>Keep being amazing, Kirti! 🤍</strong></p>
-                                            <p><em>This page is always here for you to revisit! 💫</em></p>
-                                        </div>
-                                    </div>
-                                    """, unsafe_allow_html=True)
-                                else:
-                                    st.markdown(f"""
-                                    <div style="text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.9); border-radius: 15px; border: 2px solid #ff6b6b;">
-                                        <h2 style="color: #ff6b6b; margin-bottom: 0.5rem;">
-                                            {msg}
-                                        </h2>
-                                        <h6 style="color: #666; font-style: italic;">
-                                            {subtitle}
-                                        </h6>
-                                    </div>
-                                    """, unsafe_allow_html=True)
-
-                # Beautiful ending
-                st.markdown("""<div style="height: 100px;"></div>""", unsafe_allow_html=True)
-
+                # Add a fun intermission in your style
+                st.markdown("<br><br><br>", unsafe_allow_html=True)
                 st.markdown("""
-                <div style="text-align: center; padding: 3rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 25px; margin: 2rem 0;">
-                    <h1 style="color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); margin-bottom: 1rem;">
-                        ✨ Until Next Time, Beautiful! ✨
-                    </h1>
-                    <p style="color: white; font-size: 1.2rem; font-style: italic;">
-                        This special corner of the internet is always here for you, Kritika! 💖
-                    </p>
-                    <div style="margin-top: 1rem; font-size: 2rem;">
-                        🌟💫⭐✨🌟
-                    </div>
+                <div style="text-align: center; background: linear-gradient(45deg, #ff9a9e, #fecfef); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <h2 style="color: #d63384;">🎪 INTERMISSION TIME! 🎪</h2>
+                    <p style="color: #6f42c1; font-size: 1.1rem;">Take a sip of water, Kirti. This is getting long af, but we ain't stopping!</p>
                 </div>
                 """, unsafe_allow_html=True)
+
+                # Your original personal message section - UNCHANGED
+                st.markdown("<br><br><br><br><br>", unsafe_allow_html=True)
+                lef, _, rig = st.columns([1.6, 2, 1.7])
+
+                with lef:
+
+                    st.markdown('''<h1 style="color: #D27D2D;">SO, KIRTI</h1>''', unsafe_allow_html=True)
+                    st.markdown("""<br>""", unsafe_allow_html=True)
+                    st.markdown('''<h6 style="color: white;">How you doing? All well i hope so, How's my rishika, I hope she is well too,I am writing this considering
+        the future aspect too! KEEP STUDYING KIRTI, Cause you know what, nothing remains in life except your work so yayy,
+        simple Jiju advice. Also Improve your choice in dating men ,It Sucks! Best wishes for Your Upcoming CA foundation,
+        I hope you clear it with good marks and come to delhi soon, tbh bit excited bout it! so kirit gora niggru tbh idk
+        what to say more, i suck at writing shit like this. Haan, Thank you for being a good supportive sali,
+        for giving me gifts suggestions, Thank you for being TOO much nice to me, its always fun to fight w ya, tbh my vocab,
+        arguements skills, homour got improved somehow by daily this fighting bkchodi with ya. I Like those silly convo between US Dumbfucks, That Vibe>>></h5>''',
+                                unsafe_allow_html=True)
+
+                with rig:
+                    st.markdown('''<h1 style="color: #D27D2D;">~KRITIKA SINHA~</h1>''', unsafe_allow_html=True)
+                    st.markdown("""<br>""", unsafe_allow_html=True)
+                    st.write('- The N in your Name Stands for How much NERD You are')
+                    st.write('- The T in your Name Stands for How much TRASH you are')
+                    st.write('- The M in your Name Stands for How much Mardana you are')
+                    st.write('- The A in your Name Stands for How Amazing You are')
+                    st.write('- The R in your Name Stands for How Rare You are')
+                    st.write('- The B in your Name Stands for that BIG Dick You have')
+                    st.write('- The S in your Name Stands for How Smart & Sweet You are')
+                    st.write('- The H in your Name Stands for that Sexy Humour you got')
+
+                # Add another fun section in your style
+                st.markdown("<br><br><br>", unsafe_allow_html=True)
+
+                # Your original final sequence - UNCHANGED
+                kiriti = ['KRI-TIKKA', 'WHITE NIGGAHH', 'YOU ARE TOOO MUCHHHH', 'NERD, MARD WITH BIG D',
+                          'SALI JII, BUS JAIYE AB AAP']
+                for i in range(46):
+                    st.markdown("""<br>""", unsafe_allow_html=True)
+                    if (i == 3):
+                        k, _, _, _, _ = st.columns(5)
+                        k.markdown(f'## {kiriti[0]}')
+                        k.markdown('<h6>urff DeepFriedChicken 💅🏻</h6>', unsafe_allow_html=True)
+
+                    if (i == 13):
+                        _, k, _, _, _ = st.columns(5)
+                        k.markdown(f'## {kiriti[1]}')
+                        k.markdown('<h6>Silly dumb nigga, BUT<br>YOUR MUSIC TASTE>>>🙇🏻</h6>', unsafe_allow_html=True)
+
+                    if (i == 23):
+                        _, _, k, _, _ = st.columns(5)
+                        k.markdown(f'## {kiriti[2]}')
+                        k.markdown('<h6>Hot to handle? naah! Skinny(joks)</h6>', unsafe_allow_html=True)
+
+                    if (i == 33):
+                        _, _, _, k, _ = st.columns(5)
+                        k.markdown(f'## {kiriti[3]}')
+                        k.markdown("<h6>irl, 5'3 pookie 🐥, will get<br>scared of Cock-roach</h6>",
+                                   unsafe_allow_html=True)
+
+                    if (i == 43):
+                        _, _, _, _, k = st.columns(5)
+                        k.markdown(f'## {kiriti[4]}')
+                        k.markdown('<h6 style="color: #ffc1cc;">REALLY A 10/10 W SALI.</h6>', unsafe_allow_html=True)
+                        k.markdown("""<h6 style="color: #ffc1cc;">MERI SALI ✔️ MY SISTER IN LAW ❌</h6>""",
+                                   unsafe_allow_html=True)
+                        k.markdown(
+                            """<h6 style="color: #ffc1cc;">BYEEEE, ITNA HEE THA,<br>KEEP REVISITING KIRTI 🤍</h6>""",
+                            unsafe_allow_html=True)
+
+                st.markdown('<br><br><br><br><br><br><br>', unsafe_allow_html=True)
+
+                # Your original ending - UNCHANGED but with styling
+                st.markdown(
+                    """<div style="text-align: center; background: linear-gradient(45deg, #ff6b6b, #feca57); padding: 30px; border-radius: 20px; border: 4px solid #ff4757;">
+                    <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">AAB JAA NAA BHEN KI LAURI, HOGYA NAA</h1>
+                    <p style="color: #fff; font-size: 1.2rem; margin-top: 15px;">But like... come back soon, this was fun! 😂💕</p>
+                    </div>""",
+                    unsafe_allow_html=True)
 
             else:
+                # Your original else condition - UNCHANGED but with styling
                 st.markdown("""
-                <div style="text-align: center; padding: 2rem; background: linear-gradient(45deg, #ff6b6b, #feca57); border-radius: 15px; border: 2px solid #ff4757;">
+                <div style="background: linear-gradient(45deg, #ff6b6b, #feca57); padding: 20px; border-radius: 15px; text-align: center;">
                     <h3 style="color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-                        🤔 Hmm... Either you're not Kirti or you don't know the answer!
+                        EITHER YOU ARE NOT KIRTI OR YOU ARE, BUT YOU DON'T KNOW THE ANSWER ! L KIRTI
                     </h3>
-                    <p style="color: #fff; font-size: 1.1rem; margin-top: 1rem;">
-                        Think again, or maybe you're not who I think you are! 😉
-                    </p>
                 </div>
                 """, unsafe_allow_html=True)
 
