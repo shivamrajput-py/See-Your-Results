@@ -554,7 +554,7 @@ def ranksNresults_menu():
         df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'SGPA3', 'SGPA4', 'CUMULATIVE CGPA']]
         df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 1', 'SEM 2', 'SEM 3', 'SEM 4', 'CUMULATIVE CGPA']
     elif year_choosed == '2028':
-        df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA1']]
+        df = df[['RANK', 'NAME', 'ROLL NO. OG', 'SGPA1', 'SGPA1']]
         df.columns = ['RANK', 'NAME', 'ROLL NO.', '1ST SEM', 'CUMULATIVE CGPA']
 
     dataspace = rt.empty()
@@ -575,10 +575,16 @@ def ranksNresults_menu():
 
         # Filter the dataframe using masks
         m1 = df["NAME"].str.contains(text_search.upper())
-        m2 = df["ROLL NO."].str.contains(text_search.upper())
-        df_search = df[m1 | m2]
+        if year_choosed == '2028':
+            m2 = df["ROLL NO."].str.contains(text_search.upper())
+            df_search = df[m1 | m2]
+            dataspace.dataframe(df_search, hide_index=True, height=525, use_container_width=True)
+        else:
+            m2 = df["ROLL NO."].str.contains(text_search.upper())
+            df_search = df[m1 | m2]
+            dataspace.dataframe(df_search, hide_index=True, height=525, use_container_width=True)
 
-        dataspace.dataframe(df_search, hide_index=True, height=525, use_container_width=True)
+
 # -----------------------------------------------------------------------------------------------------------------------
 
 # PLACEMENT STATS MENU
@@ -1319,7 +1325,7 @@ if selected == 'PROFILE':
 
         csvdf = pd.read_csv("Extracting_Result_Data/ranked_results_csv/UNI_rankedR28.csv")
 
-        m1 = csvdf['ROLL NO.'].str.contains(result_search_box.upper())
+        m1 = csvdf['ROLL NO. OG'].str.contains(result_search_box.upper())
 
         df_final = csvdf[m1]
 
@@ -1342,7 +1348,7 @@ if selected == 'PROFILE':
 
             # HAD TO FIND THE BRANCH RANK ALAG SE !
             fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR28.csv')
-            m1 = fl['ROLL NO.'].str.contains(result_search_box.upper())
+            m1 = fl['ROLL NO. OG'].str.contains(result_search_box.upper())
             fl_final = fl[m1]
             stud_branch_rank = fl_final['RANK'].values[0]
             stud_total_credits = df_final['CREDITS1'].values[0]
@@ -1365,7 +1371,7 @@ if selected == 'PROFILE':
                 st.write(f"""
                     <div class="blue-header">HELLO, {df_final["NAME"].values[0]}</div>
                     <h5>{stud_branch}, {shortf_branch28[stud_branch]}, B. TECH</h5>
-                    <h5>{df_final['ROLL NO.'].values[0]}</h5>
+                    <h5>{df_final['ROLL NO. OG'].values[0]}</h5>
                     <h5>YOUR RESULTS:</h5>
                     """,unsafe_allow_html=True)
 
@@ -1526,7 +1532,7 @@ if selected == 'PROFILE':
 
             df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR28.csv', dtype=str,index_col=None).fillna("")
 
-            df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA1']]
+            df = df[['RANK', 'NAME', 'ROLL NO. OG', 'SGPA1', 'SGPA1']]
             df.columns = ['RANK', 'NAME', 'ROLL NO.', '1ST SEM', 'CUMULATIVE CGPA']
             st.write(f"""<h3 style="text-align: center; align-items: center;">Your Branch <span style="color: {color};">{stud_branch}'28</span> Students Rankings: </h3>""", unsafe_allow_html=True)
 

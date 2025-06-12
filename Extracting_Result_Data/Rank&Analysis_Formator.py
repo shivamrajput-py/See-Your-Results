@@ -2,6 +2,7 @@ import json
 import statistics
 import csv
 import pandas as pd
+from MainConstant import *
 
 shortf_branch27 = {
     'CS': 'Computer Science',

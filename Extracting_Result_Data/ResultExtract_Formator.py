@@ -1,6 +1,7 @@
 import pdfplumber
 import json, os, csv
 import pandas as pd
+from MainConstant import *
 
 scrapelist = ['E24_BTECH_PE_SE_CS_EP_EC_ME_II_1733.pdf', 'E24_BTECH_AE_CH_BT_CE_EE_II_1733.pdf']
 
@@ -96,7 +97,7 @@ if True:
     scrapelist = os.listdir('./result_data_pdf')
     fl = open('./ranked_results_csv/28ALLSTUDENT_TILLS1.csv', 'w')
     FINALDF = csv.writer(fl)
-    FINALDF.writerow(['RANK', 'NAME', 'ROLL NO.', 'CREDITS1', 'SGPA1', 'GRADE1', 'S_NO'])
+    FINALDF.writerow(['RANK', 'NAME', 'ROLL NO.', 'CREDITS1', 'SGPA1', 'GRADE1', 'S_NO', 'ROLL NO. OG'])
 
     for result_file in scrapelist:
         count = 1
@@ -117,7 +118,12 @@ if True:
 
                     if '24/' in str(row[1]):
 
-                        FINALDF.writerow([0, row[2], row[1], row[-3], row[-4], row[3:-4], row[0]])
+                        if row[1] in B28_UPGRADED.keys():
+                            UPROLLN = row[1][0:3] + B28_UPGRADED[row[1]] + row[1][6:]
+                        else:
+                            UPROLLN = row[1]
+
+                        FINALDF.writerow([0, row[2], UPROLLN, row[-3], row[-4], row[3:-4], row[0], row[1]])
                         count += 1
 
     fl.close()
