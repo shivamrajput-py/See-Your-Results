@@ -1748,7 +1748,7 @@ if selected == 'PROFILE':
                     speed=1,
                     reverse=False,
                     loop=True,
-                    quality="low",  # medium ; high
+                    quality="low",  # medium ; highhh
                     height=None,
                     width=None,
                     key=None,
