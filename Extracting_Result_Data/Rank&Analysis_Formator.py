@@ -2,7 +2,6 @@ import json
 import statistics
 import csv
 import pandas as pd
-from MainConstant import *
 
 shortf_branch27 = {
     'CS': 'Computer Science',
@@ -74,7 +73,7 @@ branch_codes = {
 
 # 2028 BATCH RANKING CODE ---------------------------------------------------------------------------------------------------------------------------
 
-if True:
+if False:
 
     # BRANCH WISE SEPARATION OF SORTED CSV WITH RANK COLUMNS
     mncsv = pd.read_csv("./ranked_results_csv/28ALLSTUDENT_TILLS1.csv")
@@ -116,26 +115,26 @@ if True:
 
 #2026---------------------------------------------------------------------------------------------------------------------------
 
-if False:
+if True:
 
     INFO = {}
 
     # BRANCH WISE SEPARATION OF SORTED CSV WITH RANK COLUMNS
-    mncsv = pd.read_csv("./ranked_results_csv/UNI_rankedR26.csv")
+    mncsv = pd.read_csv("./ranked_results_csv/27Batch_allStudentTILL4S.csv")
 
-    for branch in shortf_branch26.keys():
+    for branch in shortf_branch27.keys():
 
-        m1 = mncsv['ROLL NO.'].str.contains(f'22/{branch}')
+        m1 = mncsv['ROLL NO.'].str.contains(f'23/{branch}')
         if not (len(m1) > 0): continue
         branch_wise  = mncsv[m1]
-        branch_wise = branch_wise.sort_values(by=[branch_wise.columns[-1], branch_wise.columns[1]], ascending=[False, True])
+        branch_wise = branch_wise.sort_values(by=[branch_wise.columns[-2], branch_wise.columns[1]], ascending=[False, True])
         count = 1
         for row in branch_wise['RANK']:
             branch_wise.iloc[count-1, 0] = count
             count +=1
 
         # SORTED BRANCHWISE RANKED CSV
-        branch_wise.to_csv(f'./ranked_results_csv/{branch}_rankedR26.csv')
+        branch_wise.to_csv(f'./ranked_results_csv/{branch}_rankedR27.csv')
 
     #---------------------------------------------------------------------------------------------------------------------------
 
@@ -145,7 +144,7 @@ if False:
     for i, _ in enumerate(cum_data['RANK']):
         cum_data.iloc[i, 0] = i+1
 
-    cum_data.to_csv('./ranked_results_csv/UNI_rankedR26.csv')
+    cum_data.to_csv('./ranked_results_csv/UNI_rankedR27.csv')
 
 
 #   GAINER CSV MAKERRR ------------------------------------------------------------------

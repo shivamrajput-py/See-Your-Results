@@ -100,6 +100,8 @@ def gainerList(stud_branch: str):
 
 # ----------------------------------------------------------------------------------------------------------------------
 # PDF PART !!
+# ----------------------------------------------------------------------------------------------------------------------
+# PDF PART !!
 
 # Function to create PDF report card
 def create_report_card_pdf(student_data):
@@ -383,7 +385,8 @@ def add_report_card_button(df_final, stud_branch, shortf_branch27, stud_universi
             'semesters': [
                 {'sgpa': df_final['SGPA1'].values[0], 'credits': df_final['CREDITS1'].values[0]},
                 {'sgpa': df_final['SGPA2'].values[0], 'credits': df_final['CREDITS2'].values[0]},
-                {'sgpa': df_final['SGPA3'].values[0], 'credits': df_final['CREDITS3'].values[0]}
+                {'sgpa': df_final['SGPA3'].values[0], 'credits': df_final['CREDITS3'].values[0]},
+                {'sgpa': df_final['SGPA4'].values[0], 'credits': df_final['CREDITS4'].values[0]}
             ]
         }
 
@@ -416,7 +419,8 @@ def add_direct_download_button(df_final, stud_branch, shortf_branch27, stud_univ
         'semesters': [
             {'sgpa': df_final['SGPA1'].values[0], 'credits': df_final['CREDITS1'].values[0]},
             {'sgpa': df_final['SGPA2'].values[0], 'credits': df_final['CREDITS2'].values[0]},
-            {'sgpa': df_final['SGPA3'].values[0], 'credits': df_final['CREDITS3'].values[0]}
+            {'sgpa': df_final['SGPA3'].values[0], 'credits': df_final['CREDITS3'].values[0]},
+            {'sgpa': df_final['SGPA4'].values[0], 'credits': df_final['CREDITS4'].values[0]}
         ]
     }
 
@@ -435,7 +439,6 @@ def add_direct_download_button(df_final, stud_branch, shortf_branch27, stud_univ
         except Exception as e:
             st.error(f"Error generating PDF: {str(e)}")
             st.info("Please try refreshing the page if the issue persists.")
-
 
 # SGPA CALCULATOR FUNCTION WITH A EXPERIMENTAL DIALOG
 @st.dialog("SGPA CALCULATOR", width="small")
@@ -548,8 +551,8 @@ def ranksNresults_menu():
     df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{flname}', dtype=str, index_col=None).fillna("")
 
     if year_choosed == '2027':
-        df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'SGPA3', 'CUMULATIVE CGPA']]
-        df.columns = ['RANK', 'NAME', 'ROLL NO.', '1ST SEM', '2ND SEM', '3RD SEM', 'CUMULATIVE CGPA']
+        df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'SGPA3', 'SGPA4', 'CUMULATIVE CGPA']]
+        df.columns = ['RANK', 'NAME', 'ROLL NO.', '1ST SEM', '2ND SEM', '3RD SEM', '4TH SEM', 'CUMULATIVE CGPA']
     elif year_choosed == '2026':
         df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'SGPA3', 'SGPA4', 'CUMULATIVE CGPA']]
         df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 1', 'SEM 2', 'SEM 3', 'SEM 4', 'CUMULATIVE CGPA']
@@ -583,7 +586,6 @@ def ranksNresults_menu():
             m2 = df["ROLL NO."].str.contains(text_search.upper())
             df_search = df[m1 | m2]
             dataspace.dataframe(df_search, hide_index=True, height=525, use_container_width=True)
-
 
 # -----------------------------------------------------------------------------------------------------------------------
 
@@ -1649,7 +1651,7 @@ if selected == 'PROFILE':
 
         if (len(df_final) > 1 or len(df_final) < 1) and not other:
             st.markdown('<br><br><br>', unsafe_allow_html=True)
-            _, mmn, _ = st.columns([0.5,2.5,0.5])
+            _, mmn, _ = st.columns([0.5, 2.5, 0.5])
             mmn.error(
                 "If your result is not found or appears incorrect—despite being extracted from official result PDFs—please verify your roll number and, if the issue persists, contact the project maintainer via the About section for prompt resolution.")
 
@@ -1666,13 +1668,19 @@ if selected == 'PROFILE':
             m1 = fl['ROLL NO.'].str.contains(result_search_box.upper())
             fl_final = fl[m1]
             stud_branch_rank = fl_final['RANK'].values[0]
-            stud_total_credits = df_final['CREDITS1'].values[0] + df_final['CREDITS2'].values[0] + df_final['CREDITS3'].values[0]
+            stud_total_credits = df_final['CREDITS1'].values[0] + df_final['CREDITS2'].values[0] + \
+                                 df_final['CREDITS3'].values[0] + df_final['CREDITS4'].values[0]
             stud_brnch_percentile = round(float(((len(fl.values) - stud_branch_rank) / len(fl.values)) * 100), 3)
             stud_percentile = round(float(((uni_stdcount27 - stud_university_rank) / uni_stdcount27) * 100), 3)
 
-            stud_grade1List = (df_final['GRADE1'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(',')
-            stud_grade2List = (df_final['GRADE2'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(',')
-            stud_grade3List = (df_final['GRADE3'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(',')
+            stud_grade1List = (df_final['GRADE1'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(
+                ',')
+            stud_grade2List = (df_final['GRADE2'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(
+                ',')
+            stud_grade3List = (df_final['GRADE3'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(
+                ',')
+            stud_grade4List = (df_final['GRADE4'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(
+                ',')
 
             if len(stud_grade1List) < 7:
                 for _ in range((7 - len(stud_grade1List))): stud_grade1List.append('  ')
@@ -1680,6 +1688,8 @@ if selected == 'PROFILE':
                 for _ in range((7 - len(stud_grade2List))): stud_grade2List.append('  ')
             if len(stud_grade3List) < 7:
                 for _ in range((7 - len(stud_grade3List))): stud_grade3List.append('  ')
+            if len(stud_grade4List) < 7:
+                for _ in range((7 - len(stud_grade4List))): stud_grade4List.append('  ')
 
             # MENU1: FIRST MAIN DIV WITH 3 COLUMNS ---------------------------------------------
             l_sec1, m_sec1, r_sec1 = st.columns([1.5, 2, 1])
@@ -1689,19 +1699,21 @@ if selected == 'PROFILE':
                 st.markdown('<br><br>', unsafe_allow_html=True)
 
                 st.write(f"""
-                    <div class="blue-header">HELLO, {df_final["NAME"].values[0]}</div>
-                    <h5>{stud_branch}, {shortf_branch27[stud_branch]}, B. TECH</h5>
-                    <h5>{df_final['ROLL NO.'].values[0]}</h5>
-                    <h5>YOUR RESULTS:</h5>
-                    """,
+                            <div class="blue-header">HELLO, {df_final["NAME"].values[0]}</div>
+                            <h5>{stud_branch}, {shortf_branch27[stud_branch]}, B. TECH</h5>
+                            <h5>{df_final['ROLL NO.'].values[0]}</h5>
+                            <h5>YOUR RESULTS:</h5>
+                            """,
                          unsafe_allow_html=True)
 
-                l1, l2, l3 = st.columns(3)
+                l1, l2, l3, l4 = st.columns(4)
                 l1.metric(label="**SEM 1 | SGPA**", value=+df_final['SGPA1'].values[0])
                 l2.metric(label="**SEM 2 | SGPA**", value=+df_final['SGPA2'].values[0],
                           delta=round(float(df_final['SGPA2'].values[0]) - float(df_final['SGPA1'].values[0]), 2))
                 l3.metric(label="**SEM 3 | SGPA**", value=+df_final['SGPA3'].values[0],
                           delta=round(float(df_final['SGPA3'].values[0]) - float(df_final['SGPA2'].values[0]), 2))
+                l4.metric(label="**SEM 4 | SGPA**", value=+df_final['SGPA4'].values[0],
+                          delta=round(float(df_final['SGPA4'].values[0]) - float(df_final['SGPA3'].values[0]), 2))
 
             with m_sec1:
 
@@ -1709,37 +1721,46 @@ if selected == 'PROFILE':
 
                 st.markdown(
                     f"""
-                    | Credits Completed | Cumulative CGPA | University Rank | Dept Rank |
-                    | :------------ | :--------------- | :---------------| :---------------|
-                    | {stud_total_credits}<br> | {df_final['CUMULATIVE CGPA'].values[0]}<br> | {stud_university_rank}<br> | {stud_branch_rank}<br> |
-                    """,
+                            | Credits Completed | Cumulative CGPA | University Rank | Dept Rank |
+                            | :------------ | :--------------- | :---------------| :---------------|
+                            | {stud_total_credits}<br> | {df_final['CUMULATIVE CGPA'].values[0]}<br> | {stud_university_rank}<br> | {stud_branch_rank}<br> |
+                            """,
                     unsafe_allow_html=True,
                 )
                 st.markdown('<br>', unsafe_allow_html=True)
 
                 # UNIVERSITY PERCENTILE STATS LINE:
-                if 0<=stud_percentile<=30:
-                    uni_tile = random.choice(cat_0_30).replace('__X__', str(stud_percentile)).replace('__TYPE__', 'university')
-                elif 30<stud_percentile<=50:
-                    uni_tile = random.choice(cat_30_50).replace('__X__', str(stud_percentile)).replace('__TYPE__', 'university')
-                elif 50<stud_percentile<=70:
-                    uni_tile = random.choice(cat_50_70).replace('__X__', str(round(100 - stud_percentile, 3))).replace('__TYPE__', 'university')
-                elif 70<stud_percentile<=100:
-                    uni_tile = random.choice(cat_70_100).replace('__X__', str(round(100 - stud_percentile, 3))).replace('__TYPE__', 'university')
+                if 0 <= stud_percentile <= 30:
+                    uni_tile = random.choice(cat_0_30).replace('__X__', str(stud_percentile)).replace('__TYPE__',
+                                                                                                      'university')
+                elif 30 < stud_percentile <= 50:
+                    uni_tile = random.choice(cat_30_50).replace('__X__', str(stud_percentile)).replace('__TYPE__',
+                                                                                                       'university')
+                elif 50 < stud_percentile <= 70:
+                    uni_tile = random.choice(cat_50_70).replace('__X__', str(round(100 - stud_percentile, 3))).replace(
+                        '__TYPE__', 'university')
+                elif 70 < stud_percentile <= 100:
+                    uni_tile = random.choice(cat_70_100).replace('__X__', str(round(100 - stud_percentile, 3))).replace(
+                        '__TYPE__', 'university')
 
                 # UNIVERSITY PERCENTILE STATS LINE:
                 if 0 <= stud_brnch_percentile <= 30:
                     dept_tile = random.choice(cat_0_30).replace('__X__', str(stud_brnch_percentile)).replace('__TYPE__',
-                                                                                                        'department')
+                                                                                                             'department')
                 elif 30 < stud_brnch_percentile <= 50:
-                    dept_tile = random.choice(cat_30_50).replace('__X__', str(stud_brnch_percentile)).replace('__TYPE__',
-                                                                                                         'department')
+                    dept_tile = random.choice(cat_30_50).replace('__X__', str(stud_brnch_percentile)).replace(
+                        '__TYPE__',
+                        'department')
                 elif 50 < stud_brnch_percentile <= 70:
-                    dept_tile = random.choice(cat_50_70).replace('__X__', str(round(100 - stud_brnch_percentile,3))).replace('__TYPE__',
-                                                                                                         'department')
+                    dept_tile = random.choice(cat_50_70).replace('__X__',
+                                                                 str(round(100 - stud_brnch_percentile, 3))).replace(
+                        '__TYPE__',
+                        'department')
                 elif 70 < stud_brnch_percentile <= 100:
-                    dept_tile = random.choice(cat_70_100).replace('__X__', str(round(100 - stud_brnch_percentile,3))).replace('__TYPE__',
-                                                                                                          'department')
+                    dept_tile = random.choice(cat_70_100).replace('__X__',
+                                                                  str(round(100 - stud_brnch_percentile, 3))).replace(
+                        '__TYPE__',
+                        'department')
                 st.write('---')
                 st.write(f"""{dept_tile}""", unsafe_allow_html=True)
                 st.write(f"""{uni_tile}""", unsafe_allow_html=True)
@@ -1761,75 +1782,87 @@ if selected == 'PROFILE':
                 )
 
             st.markdown(f"""
-    <div style="display: flex; justify-content: center; margin: 20px;">
-        <table style="width: 80%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); background-color: #121212; border-radius: 12px; overflow: hidden;">
-            <thead>
-                <tr style="background-color: #1F1F1F; text-align: center;">
-                    <th style="padding: 12px; border: 1px solid #333;">Semester</th>
-                    <th style="padding: 12px; border: 1px solid #333;">S1</th>
-                    <th style="padding: 12px; border: 1px solid #333;">S2</th>
-                    <th style="padding: 12px; border: 1px solid #333;">S3</th>
-                    <th style="padding: 12px; border: 1px solid #333;">S4</th>
-                    <th style="padding: 12px; border: 1px solid #333;">S5</th>
-                    <th style="padding: 12px; border: 1px solid #333;">S6</th>
-                    <th style="padding: 12px; border: 1px solid #333;">S7</th>
-                    <th style="padding: 12px; border: 1px solid #333;">Credits</th>
-                    <th style="padding: 12px; border: 1px solid #333;">SGPA</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="text-align: center;">
-                    <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 1</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[0]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[1]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[2]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[3]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[4]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[5]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[6]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS1'].values[0]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA1'].values[0]}</td>
-                </tr>
-                <tr style="text-align: center;">
-                    <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 2</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[0]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[1]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[2]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[3]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[4]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[5]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[6]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS2'].values[0]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA2'].values[0]}</td>
-                </tr>
-                <tr style="text-align: center;">
-                    <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 2</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[0]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[1]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[2]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[3]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[4]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[5]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[6]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS3'].values[0]}</td>
-                    <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA3'].values[0]}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-                
-                """, unsafe_allow_html=True)
+            <div style="display: flex; justify-content: center; margin: 20px;">
+                <table style="width: 80%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); background-color: #121212; border-radius: 12px; overflow: hidden;">
+                    <thead>
+                        <tr style="background-color: #1F1F1F; text-align: center;">
+                            <th style="padding: 12px; border: 1px solid #333;">Semester</th>
+                            <th style="padding: 12px; border: 1px solid #333;">S1</th>
+                            <th style="padding: 12px; border: 1px solid #333;">S2</th>
+                            <th style="padding: 12px; border: 1px solid #333;">S3</th>
+                            <th style="padding: 12px; border: 1px solid #333;">S4</th>
+                            <th style="padding: 12px; border: 1px solid #333;">S5</th>
+                            <th style="padding: 12px; border: 1px solid #333;">S6</th>
+                            <th style="padding: 12px; border: 1px solid #333;">S7</th>
+                            <th style="padding: 12px; border: 1px solid #333;">Credits</th>
+                            <th style="padding: 12px; border: 1px solid #333;">SGPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="text-align: center;">
+                            <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 1</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[0]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[1]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[2]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[3]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[4]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[5]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade1List[6]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS1'].values[0]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA1'].values[0]}</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 2</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[0]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[1]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[2]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[3]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[4]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[5]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade2List[6]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS2'].values[0]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA2'].values[0]}</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 3</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[0]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[1]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[2]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[3]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[4]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[5]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade3List[6]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS3'].values[0]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA3'].values[0]}</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td style="padding: 12px; border: 1px solid #333; background-color: #1a1a1a; color: #3d82f2; font-weight: bold;">SEM 4</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade4List[0]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade4List[1]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade4List[2]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade4List[3]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade4List[4]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade4List[5]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{stud_grade4List[6]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['CREDITS4'].values[0]}</td>
+                            <td style="padding: 10px; border: 1px solid #333; background-color: #262626;">{df_final['SGPA4'].values[0]}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+                        """, unsafe_allow_html=True)
 
             st.markdown('---')
 
             # MENU1: SECOND MAIN DIV WITH 2 COLUMNS ---------------------------------------------
 
             st.write(f"""
-                            <h3 style="
-                            text-align: center;
-                            align-items: center;
-                            ">Your Branch <span style="color: {color};">{stud_branch}'27</span> and Your CGPA Distribution Stats:</h3>
-                            """, unsafe_allow_html=True)
+                                    <h3 style="
+                                    text-align: center;
+                                    align-items: center;
+                                    ">Your Branch <span style="color: {color};">{stud_branch}'27</span> and Your CGPA Distribution Stats:</h3>
+                                    """, unsafe_allow_html=True)
 
             _, l_sec2, _, r_sec2, _ = st.columns([0.9, 3.1, 1, 3.1, 0.5])
 
@@ -1864,14 +1897,16 @@ if selected == 'PROFILE':
                 df.reset_index(drop=True)
                 df.set_index('University Stats', inplace=True)
 
-                st.plotly_chart(px.bar(df, title=f'University CGPA Distribution', range_y=[0, 10], text_auto='', width=430,
-                                       color_discrete_sequence=[BAR_COLOR]).update_layout({'dragmode': False}),
-                                config={"modeBarButtonsToRemove": ['lasso2d', 'autoScale2d', 'zoomOut2d', 'select2d']})
+                st.plotly_chart(
+                    px.bar(df, title=f'University CGPA Distribution', range_y=[0, 10], text_auto='', width=430,
+                           color_discrete_sequence=[BAR_COLOR]).update_layout({'dragmode': False}),
+                    config={"modeBarButtonsToRemove": ['lasso2d', 'autoScale2d', 'zoomOut2d', 'select2d']})
 
             df_plot = pd.DataFrame(
                 {
-                    'SEMESTER': ['1ST SEM', '2ND SEM', '3RD SEM'],
-                    'CGPA': [df_final['SGPA1'].values[0], df_final['SGPA2'].values[0], df_final['SGPA3'].values[0]]
+                    'SEMESTER': ['1ST SEM', '2ND SEM', '3RD SEM', '4TH SEM'],
+                    'CGPA': [df_final['SGPA1'].values[0], df_final['SGPA2'].values[0], df_final['SGPA3'].values[0],
+                             df_final['SGPA4'].values[0]]
                 }
             )
 
@@ -1889,15 +1924,15 @@ if selected == 'PROFILE':
 
             df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR27.csv', dtype=str,
                              index_col=None).fillna("")
-            df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2','SGPA3', 'CUMULATIVE CGPA']]
-            df.columns = ['RANK', 'NAME', 'ROLL NO.', '1ST SEM', '2ND SEM', '3RD SEM', 'CUMULATIVE CGPA']
+            df = df[['RANK', 'NAME', 'ROLL NO.', 'SGPA1', 'SGPA2', 'SGPA3', 'SGPA4', 'CUMULATIVE CGPA']]
+            df.columns = ['RANK', 'NAME', 'ROLL NO.', '1ST SEM', '2ND SEM', '3RD SEM', '4TH SEM', 'CUMULATIVE CGPA']
 
             st.write(f"""
-                <h3 style="
-                text-align: center;
-                align-items: center;
-                ">Your Branch <span style="color: {color};">{stud_branch}'27</span> Students Rankings: </h3>
-                """, unsafe_allow_html=True)
+                        <h3 style="
+                        text-align: center;
+                        align-items: center;
+                        ">Your Branch <span style="color: {color};">{stud_branch}'27</span> Students Rankings: </h3>
+                        """, unsafe_allow_html=True)
 
             st.markdown("<br>", unsafe_allow_html=True)
             _, mm, _ = st.columns([1, 4, 1])
@@ -1907,7 +1942,7 @@ if selected == 'PROFILE':
 
                 st.markdown("<br>", unsafe_allow_html=True)
 
-            _, _, mm2, _, _ = st.columns([2,1 ,1, 1,2])
+            _, _, mm2, _, _ = st.columns([2, 1, 1, 1, 2])
             with mm2:
                 gainerButton = st.button("WANNA SEE THE TOP GAINERS THIS SEM?")
                 if gainerButton:
@@ -1918,11 +1953,11 @@ if selected == 'PROFILE':
             # MENU1: FOURTH MAIN DIV WITH 3 COLUMNS --------------------------------------------------------------------------------------------------
 
             st.write(f"""
-                <h3 style="
-                text-align: center;
-                align-items: center;
-                ">Your Branch <span style="color: {color};">{shortf_branch27[stud_branch]}</span> Placement Stats:</h3>
-                """,
+                        <h3 style="
+                        text-align: center;
+                        align-items: center;
+                        ">Your Branch <span style="color: {color};">{shortf_branch27[stud_branch]}</span> Placement Stats:</h3>
+                        """,
                      unsafe_allow_html=True)
 
             st.markdown("<br>", unsafe_allow_html=True)
@@ -1945,7 +1980,8 @@ if selected == 'PROFILE':
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
-            avg_placement_barc = px.bar(df, title=f"Average Package Trend (IN LPA)", text_auto='', color_discrete_sequence=[BAR_COLOR]).update_layout(
+            avg_placement_barc = px.bar(df, title=f"Average Package Trend (IN LPA)", text_auto='',
+                                        color_discrete_sequence=[BAR_COLOR]).update_layout(
                 {'dragmode': False})
 
             # HIGHEST PLACEMENTS
@@ -1965,7 +2001,8 @@ if selected == 'PROFILE':
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
-            max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='', color_discrete_sequence=[BAR_COLOR]).update_layout(
+            max_placement_barc = px.bar(df, title=f"Highest Package Trend (IN LPA)", text_auto='',
+                                        color_discrete_sequence=[BAR_COLOR]).update_layout(
                 {'dragmode': False})
 
             # PERCENTAGE PLACED PLACEMENT
@@ -1978,21 +2015,25 @@ if selected == 'PROFILE':
                 'YEAR': ['2023', '2022', '2021'],
                 '% STUDENT PLACED': [
                     float(
-                        data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%',
-                                                                                                                        '')),
+                        data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
+                            '%',
+                            '')),
                     float(
-                        data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%',
-                                                                                                                        '')),
+                        data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
+                            '%',
+                            '')),
                     float(
-                        data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%',
-                                                                                                                        ''))
+                        data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
+                            '%',
+                            ''))
                 ]})
 
             df.reset_index(drop=True)
             df.set_index('YEAR', inplace=True)
 
             percent_placement_barc = px.bar(df, title=f"Percentage Of Student Placed", range_y=[0, 100],
-                                            text_auto='', color_discrete_sequence=[BAR_COLOR]).update_layout({'dragmode': False})
+                                            text_auto='', color_discrete_sequence=[BAR_COLOR]).update_layout(
+                {'dragmode': False})
 
             bar1, bar2, bar3 = st.columns(3)
             with bar1:
@@ -2007,7 +2048,6 @@ if selected == 'PROFILE':
 
             add_report_card_button(df_final, stud_branch, shortf_branch27, stud_university_rank,
                                    stud_branch_rank, stud_percentile, stud_brnch_percentile, stud_total_credits)
-
 
     elif year_choosed == '2026 (NOT UPDATED YET)' and result_search_box:
 
