@@ -115,7 +115,7 @@ if False:
 
 #2026---------------------------------------------------------------------------------------------------------------------------
 
-if True:
+if False:
 
     INFO = {}
 
@@ -148,21 +148,21 @@ if True:
 
 
 #   GAINER CSV MAKERRR ------------------------------------------------------------------
-if False:
+if True:
     for branch in shortf_branch27.keys():
 
         brnch_csv = pd.read_csv(f'./ranked_results_csv/{branch}_rankedR27.csv')
 
         fll = open(f'./ranked_results_csv/{branch}_gainersR27.csv', 'w')
         gainer_csv = csv.writer(fll)
-        gainer_csv.writerow(['RANK','NAME', 'ROLL NO.', 'SEM2', 'SEM3', 'IMPROVEMENT'])
+        gainer_csv.writerow(['RANK','NAME', 'ROLL NO.', 'SEM3', 'SEM4' ,'IMPROVEMENT'])
 
         for i, _ in enumerate(brnch_csv['ROLL NO.'].values):
             gainer_csv.writerow([1, brnch_csv['NAME'].values[i],
                                  brnch_csv['ROLL NO.'].values[i],
-                                 brnch_csv['SGPA2'].values[i],
                                  brnch_csv['SGPA3'].values[i],
-                                 round(brnch_csv['SGPA3'].values[i]-brnch_csv['SGPA2'].values[i], 3)])
+                                 brnch_csv['SGPA4'].values[i],
+                                 round(brnch_csv['SGPA4'].values[i]-brnch_csv['SGPA3'].values[i], 3)])
 
         fll.close()
         gainer_csv= pd.read_csv(f'./ranked_results_csv/{branch}_gainersR27.csv')

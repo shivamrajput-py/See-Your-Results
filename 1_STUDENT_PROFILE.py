@@ -80,8 +80,8 @@ def find(SUBC: str, TYPE: str, sendsorted=True) -> dict:
 @st.dialog("GAINERS LIST", width="large")
 def gainerList(stud_branch: str):
     df = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_gainersR27.csv', dtype=str).fillna("")
-    df = df[['RANK', 'NAME', 'ROLL NO.', 'SEM2', 'SEM3', 'IMPROVEMENT']]
-    df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 2', 'SEM 3', 'CGPA IMPROVEMENT']
+    df = df[['RANK', 'NAME', 'ROLL NO.', 'SEM3', 'SEM4', 'IMPROVEMENT']]
+    df.columns = ['RANK', 'NAME', 'ROLL NO.', 'SEM 3', 'SEM 4', 'CGPA IMPROVEMENT']
 
     st.write(f"""
                         <h3 style="
