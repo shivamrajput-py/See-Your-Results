@@ -60,7 +60,7 @@ if False:
 
     scrapelist = os.listdir('./result_data_pdf')
     for result_file in scrapelist:
-        if 'E25_' not in str(result_file):
+        if '3RD_' not in str(result_file):
             continue
 
         pdf = pdfplumber.open(f'result_data_pdf/{result_file}')
@@ -78,15 +78,15 @@ if False:
                         result.append({
                             "NAME": row[2],
                             "ROLL NO.": row[1],
-                            "CREDITS4": row[-2],
-                            "SGPA4": row[-3],
-                            "GRADE4": row[3:-3],
+                            "CREDITS3": row[-2],
+                            "SGPA3": row[-3],
+                            "GRADE3": row[3:-3],
                             "S_NO": row[0]
                         })
 
 
     pdf.close()
-    open('./ranked_results_csv/recentSemData.json', 'w').write(json.dumps(result, indent=3))
+    open('./ranked_results_csv/recentSem3Data.json', 'w').write(json.dumps(result, indent=3))
 
 # OLD SEMEMSTER RESULT SEM 1 (2028 BATCH) RESULT FORMATOR WITH GRADE
 if False:
@@ -127,9 +127,9 @@ if False:
     fl.close()
 
 # MERGING PREVIOUS SEM RESULT WITH THE RECENT SEM RESULT!
-if False:
+if True:
 
-    main_json = json.loads(open('./ranked_results_csv/recentSemData.json', 'r').read())
+    main_json = json.loads(open('./ranked_results_csv/recentSem3Data.json', 'r').read())
     csv_to_json('./ranked_results_csv/UNI_rankedR27.csv', './ranked_results_csv/prevSemData.json')
     mergedata_json = json.loads(open('./ranked_results_csv/prevSemData.json', 'r').read())
 
@@ -146,13 +146,13 @@ if False:
         for stud in mergedata_json:
 
             if stud['ROLL NO.'] == student['ROLL NO.']:
-                cum_cg = round((float(stud['SGPA1'])*int(stud['CREDITS1']) + float(stud['SGPA2'])*int(stud['CREDITS2']) + float(stud['SGPA3'])*int(stud['CREDITS3']) + float(student['SGPA4'])*int(student['CREDITS4']) )/(int(stud['CREDITS1']) + int(stud['CREDITS2']) + int(stud['CREDITS3']) + int(student['CREDITS4'])), 3)
-                FINALDF.writerow([1, student['NAME'], student['ROLL NO.'],
+                cum_cg = round((float(stud['SGPA1'])*int(stud['CREDITS1']) + float(stud['SGPA2'])*int(stud['CREDITS2']) + float(student['SGPA3'])*int(student['CREDITS3']) + float(stud['SGPA4'])*int(stud['CREDITS4']) )/(int(stud['CREDITS1']) + int(stud['CREDITS2']) + int(student['CREDITS3']) + int(stud['CREDITS4'])), 3)
+                FINALDF.writerow([1, stud['NAME'], stud['ROLL NO.'],
                                   stud['CREDITS1'], stud['SGPA1'], stud['GRADE1'],
                                   stud['CREDITS2'], stud['SGPA2'], stud['GRADE2'],
-                                  stud['CREDITS3'], stud['SGPA3'], stud['GRADE3'],
-                                  student['CREDITS4'], student['SGPA4'], student['GRADE4'],
-                                  cum_cg, student['S_NO']])
+                                  student['CREDITS3'], student['SGPA3'], student['GRADE3'],
+                                  stud['CREDITS4'], stud['SGPA4'], stud['GRADE4'],
+                                  cum_cg, stud['S_NO']])
 
 
     fl.close()
