@@ -1091,27 +1091,258 @@ if selected == 'PROFILE':
             """, unsafe_allow_html=True)
 
     if result_search_box and '19012007' == result_search_box:
-        descripE.empty()
-        other = True
+    descripE.empty()
+    other = True
 
-        # Add some beautiful styling wrapper
-        st.markdown("""
-        <style>
-        .kritika-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            border-radius: 20px;
-            margin: 20px 0;
-        }
-        .fun-header {
-            text-align: center;
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-        </style>
+    # Add beautiful golden birthday styling
+    st.markdown("""
+    <style>
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes sparkle {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    @keyframes gradient-shift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    .golden-birthday-container {
+        background: linear-gradient(135deg, #FFD700, #FFA500, #FF69B4, #FFD700);
+        background-size: 400% 400%;
+        animation: gradient-shift 8s ease infinite;
+        padding: 40px;
+        border-radius: 30px;
+        margin: 30px 0;
+        box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .golden-birthday-container::before {
+        content: "✨";
+        position: absolute;
+        font-size: 100px;
+        opacity: 0.1;
+        animation: float 3s ease-in-out infinite;
+        left: 10%;
+        top: 20%;
+    }
+    
+    .golden-birthday-container::after {
+        content: "🎂";
+        position: absolute;
+        font-size: 100px;
+        opacity: 0.1;
+        animation: float 4s ease-in-out infinite;
+        right: 10%;
+        bottom: 20%;
+    }
+    
+    .birthday-header {
+        text-align: center;
+        color: white;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        animation: sparkle 2s ease-in-out infinite;
+    }
+    
+    .birthday-subheader {
+        text-align: center;
+        color: #FFF8DC;
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .timer-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        margin: 30px auto;
+        max-width: 600px;
+    }
+    
+    .timer-title {
+        text-align: center;
+        color: #FF69B4;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    
+    .timer-display {
+        display: flex;
+        justify-content: space-around;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .timer-box {
+        background: linear-gradient(135deg, #FFD700, #FFA500);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        min-width: 100px;
+        box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+    }
+    
+    .timer-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .timer-label {
+        font-size: 0.9rem;
+        color: white;
+        text-transform: uppercase;
+        margin-top: 5px;
+    }
+    
+    .birthday-message {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 25px;
+        border-radius: 20px;
+        margin: 20px 0;
+        border-left: 5px solid #FFD700;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .birthday-message p {
+        color: #FF69B4;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        margin: 10px 0;
+    }
+    
+    .golden-number {
+        color: #FFD700;
+        font-size: 2rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .cute-divider {
+        text-align: center;
+        font-size: 2rem;
+        margin: 30px 0;
+        animation: float 3s ease-in-out infinite;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Golden Birthday Container
+    st.markdown("""
+    <div class="golden-birthday-container">
+        <div class="birthday-header">
+            🌟 GOLDEN BIRTHDAY CELEBRATION 🌟
+        </div>
+        <div class="birthday-subheader">
+            Turning 19 on the 19th - A Once in a Lifetime Moment! ✨
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Birthday Countdown Timer
+    from datetime import datetime, timedelta
+    import time
+
+    target_date = datetime(2026, 1, 19, 0, 0, 0)
+    current_time = datetime.now()
+    time_remaining = target_date - current_time
+
+    if time_remaining.total_seconds() > 0:
+        days = time_remaining.days
+        hours = time_remaining.seconds // 3600
+        minutes = (time_remaining.seconds % 3600) // 60
+        seconds = time_remaining.seconds % 60
+        
+        st.markdown(f"""
+        <div class="timer-container">
+            <div class="timer-title">
+                ⏰ Countdown to Your Golden Birthday! ⏰
+            </div>
+            <div class="timer-display">
+                <div class="timer-box">
+                    <div class="timer-number">{days}</div>
+                    <div class="timer-label">Days</div>
+                </div>
+                <div class="timer-box">
+                    <div class="timer-number">{hours}</div>
+                    <div class="timer-label">Hours</div>
+                </div>
+                <div class="timer-box">
+                    <div class="timer-number">{minutes}</div>
+                    <div class="timer-label">Minutes</div>
+                </div>
+                <div class="timer-box">
+                    <div class="timer-number">{seconds}</div>
+                    <div class="timer-label">Seconds</div>
+                </div>
+            </div>
+        </div>
         """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div class="timer-container">
+            <div class="timer-title">
+                🎉 IT'S YOUR GOLDEN BIRTHDAY! 🎉
+            </div>
+            <div style="text-align: center; font-size: 3rem; margin: 30px 0;">
+                🎂🎈🎁💝✨
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Special Birthday Message
+    st.markdown("""
+    <div class="birthday-message">
+        <p>💖 <strong>Dear Kritika,</strong></p>
+        <p>Today is not just any birthday - it's your <span class="golden-number">GOLDEN BIRTHDAY</span>! 🌟</p>
+        <p>Turning <span class="golden-number">19</span> on January <span class="golden-number">19th</span> is a once-in-a-lifetime magical moment that only happens to special people like you! ✨</p>
+        <p>May this golden year bring you:</p>
+        <p>✨ Dreams that sparkle like gold</p>
+        <p>💫 Moments that shine forever</p>
+        <p>🌈 Joy in every color of the rainbow</p>
+        <p>🎯 Success in all your endeavors (especially that CA Foundation!)</p>
+        <p>💝 Love, laughter, and endless happiness</p>
+        <p><strong>Happy Golden 19th Birthday, Kirit! 🎂👑</strong></p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="cute-divider">🎀 💕 🎀 💕 🎀</div>', unsafe_allow_html=True)
+
+    # Original content continues below
+    st.subheader('IS KIRTI :pouting_cat: HERE ? WTF ARE YOU DOING HERE!')
+    st.write("I actually don't know whether you are the kri-tikka ik or someone else?")
+    st.write('Give me the right answer of the question written below:')
+    kiritbox = st.text_input(label='kiritbox', label_visibility="hidden", value='',
+                             placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
+    
+    
+    if kiritbox.lower() in ['kirit']:
+        st.markdown("""
+        <div class="birthday-message">
+            <p style="text-align: center; font-size: 1.5rem;">
+                🎉 YOU ARE THE BIRTHDAY GIRL! 🎉<br>
+                Welcome to your special golden birthday page, KIRIT! 💖
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('<div class="cute-divider">✨ 🎂 ✨</div>', unsafe_allow_html=True)
+
 
         # Your original content starts here - UNCHANGED
         st.subheader('IS KIRTI :pouting_cat: HERE ? WTF ARE YOU DOING HERE!')
