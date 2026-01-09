@@ -1,4 +1,3 @@
-
 import csv
 import random
 import time
@@ -1091,266 +1090,912 @@ if selected == 'PROFILE':
             <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile 2028</h2>
             """, unsafe_allow_html=True)
 
+    # ==================== NEW BIRTHDAY PAGE (CODE: 19012007) ====================
     if result_search_box and '19012007' == result_search_box:
-    descripE.empty()
-    other = True
+        descripE.empty()
+        other = True
 
-    # Add beautiful golden birthday styling
-    st.markdown("""
-    <style>
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
-    }
-    
-    @keyframes sparkle {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-    }
-    
-    @keyframes gradient-shift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    
-    .golden-birthday-container {
-        background: linear-gradient(135deg, #FFD700, #FFA500, #FF69B4, #FFD700);
-        background-size: 400% 400%;
-        animation: gradient-shift 8s ease infinite;
-        padding: 40px;
-        border-radius: 30px;
-        margin: 30px 0;
-        box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .golden-birthday-container::before {
-        content: "✨";
-        position: absolute;
-        font-size: 100px;
-        opacity: 0.1;
-        animation: float 3s ease-in-out infinite;
-        left: 10%;
-        top: 20%;
-    }
-    
-    .golden-birthday-container::after {
-        content: "🎂";
-        position: absolute;
-        font-size: 100px;
-        opacity: 0.1;
-        animation: float 4s ease-in-out infinite;
-        right: 10%;
-        bottom: 20%;
-    }
-    
-    .birthday-header {
-        text-align: center;
-        color: white;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 20px;
-        animation: sparkle 2s ease-in-out infinite;
-    }
-    
-    .birthday-subheader {
-        text-align: center;
-        color: #FFF8DC;
-        font-size: 1.5rem;
-        margin-bottom: 30px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    }
-    
-    .timer-container {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        margin: 30px auto;
-        max-width: 600px;
-    }
-    
-    .timer-title {
-        text-align: center;
-        color: #FF69B4;
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-    
-    .timer-display {
-        display: flex;
-        justify-content: space-around;
-        gap: 15px;
-        margin: 20px 0;
-    }
-    
-    .timer-box {
-        background: linear-gradient(135deg, #FFD700, #FFA500);
-        padding: 20px;
-        border-radius: 15px;
-        text-align: center;
-        min-width: 100px;
-        box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
-    }
-    
-    .timer-number {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    }
-    
-    .timer-label {
-        font-size: 0.9rem;
-        color: white;
-        text-transform: uppercase;
-        margin-top: 5px;
-    }
-    
-    .birthday-message {
-        background: rgba(255, 255, 255, 0.9);
-        padding: 25px;
-        border-radius: 20px;
-        margin: 20px 0;
-        border-left: 5px solid #FFD700;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    .birthday-message p {
-        color: #FF69B4;
-        font-size: 1.2rem;
-        line-height: 1.8;
-        margin: 10px 0;
-    }
-    
-    .golden-number {
-        color: #FFD700;
-        font-size: 2rem;
-        font-weight: bold;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    }
-    
-    .cute-divider {
-        text-align: center;
-        font-size: 2rem;
-        margin: 30px 0;
-        animation: float 3s ease-in-out infinite;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    # Golden Birthday Container
-    st.markdown("""
-    <div class="golden-birthday-container">
-        <div class="birthday-header">
-            🌟 GOLDEN BIRTHDAY CELEBRATION 🌟
-        </div>
-        <div class="birthday-subheader">
-            Turning 19 on the 19th - A Once in a Lifetime Moment! ✨
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Birthday Countdown Timer
-    from datetime import datetime, timedelta
-    import time
-
-    target_date = datetime(2026, 1, 19, 0, 0, 0)
-    current_time = datetime.now()
-    time_remaining = target_date - current_time
-
-    if time_remaining.total_seconds() > 0:
-        days = time_remaining.days
-        hours = time_remaining.seconds // 3600
-        minutes = (time_remaining.seconds % 3600) // 60
-        seconds = time_remaining.seconds % 60
+        # Beautiful girly birthday page with red/grey/baby pink theme
+        import streamlit.components.v1 as components
         
-        st.markdown(f"""
-        <div class="timer-container">
-            <div class="timer-title">
-                ⏰ Countdown to Your Golden Birthday! ⏰
-            </div>
-            <div class="timer-display">
-                <div class="timer-box">
-                    <div class="timer-number">{days}</div>
-                    <div class="timer-label">Days</div>
+        birthday_html = """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+                
+                @keyframes float {
+                    0%, 100% { transform: translateY(0px); }
+                    50% { transform: translateY(-12px); }
+                }
+                
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                }
+                
+                @keyframes sparkle {
+                    0%, 100% { opacity: 0.3; }
+                    50% { opacity: 1; }
+                }
+                
+                @keyframes gradient-flow {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                
+                @keyframes shimmer {
+                    0% { left: -100%; }
+                    100% { left: 100%; }
+                }
+                
+                @keyframes confetti-fall {
+                    0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+                    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+                }
+                
+                @keyframes bounce {
+                    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                    40% { transform: translateY(-20px); }
+                    60% { transform: translateY(-10px); }
+                }
+                
+                @keyframes float-note {
+                    0%, 100% { transform: rotate(var(--rotate)) translateY(0); }
+                    50% { transform: rotate(var(--rotate)) translateY(-10px); }
+                }
+                
+                body {
+                    font-family: 'Poppins', sans-serif;
+                    background: linear-gradient(135deg, #2a2a2a 0%, #3d3d3d 50%, #2a2a2a 100%);
+                    min-height: 100vh;
+                    padding: 40px 20px 120px;
+                    position: relative;
+                    overflow-x: hidden;
+                }
+                
+                body::before {
+                    content: '';
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: radial-gradient(circle at 20% 30%, rgba(220, 53, 69, 0.08) 0%, transparent 40%),
+                                radial-gradient(circle at 80% 70%, rgba(255, 182, 193, 0.1) 0%, transparent 40%),
+                                radial-gradient(circle at 50% 90%, rgba(220, 53, 69, 0.05) 0%, transparent 30%);
+                    pointer-events: none;
+                    z-index: 0;
+                }
+                
+                .floating-star {
+                    position: fixed;
+                    font-size: 16px;
+                    animation: float 5s ease-in-out infinite, sparkle 2s ease-in-out infinite;
+                    opacity: 0.5;
+                    z-index: 1;
+                }
+                
+                .floating-star:nth-child(1) { left: 5%; top: 12%; animation-delay: 0s; font-size: 14px; }
+                .floating-star:nth-child(2) { left: 18%; top: 50%; animation-delay: 1.2s; font-size: 18px; }
+                .floating-star:nth-child(3) { right: 8%; top: 20%; animation-delay: 0.6s; font-size: 15px; color: #c0c0c0; }
+                .floating-star:nth-child(4) { right: 22%; top: 60%; animation-delay: 1.8s; font-size: 17px; }
+                .floating-star:nth-child(5) { left: 42%; top: 6%; animation-delay: 2.4s; font-size: 16px; color: #333; }
+                .floating-star:nth-child(6) { left: 10%; top: 80%; animation-delay: 0.3s; font-size: 14px; color: #c0c0c0; }
+                .floating-star:nth-child(7) { right: 15%; top: 85%; animation-delay: 1.5s; font-size: 15px; }
+                .floating-star:nth-child(8) { left: 55%; top: 45%; animation-delay: 2.1s; font-size: 13px; color: #333; }
+                .floating-star:nth-child(9) { right: 35%; top: 30%; animation-delay: 0.9s; font-size: 16px; color: #c0c0c0; }
+                .floating-star:nth-child(10) { left: 3%; top: 40%; animation-delay: 0.7s; font-size: 15px; color: #333; }
+                .floating-star:nth-child(11) { right: 5%; top: 48%; animation-delay: 1.9s; font-size: 14px; color: #c0c0c0; }
+                .floating-star:nth-child(12) { left: 30%; top: 75%; animation-delay: 2.6s; font-size: 16px; }
+                .floating-star:nth-child(13) { right: 40%; top: 8%; animation-delay: 0.4s; font-size: 13px; color: #c0c0c0; }
+                .floating-star:nth-child(14) { left: 15%; top: 5%; animation-delay: 1.1s; font-size: 12px; }
+                .floating-star:nth-child(15) { right: 60%; top: 15%; animation-delay: 2.3s; font-size: 16px; color: #c0c0c0; }
+                .floating-star:nth-child(16) { left: 75%; top: 25%; animation-delay: 0.5s; font-size: 14px; color: #333; }
+                .floating-star:nth-child(17) { right: 52%; top: 65%; animation-delay: 1.7s; font-size: 15px; }
+                .floating-star:nth-child(18) { left: 85%; top: 55%; animation-delay: 2.9s; font-size: 13px; color: #c0c0c0; }
+                .floating-star:nth-child(19) { right: 28%; top: 90%; animation-delay: 0.8s; font-size: 16px; }
+                .floating-star:nth-child(20) { left: 65%; top: 88%; animation-delay: 2.2s; font-size: 14px; color: #c0c0c0; }
+                
+                .main-content {
+                    position: relative;
+                    z-index: 10;
+                }
+                
+                .main-header {
+                    text-align: center;
+                    margin-bottom: 35px;
+                }
+                
+                .header-title {
+                    font-size: 2.6rem;
+                    font-weight: 700;
+                    background: linear-gradient(135deg, #dc3545, #ff6b7a, #ffb6c1, #dc3545);
+                    background-size: 300% 300%;
+                    animation: gradient-flow 4s ease infinite;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    margin-bottom: 8px;
+                    transition: all 0.3s ease;
+                }
+                
+                .header-title:hover {
+                    text-shadow: 0 0 20px rgba(220, 53, 69, 0.4);
+                    transform: scale(1.02);
+                }
+                
+                .header-subtitle {
+                    font-size: 0.95rem;
+                    color: #b0b0b0;
+                    font-weight: 300;
+                    letter-spacing: 3px;
+                    margin-bottom: 12px;
+                }
+                
+                .header-tagline {
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    color: #ffb6c1;
+                    line-height: 1.4;
+                }
+                
+                /* Countdown Section */
+                .countdown-card {
+                    background: linear-gradient(145deg, rgba(60, 60, 60, 0.9), rgba(45, 45, 45, 0.95));
+                    backdrop-filter: blur(20px);
+                    border: 2px solid rgba(220, 53, 69, 0.4);
+                    border-radius: 28px;
+                    padding: 32px;
+                    max-width: 620px;
+                    margin: 0 auto 40px;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                                0 0 30px rgba(220, 53, 69, 0.1);
+                }
+                
+                .countdown-title {
+                    text-align: center;
+                    font-size: 1.1rem;
+                    color: #ffb6c1;
+                    font-weight: 500;
+                    margin-bottom: 25px;
+                    letter-spacing: 1px;
+                }
+                
+                .timer-grid {
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                }
+                
+                .timer-unit {
+                    background: linear-gradient(145deg, #3a3a3a, #2d2d2d);
+                    border: 2px solid #dc3545;
+                    border-radius: 16px;
+                    padding: 16px 12px;
+                    min-width: 78px;
+                    text-align: center;
+                    position: relative;
+                    overflow: hidden;
+                    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.2);
+                }
+                
+                .timer-unit::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 182, 193, 0.15), transparent);
+                    animation: shimmer 2.5s infinite;
+                }
+                
+                .timer-value {
+                    font-size: 2.2rem;
+                    font-weight: 700;
+                    color: #ffffff;
+                    line-height: 1;
+                    margin-bottom: 5px;
+                    text-shadow: 0 2px 10px rgba(220, 53, 69, 0.3);
+                }
+                
+                .timer-label {
+                    font-size: 0.65rem;
+                    color: #9a9a9a;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    font-weight: 500;
+                }
+                
+                .time-message {
+                    text-align: center;
+                    margin-top: 22px;
+                    padding: 15px;
+                    background: linear-gradient(135deg, rgba(220, 53, 69, 0.15), rgba(255, 182, 193, 0.1));
+                    border-radius: 12px;
+                    border-left: 4px solid #dc3545;
+                }
+                
+                .time-message p {
+                    color: #c0c0c0;
+                    font-size: 0.9rem;
+                    margin: 0;
+                    font-weight: 400;
+                }
+                
+                .time-message strong {
+                    color: #ff6b7a;
+                }
+                
+                /* Swipeable Cards Section */
+                .cards-section {
+                    max-width: 620px;
+                    margin: 0 auto 45px;
+                }
+                
+                .cards-header {
+                    text-align: center;
+                    margin-bottom: 18px;
+                }
+                
+                .cards-header h2 {
+                    font-size: 1.4rem;
+                    color: #ffb6c1;
+                    font-weight: 600;
+                    margin-bottom: 4px;
+                }
+                
+                .cards-header p {
+                    color: #888;
+                    font-size: 0.8rem;
+                }
+                
+                .card-container {
+                    position: relative;
+                    height: 300px;
+                    perspective: 1000px;
+                }
+                
+                .message-card {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(145deg, rgba(55, 55, 55, 0.95), rgba(40, 40, 40, 0.98));
+                    border: 2px solid rgba(255, 182, 193, 0.3);
+                    border-radius: 22px;
+                    padding: 30px;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+                    opacity: 0;
+                    transform: translateX(50px) scale(0.95);
+                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+                
+                .message-card.active {
+                    opacity: 1;
+                    transform: translateX(0) scale(1);
+                    z-index: 10;
+                }
+                
+                .message-card.prev {
+                    opacity: 0;
+                    transform: translateX(-50px) scale(0.95);
+                }
+                
+                .card-number {
+                    position: absolute;
+                    top: 18px;
+                    right: 22px;
+                    font-size: 0.7rem;
+                    color: #666;
+                    letter-spacing: 1px;
+                }
+                
+                .card-emoji {
+                    font-size: 2.2rem;
+                    margin-bottom: 16px;
+                    text-align: center;
+                }
+                
+                .card-title {
+                    font-size: 1.3rem;
+                    color: #dc3545;
+                    font-weight: 600;
+                    margin-bottom: 12px;
+                    text-align: center;
+                }
+                
+                .card-content {
+                    color: #b5b5b5;
+                    font-size: 0.95rem;
+                    line-height: 1.7;
+                    text-align: center;
+                    font-weight: 300;
+                }
+                
+                .card-navigation {
+                    display: flex;
+                    justify-content: center;
+                    gap: 12px;
+                    margin-top: 20px;
+                }
+                
+                .nav-btn {
+                    background: linear-gradient(135deg, #dc3545, #ff6b7a);
+                    border: none;
+                    color: white;
+                    padding: 10px 25px;
+                    border-radius: 22px;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    font-family: 'Poppins', sans-serif;
+                    box-shadow: 0 5px 20px rgba(220, 53, 69, 0.3);
+                }
+                
+                .nav-btn:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+                }
+                
+                .nav-btn:disabled {
+                    background: #555;
+                    cursor: not-allowed;
+                    transform: none;
+                    box-shadow: none;
+                }
+                
+                .card-dots {
+                    display: flex;
+                    justify-content: center;
+                    gap: 8px;
+                    margin-top: 16px;
+                }
+                
+                .dot {
+                    width: 9px;
+                    height: 9px;
+                    border-radius: 50%;
+                    background: #555;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                }
+                
+                .dot.active {
+                    background: linear-gradient(135deg, #dc3545, #ff6b7a);
+                    transform: scale(1.2);
+                }
+                
+                /* Sticky Notes Section */
+                .sticky-notes-section {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 0 auto 50px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+                    gap: 30px 40px;
+                    padding: 30px 20px;
+                }
+                
+                .sticky-note {
+                    width: 130px;
+                    height: 110px;
+                    padding: 14px 10px;
+                    border-radius: 3px;
+                    box-shadow: 4px 4px 15px rgba(0,0,0,0.35);
+                    font-size: 0.72rem;
+                    color: #333;
+                    font-weight: 400;
+                    font-weight: 400;
+                    line-height: 1.4;
+                    position: relative;
+                    animation: float-note 6s ease-in-out infinite;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                }
+                
+                .sticky-note:hover {
+                    transform: rotate(0deg) scale(1.15) !important;
+                    z-index: 20;
+                    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+                    animation-play-state: paused;
+                }
+                
+                .sticky-note::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 20%;
+                    width: 60%;
+                    height: 7px;
+                    background: rgba(0,0,0,0.15);
+                    border-radius: 0 0 3px 3px;
+                }
+                
+                .sticky-note:nth-child(1) { --rotate: -7deg; background: #ffeb99; margin-top: 15px; }
+                .sticky-note:nth-child(2) { --rotate: 4deg; background: #ffc0cb; animation-delay: 0.5s; margin-top: -10px; }
+                .sticky-note:nth-child(3) { --rotate: -3deg; background: #c1f0c1; animation-delay: 1s; margin-top: 25px; }
+                .sticky-note:nth-child(4) { --rotate: 8deg; background: #ffb3b3; animation-delay: 0.3s; margin-top: -5px; }
+                .sticky-note:nth-child(5) { --rotate: -6deg; background: #e0e0e0; animation-delay: 0.8s; margin-top: 20px; }
+                .sticky-note:nth-child(6) { --rotate: 5deg; background: #ffd6e0; animation-delay: 1.2s; margin-top: -15px; }
+                
+                /* Message Box Section */
+                .message-box-section {
+                    max-width: 620px;
+                    margin: 0 auto 60px;
+                    background: linear-gradient(145deg, rgba(55, 55, 55, 0.9), rgba(40, 40, 40, 0.95));
+                    border: 2px solid rgba(255, 182, 193, 0.25);
+                    border-radius: 20px;
+                    padding: 25px;
+                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+                }
+                
+                .message-box-header {
+                    text-align: center;
+                    margin-bottom: 18px;
+                }
+                
+                .message-box-header h3 {
+                    font-size: 1.2rem;
+                    color: #ffb6c1;
+                    font-weight: 500;
+                    margin-bottom: 5px;
+                }
+                
+                .message-box-header p {
+                    color: #777;
+                    font-size: 0.75rem;
+                }
+                
+                .message-input-area {
+                    display: flex;
+                    gap: 10px;
+                    margin-bottom: 15px;
+                }
+                
+                .message-input {
+                    flex: 1;
+                    background: rgba(30, 30, 30, 0.8);
+                    border: 1px solid rgba(255, 182, 193, 0.3);
+                    border-radius: 12px;
+                    padding: 12px 15px;
+                    color: #e0e0e0;
+                    font-size: 0.9rem;
+                    font-family: 'Poppins', sans-serif;
+                    resize: none;
+                    outline: none;
+                    transition: border-color 0.3s ease;
+                }
+                
+                .message-input:focus {
+                    border-color: #dc3545;
+                }
+                
+                .message-input::placeholder {
+                    color: #666;
+                }
+                
+                .save-btn {
+                    background: linear-gradient(135deg, #dc3545, #ff6b7a);
+                    border: none;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 12px;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    font-family: 'Poppins', sans-serif;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+                }
+                
+                .save-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+                }
+                
+                .saved-messages {
+                    max-height: 200px;
+                    overflow-y: auto;
+                }
+                
+                .saved-message {
+                    background: rgba(30, 30, 30, 0.6);
+                    border-radius: 10px;
+                    padding: 12px 15px;
+                    margin-bottom: 10px;
+                    border-left: 3px solid #dc3545;
+                }
+                
+                .saved-message p {
+                    color: #b5b5b5;
+                    font-size: 0.85rem;
+                    margin-bottom: 5px;
+                    line-height: 1.5;
+                }
+                
+                .saved-message .timestamp {
+                    color: #666;
+                    font-size: 0.7rem;
+                }
+                
+                .no-messages {
+                    text-align: center;
+                    color: #555;
+                    font-size: 0.8rem;
+                    padding: 20px;
+                }
+                
+                /* Birthday Celebration */
+                .birthday-celebration {
+                    text-align: center;
+                    padding: 45px 25px;
+                    position: relative;
+                }
+                
+                .birthday-celebration h1 {
+                    font-size: 2rem;
+                    background: linear-gradient(135deg, #dc3545, #ff6b7a, #ffb6c1);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    animation: pulse 1.5s ease-in-out infinite;
+                    margin-bottom: 12px;
+                    line-height: 1.3;
+                }
+                
+                .birthday-celebration .subtitle {
+                    font-size: 1.2rem;
+                    color: #ffb6c1;
+                    margin-bottom: 20px;
+                    font-weight: 300;
+                }
+                
+                .birthday-celebration .emoji-row {
+                    font-size: 3rem;
+                    margin: 20px 0;
+                    animation: bounce 2s ease-in-out infinite;
+                }
+                
+                .confetti {
+                    position: fixed;
+                    width: 12px;
+                    height: 12px;
+                    top: -20px;
+                    animation: confetti-fall linear forwards;
+                    z-index: 1000;
+                }
+                
+                /* Footer text */
+                .footer-text {
+                    text-align: center;
+                    padding: 30px 20px 50px;
+                    color: #555;
+                    font-size: 0.9rem;
+                    font-weight: 300;
+                }
+                
+                .footer-text span {
+                    color: #dc3545;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="floating-star">✦</div>
+            <div class="floating-star">✧</div>
+            <div class="floating-star">✦</div>
+            <div class="floating-star">✧</div>
+            <div class="floating-star">★</div>
+            <div class="floating-star">✦</div>
+            <div class="floating-star">✧</div>
+            <div class="floating-star">✦</div>
+            <div class="floating-star">★</div>
+            <div class="floating-star">✧</div>
+            <div class="floating-star">✦</div>
+            <div class="floating-star">★</div>
+            <div class="floating-star">✧</div>
+            <div class="floating-star">✦</div>
+            <div class="floating-star">★</div>
+            <div class="floating-star">✧</div>
+            <div class="floating-star">✦</div>
+            <div class="floating-star">✧</div>
+            <div class="floating-star">★</div>
+            <div class="floating-star">✦</div>
+            
+            <div id="confetti-container"></div>
+            
+            <div class="main-content">
+                <div class="main-header">
+                    <h1 class="header-title">✨ Kritika's Golden Birthday ✨</h1>
+                    <p class="header-subtitle">TURNING 19 ON THE 19TH</p>
+                    <p class="header-tagline">ITS DA KIRIT'S BIRTHDAY COUNTDOWN YIPPEE<br>SHER KA BIRTHDAY AANE WALA </p>
+                    
+                </div> 
+                
+                <div class="countdown-card" id="countdown-section">
+                    <div class="countdown-title"> Countdown to Your Special Day</div>
+                    <div class="timer-grid" id="countdown-timer">
+                        <div class="timer-unit">
+                            <div class="timer-value" id="days">--</div>
+                            <div class="timer-label">Days</div>
+                        </div>
+                        <div class="timer-unit">
+                            <div class="timer-value" id="hours">--</div>
+                            <div class="timer-label">Hours</div>
+                        </div>
+                        <div class="timer-unit">
+                            <div class="timer-value" id="minutes">--</div>
+                            <div class="timer-label">Minutes</div>
+                        </div>
+                        <div class="timer-unit">
+                            <div class="timer-value" id="seconds">--</div>
+                            <div class="timer-label">Seconds</div>
+                        </div>
+                    </div>
+                    <div class="time-message">
+                        <p id="time-message-text">⏳ <strong>This much time left</strong> for your golden birthday!</p>
+                    </div>
                 </div>
-                <div class="timer-box">
-                    <div class="timer-number">{hours}</div>
-                    <div class="timer-label">Hours</div>
+                
+                <div class="cards-section">
+                    <div class="cards-header">
+                        <h2>💌 Special Messages For You</h2>
+                        <p>Click to reveal each card</p>
+                    </div>
+                    
+                    <div class="card-container">
+                        <div class="message-card active" data-card="0">
+                            <span class="card-number">1 / 3</span>
+                            <div class="card-emoji"></div>
+                            <h3 class="card-title"><!-- CARD 1 TITLE -->HAPPY BIRTHDAY MONTH KRITIKA SINHA<3</h3>
+                            <p class="card-content">
+                                <!-- CARD 1 CONTENT -->
+                                I hope you are having a great day kirit whenever you reading this, tell me how your day going below in messages. You have absolutely slayed the 2025, now its time to slay the 2026, ALL THE VERY BEST for that.
+                            </p>
+                        </div>
+                        
+                        <div class="message-card" data-card="1">
+                            <span class="card-number">2 / 3</span>
+                            <h3 class="card-title"><!-- CARD 2 TITLE -->Yappachino</h3>
+                            <p class="card-content">
+                                <!-- CARD 2 CONTENT -->
+                                Thank you for listening those long ass voice notes(yaps), having those fun hangouts when i needed it most, means a lot to me. bauna ji now you are more like a close friend to me.
+                            </p>
+                        </div>
+                        
+                        <div class="message-card" data-card="2">
+                            <span class="card-number">3 / 3</span>
+                            <h3 class="card-title"><!-- CARD 3 TITLE -->bauna responsible horha</h3>
+                            <p class="card-content">
+                                <!-- CARD 3 CONTENT -->
+                                Look at you, kritika! You have grown so much. Clearing Boards, CA, and CUET all at once, then slaying content creation by hitting 10K. I am so proud of you girl<3 Keep shining. It’s just the beginning, you have so much more to achieve, soon to be Miss CA Kritika Sinha.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-navigation">
+                        <button class="nav-btn" id="prevBtn" onclick="prevCard()" disabled>← Previous</button>
+                        <button class="nav-btn" id="nextBtn" onclick="nextCard()">Next →</button>
+                    </div>
+                    
+                    <div class="card-dots">
+                        <span class="dot active" onclick="goToCard(0)"></span>
+                        <span class="dot" onclick="goToCard(1)"></span>
+                        <span class="dot" onclick="goToCard(2)"></span>
+                    </div>
                 </div>
-                <div class="timer-box">
-                    <div class="timer-number">{minutes}</div>
-                    <div class="timer-label">Minutes</div>
+                
+                <!-- Sticky Notes Section -->
+                <div class="sticky-notes-section">
+                    <div class="sticky-note"><!-- STICKY 1 -->so proud of u<3</div>
+                    <div class="sticky-note"><!-- STICKY 2 -->mastikhor bauna</div>
+                    
+                    <div class="sticky-note"><!-- STICKY 4 -->ridiculously gorgeous and disgustingly educated? YES</div>
+                    <div class="sticky-note"><!-- STICKY 5 -->stay connected oki? meet me soon</div>
+                    <div class="sticky-note"><!-- STICKY 6 -->happy 19th again! Love you twin</div>
                 </div>
-                <div class="timer-box">
-                    <div class="timer-number">{seconds}</div>
-                    <div class="timer-label">Seconds</div>
+                
+                <!-- Message Box Section -->
+                <div class="message-box-section">
+                    <div class="message-box-header">
+                        <h3>📝 Leave a Note</h3>
+                        <p>Write something, it'll be saved here!</p>
+                    </div>
+                    <div class="message-input-area">
+                        <textarea class="message-input" id="messageInput" placeholder="Write your message here..." rows="2"></textarea>
+                        <button class="save-btn" onclick="saveMessage()">Save ✨</button>
+                    </div>
+                    <div class="saved-messages" id="savedMessages">
+                        <div class="no-messages">No messages yet... write something! 💭</div>
+                    </div>
                 </div>
+                
+                <div class="footer-text"><span>I HOPE YOU LIKE THIS, SHIVIKUN HERE BYEBUI KIRTII, KEEP COMING BACK</span></div>
             </div>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-        <div class="timer-container">
-            <div class="timer-title">
-                🎉 IT'S YOUR GOLDEN BIRTHDAY! 🎉
-            </div>
-            <div style="text-align: center; font-size: 3rem; margin: 30px 0;">
-                🎂🎈🎁💝✨
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    # Special Birthday Message
-    st.markdown("""
-    <div class="birthday-message">
-        <p>💖 <strong>Dear Kritika,</strong></p>
-        <p>Today is not just any birthday - it's your <span class="golden-number">GOLDEN BIRTHDAY</span>! 🌟</p>
-        <p>Turning <span class="golden-number">19</span> on January <span class="golden-number">19th</span> is a once-in-a-lifetime magical moment that only happens to special people like you! ✨</p>
-        <p>May this golden year bring you:</p>
-        <p>✨ Dreams that sparkle like gold</p>
-        <p>💫 Moments that shine forever</p>
-        <p>🌈 Joy in every color of the rainbow</p>
-        <p>🎯 Success in all your endeavors (especially that CA Foundation!)</p>
-        <p>💝 Love, laughter, and endless happiness</p>
-        <p><strong>Happy Golden 19th Birthday, Kirit! 🎂👑</strong></p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<div class="cute-divider">🎀 💕 🎀 💕 🎀</div>', unsafe_allow_html=True)
-
-    # Original content continues below
-    st.subheader('IS KIRTI :pouting_cat: HERE ? WTF ARE YOU DOING HERE!')
-    st.write("I actually don't know whether you are the kri-tikka ik or someone else?")
-    st.write('Give me the right answer of the question written below:')
-    kiritbox = st.text_input(label='kiritbox', label_visibility="hidden", value='',
-                             placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
-    
-    
-    if kiritbox.lower() in ['kirit']:
-        st.markdown("""
-        <div class="birthday-message">
-            <p style="text-align: center; font-size: 1.5rem;">
-                🎉 YOU ARE THE BIRTHDAY GIRL! 🎉<br>
-                Welcome to your special golden birthday page, KIRIT! 💖
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+            
+            <script>
+                let currentCard = 0;
+                const totalCards = 3;
+                
+                function updateCards() {
+                    const cards = document.querySelectorAll('.message-card');
+                    const dots = document.querySelectorAll('.dot');
+                    
+                    cards.forEach((card, index) => {
+                        card.classList.remove('active', 'prev');
+                        if (index === currentCard) {
+                            card.classList.add('active');
+                        } else if (index < currentCard) {
+                            card.classList.add('prev');
+                        }
+                    });
+                    
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentCard);
+                    });
+                    
+                    document.getElementById('prevBtn').disabled = currentCard === 0;
+                    document.getElementById('nextBtn').disabled = currentCard === totalCards - 1;
+                }
+                
+                function nextCard() {
+                    if (currentCard < totalCards - 1) {
+                        currentCard++;
+                        updateCards();
+                    }
+                }
+                
+                function prevCard() {
+                    if (currentCard > 0) {
+                        currentCard--;
+                        updateCards();
+                    }
+                }
+                
+                function goToCard(index) {
+                    currentCard = index;
+                    updateCards();
+                }
+                
+                // Message saving functions
+                function saveMessage() {
+                    const input = document.getElementById('messageInput');
+                    const message = input.value.trim();
+                    
+                    if (message) {
+                        const messages = JSON.parse(localStorage.getItem('kritika_messages') || '[]');
+                        const newMessage = {
+                            text: message,
+                            timestamp: new Date().toLocaleString('en-IN', { 
+                                day: '2-digit', 
+                                month: 'short', 
+                                year: 'numeric',
+                                hour: '2-digit', 
+                                minute: '2-digit'
+                            })
+                        };
+                        messages.unshift(newMessage);
+                        localStorage.setItem('kritika_messages', JSON.stringify(messages));
+                        input.value = '';
+                        displayMessages();
+                    }
+                }
+                
+                function displayMessages() {
+                    const container = document.getElementById('savedMessages');
+                    const messages = JSON.parse(localStorage.getItem('kritika_messages') || '[]');
+                    
+                    if (messages.length === 0) {
+                        container.innerHTML = '<div class="no-messages">No messages yet... write something! 💭</div>';
+                    } else {
+                        container.innerHTML = messages.map(msg => `
+                            <div class="saved-message">
+                                <p>${msg.text}</p>
+                                <span class="timestamp">${msg.timestamp}</span>
+                            </div>
+                        `).join('');
+                    }
+                }
+                
+                function createConfetti() {
+                    const container = document.getElementById('confetti-container');
+                    const colors = ['#dc3545', '#ff6b7a', '#ffb6c1', '#ffd1dc', '#fff'];
+                    
+                    for (let i = 0; i < 100; i++) {
+                        setTimeout(() => {
+                            const confetti = document.createElement('div');
+                            confetti.className = 'confetti';
+                            confetti.style.left = Math.random() * 100 + 'vw';
+                            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                            confetti.style.animationDelay = Math.random() * 2 + 's';
+                            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                            confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                            container.appendChild(confetti);
+                            
+                            setTimeout(() => confetti.remove(), 6000);
+                        }, i * 50);
+                    }
+                }
+                
+                function showBirthdayCelebration() {
+                    const section = document.getElementById('countdown-section');
+                    section.innerHTML = `
+                        <div class="birthday-celebration">
+                            <h1>🎉 HAPPY BIRTHDAY KRITIKA! 🎉</h1>
+                            <p class="subtitle">IT'S YOUR 19TH BIRTHDAY!</p>
+                            <div class="emoji-row">🎂 👑 ✨ 🎁 🌸</div>
+                            <p style="color: #b5b5b5; font-size: 0.95rem; margin-top: 18px;">
+                                Your golden birthday is finally here! Turning 19 on the 19th - once in a lifetime! ✨
+                            </p>
+                        </div>
+                    `;
+                    createConfetti();
+                    setInterval(createConfetti, 8000);
+                }
+                
+                function updateCountdown() {
+                    const targetDate = new Date('January 19, 2026 00:00:00').getTime();
+                    const now = new Date().getTime();
+                    const difference = targetDate - now;
+                    
+                    if (difference > 0) {
+                        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                        
+                        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                        
+                        document.getElementById('time-message-text').innerHTML = 
+                            '⏳ Only <strong>' + days + ' days, ' + hours + ' hours, ' + minutes + ' minutes</strong> left!';
+                    } else {
+                        showBirthdayCelebration();
+                    }
+                }
+                
+                // Initialize
+                displayMessages();
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            </script>
+        </body>
+        </html>
+        """
         
-        st.markdown('<div class="cute-divider">✨ 🎂 ✨</div>', unsafe_allow_html=True)
+        components.html(birthday_html, height=1600, scrolling=True)
 
+    # ==================== OLD BIRTHDAY PAGE (CODE: 19012007old) ====================
+    elif result_search_box and '19012007old' == result_search_box:
+        descripE.empty()
+        other = True
 
-        # Your original content starts here - UNCHANGED
+        # Original content continues below
         st.subheader('IS KIRTI :pouting_cat: HERE ? WTF ARE YOU DOING HERE!')
         st.write("I actually don't know whether you are the kri-tikka ik or someone else?")
         st.write('Give me the right answer of the question written below:')
         kiritbox = st.text_input(label='kiritbox', label_visibility="hidden", value='',
-                                 placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
+                                placeholder='What is that short name that you gave it to yourself, after that i started calling you by that name!')
+        
         if kiritbox:
             if kiritbox == 'kirit' or kiritbox == 'Kirit' or kiritbox == 'KIRIT':
                 st.warning("YOU ARE THE KRITIKA :smile_cat: I KNOW, I MEAN KIRIT BKL 🥰 ")
@@ -1390,11 +2035,11 @@ if selected == 'PROFILE':
                     elif (i == 51):
                         _, _, _, _, k = st.columns(5)
                         k.markdown(f'# {kiriti[4]}')
-                        k.markdown('<h6 style="color: pink;">Kirti THE gori niggru, fr <3</h6>', unsafe_allow_html=True)
+                        k.markdown('<h6 style="color: pink;">Kirti Nigru<3</h6>', unsafe_allow_html=True)
 
                 # Your original second sequence - UNCHANGED
-                kiriti = ['YOU ARE REALLY', 'A PERFECT W', 'A 10/10 BADDIE', 'PRETTY BICH',
-                          'MY SALI, LITERALLY THE BEST SALI 🎀']
+                kiriti = ['YOU ARE REALLY', 'WHAT idk', 'A 6.7/10 BADDIE', 'PRETTY BICH',
+                        'bhondu']
 
                 for i in range(54):
                     st.markdown("""<br>""", unsafe_allow_html=True)
@@ -1402,12 +2047,12 @@ if selected == 'PROFILE':
                     if (i == 6):
                         _, _, _, _, k = st.columns(5)
                         k.markdown(f'## {kiriti[0]}')
-                        k.markdown('<h6>A Magical god-crafted SHIT, yes</h6>', unsafe_allow_html=True)
+                        k.markdown('<h6>bauna, yes</h6>', unsafe_allow_html=True)
 
                     if (i == 17):
                         _, _, _, k, _ = st.columns(5)
                         k.markdown(f'## {kiriti[1]}')
-                        k.markdown('<h6>W = Womp Womp nigggaahhhoee</h6>', unsafe_allow_html=True)
+                        k.markdown('<h6>kya likhu</h6>', unsafe_allow_html=True)
 
                     if (i == 29):
                         _, _, k, _, _ = st.columns(5)
@@ -1417,23 +2062,14 @@ if selected == 'PROFILE':
                     if (i == 41):
                         _, k, _, _, _ = st.columns(5)
                         k.markdown(f'## {kiriti[3]}')
-                        k.markdown("<h6>It ain't a lie tho, everything is</h6>", unsafe_allow_html=True)
+                        k.markdown("<h6>bitches aint shit</h6>", unsafe_allow_html=True)
 
                     if (i == 53):
                         k, _, _, _, _ = st.columns(5)
                         k.markdown(f'## {kiriti[4]}')
                         k.markdown(
-                            """<h6 style="color: pink;">Kya expect kra another reply, NO, it is acutally true ehehehe <3</h6>""",
+                            """<h6 style="color: pink;">baddie</h6>""",
                             unsafe_allow_html=True)
-
-                # Add a fun intermission in your style
-                st.markdown("<br><br><br>", unsafe_allow_html=True)
-                st.markdown("""
-                <div style="text-align: center; background: linear-gradient(45deg, #ff9a9e, #fecfef); padding: 20px; border-radius: 15px; margin: 20px 0;">
-                    <h2 style="color: #d63384;">🎪 INTERMISSION TIME! 🎪</h2>
-                    <p style="color: #6f42c1; font-size: 1.1rem;">Take a sip of water, Kirti. This is getting long af, but we ain't stopping!</p>
-                </div>
-                """, unsafe_allow_html=True)
 
                 # Your original personal message section - UNCHANGED
                 st.markdown("<br><br><br><br><br>", unsafe_allow_html=True)
@@ -1464,54 +2100,54 @@ if selected == 'PROFILE':
                     st.write('- The S in your Name Stands for How Smart & Sweet You are')
                     st.write('- The H in your Name Stands for that Sexy Humour you got')
 
-                # Add another fun section in your style
-                st.markdown("<br><br><br>", unsafe_allow_html=True)
+                # # Add another fun section in your style
+                # st.markdown("<br><br><br>", unsafe_allow_html=True)
 
-                # Your original final sequence - UNCHANGED
-                kiriti = ['KRI-TIKKA', 'WHITE NIGGAHH', 'YOU ARE TOOO MUCHHHH', 'NERD, MARD WITH BIG D',
-                          'SALI JII, BUS JAIYE AB AAP']
-                for i in range(46):
-                    st.markdown("""<br>""", unsafe_allow_html=True)
-                    if (i == 3):
-                        k, _, _, _, _ = st.columns(5)
-                        k.markdown(f'## {kiriti[0]}')
-                        k.markdown('<h6>urff DeepFriedChicken 💅🏻</h6>', unsafe_allow_html=True)
+                # # Your original final sequence - UNCHANGED
+                # kiriti = ['KRI-TIKKA', 'WHITE NIGGAHH', 'YOU ARE TOOO MUCHHHH', 'NERD, MARD WITH BIG D',
+                #         'SALI JII, BUS JAIYE AB AAP']
+                # for i in range(46):
+                #     st.markdown("""<br>""", unsafe_allow_html=True)
+                #     if (i == 3):
+                #         k, _, _, _, _ = st.columns(5)
+                #         k.markdown(f'## {kiriti[0]}')
+                #         k.markdown('<h6>urff DeepFriedChicken 💅🏻</h6>', unsafe_allow_html=True)
 
-                    if (i == 13):
-                        _, k, _, _, _ = st.columns(5)
-                        k.markdown(f'## {kiriti[1]}')
-                        k.markdown('<h6>Silly dumb nigga, BUT<br>YOUR MUSIC TASTE>>>🙇🏻</h6>', unsafe_allow_html=True)
+                #     if (i == 13):
+                #         _, k, _, _, _ = st.columns(5)
+                #         k.markdown(f'## {kiriti[1]}')
+                #         k.markdown('<h6>Silly dumb nigga, BUT<br>YOUR MUSIC TASTE>>>🙇🏻</h6>', unsafe_allow_html=True)
 
-                    if (i == 23):
-                        _, _, k, _, _ = st.columns(5)
-                        k.markdown(f'## {kiriti[2]}')
-                        k.markdown('<h6>Hot to handle? naah! Skinny(joks)</h6>', unsafe_allow_html=True)
+                #     if (i == 23):
+                #         _, _, k, _, _ = st.columns(5)
+                #         k.markdown(f'## {kiriti[2]}')
+                #         k.markdown('<h6>Hot to handle? naah! Skinny(joks)</h6>', unsafe_allow_html=True)
 
-                    if (i == 33):
-                        _, _, _, k, _ = st.columns(5)
-                        k.markdown(f'## {kiriti[3]}')
-                        k.markdown("<h6>irl, 5'3 pookie 🐥, will get<br>scared of Cock-roach</h6>",
-                                   unsafe_allow_html=True)
+                #     if (i == 33):
+                #         _, _, _, k, _ = st.columns(5)
+                #         k.markdown(f'## {kiriti[3]}')
+                #         k.markdown("<h6>irl, 5'3 pookie 🐥, will get<br>scared of Cock-roach</h6>",
+                #                 unsafe_allow_html=True)
 
-                    if (i == 43):
-                        _, _, _, _, k = st.columns(5)
-                        k.markdown(f'## {kiriti[4]}')
-                        k.markdown('<h6 style="color: #ffc1cc;">REALLY A 10/10 W SALI.</h6>', unsafe_allow_html=True)
-                        k.markdown("""<h6 style="color: #ffc1cc;">MERI SALI ✔️ MY SISTER IN LAW ❌</h6>""",
-                                   unsafe_allow_html=True)
-                        k.markdown(
-                            """<h6 style="color: #ffc1cc;">BYEEEE, ITNA HEE THA,<br>KEEP REVISITING KIRTI 🤍</h6>""",
-                            unsafe_allow_html=True)
+                #     if (i == 43):
+                #         _, _, _, _, k = st.columns(5)
+                #         k.markdown(f'## {kiriti[4]}')
+                #         k.markdown('<h6 style="color: #ffc1cc;">REALLY A 10/10 W SALI.</h6>', unsafe_allow_html=True)
+                #         k.markdown("""<h6 style="color: #ffc1cc;">MERI SALI ✔️ MY SISTER IN LAW ❌</h6>""",
+                #                 unsafe_allow_html=True)
+                #         k.markdown(
+                #             """<h6 style="color: #ffc1cc;">BYEEEE, ITNA HEE THA,<br>KEEP REVISITING KIRTI 🤍</h6>""",
+                #             unsafe_allow_html=True)
 
-                st.markdown('<br><br><br><br><br><br><br>', unsafe_allow_html=True)
+                # st.markdown('<br><br><br><br><br><br><br>', unsafe_allow_html=True)
 
                 # Your original ending - UNCHANGED but with styling
-                st.markdown(
-                    """<div style="text-align: center; background: linear-gradient(45deg, #ff6b6b, #feca57); padding: 30px; border-radius: 20px; border: 4px solid #ff4757;">
-                    <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">AAB JAA NAA BHEN KI LAURI, HOGYA NAA</h1>
-                    <p style="color: #fff; font-size: 1.2rem; margin-top: 15px;">But like... come back soon, this was fun! 😂💕</p>
-                    </div>""",
-                    unsafe_allow_html=True)
+                # st.markdown(
+                #     """<div style="text-align: center; background: linear-gradient(45deg, #ff6b6b, #feca57); padding: 30px; border-radius: 20px; border: 4px solid #ff4757;">
+                #     <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">AAB JAA NAA BHEN KI LAURI, HOGYA NAA</h1>
+                #     <p style="color: #fff; font-size: 1.2rem; margin-top: 15px;">But like... come back soon, this was fun! 😂💕</p>
+                #     </div>""",
+                #     unsafe_allow_html=True)
 
             else:
                 # Your original else condition - UNCHANGED but with styling
