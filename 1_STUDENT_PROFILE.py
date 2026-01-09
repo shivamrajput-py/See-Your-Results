@@ -1766,7 +1766,7 @@ if selected == 'PROFILE':
                             <h3 class="card-title"><!-- CARD 1 TITLE -->HAPPY BIRTHDAY MONTH KRITIKA SINHA<3</h3>
                             <p class="card-content">
                                 <!-- CARD 1 CONTENT -->
-                                I hope you are having a great day kirit whenever you reading this, tell me how your day going below in messages. You have absolutely slayed the 2025, now its time to slay the 2026, ALL THE VERY BEST for that.
+                                I hope you are having a great day, Kirit, whenever you read this! Tell me how your day is going in the messages below. You absolutely slayed 2025, and now it’s time to slay 2026. ALL THE VERY BEST for that!
                             </p>
                         </div>
                         
@@ -1805,7 +1805,7 @@ if selected == 'PROFILE':
                 <div class="sticky-notes-section">
                     <div class="sticky-note"><!-- STICKY 1 -->so proud of u<3</div>
                     <div class="sticky-note"><!-- STICKY 2 -->mastikhor bauna</div>
-                    
+                    <div class="sticky-note"><!-- STICKY 2 -->mastikhor bauna</div>
                     <div class="sticky-note"><!-- STICKY 4 -->ridiculously gorgeous and disgustingly educated? YES</div>
                     <div class="sticky-note"><!-- STICKY 5 -->stay connected oki? meet me soon</div>
                     <div class="sticky-note"><!-- STICKY 6 -->happy 19th again! Love you twin</div>
