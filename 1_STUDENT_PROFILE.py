@@ -1775,7 +1775,7 @@ if selected == 'PROFILE':
                             <h3 class="card-title"><!-- CARD 2 TITLE -->Yappachino</h3>
                             <p class="card-content">
                                 <!-- CARD 2 CONTENT -->
-                                Thank you for listening those long ass voice notes(yaps), having those fun hangouts when i needed it most, means a lot to me. bauna ji now you are more like a close friend to me.
+                                Thank you for listening to those long-ass vns (yaps) and for the fun hangouts when I needed them most, it means a lot. I fw the vibe you bring and i feel you’re more like a close friend to me now, dats why I did all this, hope you like it.
                             </p>
                         </div>
                         
@@ -1803,9 +1803,9 @@ if selected == 'PROFILE':
                 
                 <!-- Sticky Notes Section -->
                 <div class="sticky-notes-section">
-                    <div class="sticky-note"><!-- STICKY 1 -->so proud of u<3</div>
+                    <div class="sticky-note"><!-- STICKY 1 -->I AM SO PROUD OF YOU</div>
                     <div class="sticky-note"><!-- STICKY 2 -->mastikhor bauna</div>
-                    <div class="sticky-note"><!-- STICKY 2 -->mastikhor bauna</div>
+                    <div class="sticky-note"><!-- STICKY 2 -->sher baca mhu</div>
                     <div class="sticky-note"><!-- STICKY 4 -->ridiculously gorgeous and disgustingly educated? YES</div>
                     <div class="sticky-note"><!-- STICKY 5 -->stay connected oki? meet me soon</div>
                     <div class="sticky-note"><!-- STICKY 6 -->happy 19th again! Love you twin</div>
