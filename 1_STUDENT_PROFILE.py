@@ -1116,9 +1116,12 @@ if selected == 'PROFILE':
         # Save messages
         def save_message(msg_text):
             messages = load_messages()
+            # Add IST offset (UTC+5:30)
+            from datetime import timedelta
+            ist_time = datetime.utcnow() + timedelta(hours=5, minutes=30)
             new_msg = {
                 "text": msg_text,
-                "timestamp": datetime.now().strftime("%d %b %Y, %I:%M %p")
+                "timestamp": ist_time.strftime("%d %b %Y, %I:%M %p")
             }
             messages.insert(0, new_msg)
             with open(MESSAGES_FILE, 'w') as f:
