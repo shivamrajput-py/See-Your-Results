@@ -1177,11 +1177,6 @@ if selected == 'PROFILE':
                     st.error("❌ That's not it... try again!")
         
         else:
-            # Handle message submission
-            if 'new_kirit_message' in st.session_state and st.session_state.new_kirit_message:
-                save_message(st.session_state.new_kirit_message)
-                st.session_state.new_kirit_message = ""
-            
             # Load messages for display
             saved_messages = load_messages()
             messages_html = ""
