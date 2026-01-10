@@ -1094,11 +1094,105 @@ if selected == 'PROFILE':
     if result_search_box and '19012007' == result_search_box:
         descripE.empty()
         other = True
-
-        # Beautiful girly birthday page with red/grey/baby pink theme
-        import streamlit.components.v1 as components
         
-        birthday_html = """
+        import streamlit.components.v1 as components
+        import json
+        import os
+        from datetime import datetime
+        
+        # File path for messages storage
+        MESSAGES_FILE = "kritika_messages.json"
+        
+        # Load existing messages
+        def load_messages():
+            if os.path.exists(MESSAGES_FILE):
+                try:
+                    with open(MESSAGES_FILE, 'r') as f:
+                        return json.load(f)
+                except:
+                    return []
+            return []
+        
+        # Save messages
+        def save_message(msg_text):
+            messages = load_messages()
+            new_msg = {
+                "text": msg_text,
+                "timestamp": datetime.now().strftime("%d %b %Y, %I:%M %p")
+            }
+            messages.insert(0, new_msg)
+            with open(MESSAGES_FILE, 'w') as f:
+                json.dump(messages, f)
+            return messages
+        
+        # Initialize session state for question gate
+        if 'kirit_verified' not in st.session_state:
+            st.session_state.kirit_verified = False
+        
+        # Question gate
+        if not st.session_state.kirit_verified:
+            st.markdown("""
+                <style>
+                    .question-gate {
+                        max-width: 500px;
+                        margin: 100px auto;
+                        padding: 40px;
+                        background: linear-gradient(145deg, rgba(60, 60, 60, 0.95), rgba(40, 40, 40, 0.98));
+                        border: 2px solid rgba(220, 53, 69, 0.4);
+                        border-radius: 25px;
+                        text-align: center;
+                        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                    }
+                    .question-gate h2 {
+                        color: #ffb6c1;
+                        font-size: 1.5rem;
+                        margin-bottom: 30px;
+                    }
+                    .question-gate p {
+                        color: #dc3545;
+                        font-size: 1.1rem;
+                        font-style: italic;
+                        margin-bottom: 25px;
+                    }
+                    .question-gate .hint {
+                        color: #888;
+                        font-size: 0.85rem;
+                        margin-top: 15px;
+                    }
+                </style>
+                <div class="question-gate">
+                    <h2>How about we play QNA first twin?</h2>
+                    <p>"inject this song into my veins"</p>
+                    <p style="color: #b0b0b0; font-size: 0.95rem;">for which song?</p>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            answer = st.text_input("Your answer:", key="kirit_answer", placeholder="Type here...", label_visibility="collapsed")
+            
+            if answer:
+                if answer.lower().strip() == "sajde":
+                    st.session_state.kirit_verified = True
+                    st.rerun()
+                else:
+                    st.error("❌ That's not it... try again!")
+        
+        else:
+            # Handle message submission
+            if 'new_kirit_message' in st.session_state and st.session_state.new_kirit_message:
+                save_message(st.session_state.new_kirit_message)
+                st.session_state.new_kirit_message = ""
+            
+            # Load messages for display
+            saved_messages = load_messages()
+            messages_html = ""
+            if saved_messages:
+                for msg in saved_messages[:10]:  # Show last 10
+                    messages_html += f'''<div class="saved-message"><p>{msg["text"]}</p><span class="timestamp">{msg["timestamp"]}</span></div>'''
+            else:
+                messages_html = '<div class="no-messages">No messages yet... write something! 💭</div>'
+            
+            # Beautiful girly birthday page with red/grey/baby pink theme
+            birthday_html = """
         <!DOCTYPE html>
         <html>
         <head>
@@ -1814,15 +1908,11 @@ if selected == 'PROFILE':
                 <!-- Message Box Section -->
                 <div class="message-box-section">
                     <div class="message-box-header">
-                        <h3>📝 Leave a Note</h3>
-                        <p>Write something, it'll be saved here!</p>
-                    </div>
-                    <div class="message-input-area">
-                        <textarea class="message-input" id="messageInput" placeholder="Write your message here..." rows="2"></textarea>
-                        <button class="save-btn" onclick="saveMessage()">Save ✨</button>
+                        <h3>📝 Saved Notes</h3>
+                        <p>Messages you've left here ✨</p>
                     </div>
                     <div class="saved-messages" id="savedMessages">
-                        <div class="no-messages">No messages yet... write something! 💭</div>
+                        MESSAGES_PLACEHOLDER_HERE
                     </div>
                 </div>
                 
@@ -1871,46 +1961,6 @@ if selected == 'PROFILE':
                 function goToCard(index) {
                     currentCard = index;
                     updateCards();
-                }
-                
-                // Message saving functions
-                function saveMessage() {
-                    const input = document.getElementById('messageInput');
-                    const message = input.value.trim();
-                    
-                    if (message) {
-                        const messages = JSON.parse(localStorage.getItem('kritika_messages') || '[]');
-                        const newMessage = {
-                            text: message,
-                            timestamp: new Date().toLocaleString('en-IN', { 
-                                day: '2-digit', 
-                                month: 'short', 
-                                year: 'numeric',
-                                hour: '2-digit', 
-                                minute: '2-digit'
-                            })
-                        };
-                        messages.unshift(newMessage);
-                        localStorage.setItem('kritika_messages', JSON.stringify(messages));
-                        input.value = '';
-                        displayMessages();
-                    }
-                }
-                
-                function displayMessages() {
-                    const container = document.getElementById('savedMessages');
-                    const messages = JSON.parse(localStorage.getItem('kritika_messages') || '[]');
-                    
-                    if (messages.length === 0) {
-                        container.innerHTML = '<div class="no-messages">No messages yet... write something! 💭</div>';
-                    } else {
-                        container.innerHTML = messages.map(msg => `
-                            <div class="saved-message">
-                                <p>${msg.text}</p>
-                                <span class="timestamp">${msg.timestamp}</span>
-                            </div>
-                        `).join('');
-                    }
                 }
                 
                 function createConfetti() {
@@ -1974,15 +2024,27 @@ if selected == 'PROFILE':
                 }
                 
                 // Initialize
-                displayMessages();
                 updateCountdown();
                 setInterval(updateCountdown, 1000);
             </script>
         </body>
         </html>
-        """
-        
-        components.html(birthday_html, height=1600, scrolling=True)
+            """
+            
+            # Replace the placeholder with actual messages
+            birthday_html = birthday_html.replace("MESSAGES_PLACEHOLDER_HERE", messages_html)
+            
+            components.html(birthday_html, height=1600, scrolling=True)
+            
+            # Message input using Streamlit (below the HTML component)
+            st.markdown("---")
+            st.markdown("### Leave a Note")
+            new_message = st.text_area("", key="new_kirit_message", height=80, placeholder="Type your message here...")
+            if st.button("Save Message", key="save_kirit_msg"):
+                if new_message and new_message.strip():
+                    save_message(new_message.strip())
+                    st.success("Message saved!")
+                    st.rerun()
 
     # ==================== OLD BIRTHDAY PAGE (CODE: 19012007old) ====================
     elif result_search_box and '19012007old' == result_search_box:
