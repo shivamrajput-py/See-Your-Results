@@ -1100,7 +1100,7 @@ if selected == 'PROFILE':
             <h2 style="text-align: center; align-items: center;"><span style="color: {color};">DTU</span> Student Profile 2028</h2>
             """, unsafe_allow_html=True)
 
-    elif year_choosed == '2028' and result_search_box:
+    if year_choosed == '2028' and result_search_box:
 
         descripE.empty()
         st.session_state.yeartitle = '2028'
@@ -1449,7 +1449,7 @@ if selected == 'PROFILE':
                 st.plotly_chart(percent_placement_barc, use_container_width=True,config={"modeBarButtonsToRemove": ['lasso2d', 'autoScale2d', 'select2d']})
 
 
-    elif year_choosed == '2027' and result_search_box :
+    if year_choosed == '2027' and result_search_box :
 
         descripE.empty()
         st.session_state.yeartitle = '2027'
@@ -1868,7 +1868,7 @@ if selected == 'PROFILE':
             add_report_card_button(df_final, stud_branch, shortf_branch27, stud_university_rank,
                                    stud_branch_rank, stud_percentile, stud_brnch_percentile, stud_total_credits)
 
-    elif year_choosed == '2026 (NOT UPDATED YET)' and result_search_box:
+    if year_choosed == '2026 (NOT UPDATED YET)' and result_search_box:
 
         descripE.empty()
         st.session_state.yeartitle = '2026'
