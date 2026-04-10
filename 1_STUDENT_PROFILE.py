@@ -25,6 +25,17 @@ import base64
 
 warnings.filterwarnings('ignore')
 
+
+def __safe_pkg_val(df, branch, placem_branch_name, col_name, as_float=False):
+    import pandas as pd
+    try:
+        val = df.loc[df['Branch'] == placem_branch_name.get(branch, '')][col_name].values[0]
+        if as_float:
+            return float(str(val).replace('%', ''))
+        return float(val) if not as_float else val
+    except Exception:
+        return 0.0
+
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title='DTURESULTS ANALYSIS', page_icon='🎓')
 
 color = '#1F51FF'  # USE FOR HIGHLIGHTING A SPECIFIC WORD
@@ -373,7 +384,7 @@ def add_report_card_button(df_final, stud_branch, shortf_branch27, stud_universi
             'name': df_final['NAME'].values[0],
             'roll_no': df_final['ROLL NO.'].values[0],
             'branch': stud_branch,
-            'branch_full': shortf_branch27[stud_branch],
+            'branch_full': shortf_branch27.get(stud_branch, stud_branch),
             'year': '2027',  # or get from year_choosed
             'cumulative_cgpa': df_final['CUMULATIVE CGPA'].values[0],
             'total_credits': stud_total_credits,
@@ -407,7 +418,7 @@ def add_direct_download_button(df_final, stud_branch, shortf_branch27, stud_univ
         'name': df_final['NAME'].values[0],
         'roll_no': df_final['ROLL NO.'].values[0],
         'branch': stud_branch,
-        'branch_full': shortf_branch27[stud_branch],
+        'branch_full': shortf_branch27.get(stud_branch, stud_branch),
         'year': '2027',
         'cumulative_cgpa': df_final['CUMULATIVE CGPA'].values[0],
         'total_credits': stud_total_credits,
@@ -1118,8 +1129,10 @@ if selected == 'PROFILE':
             result_search_box = result_search_box.replace('2k', '').replace('2K', '').strip()
 
         # DEALING WITH USER PUTTEN ROLL NO. 24/B12/04  AND  24/B12/04
-        if len(result_search_box) == 9:
-            result_search_box = result_search_box[0:7] + '0' + result_search_box[7:]
+        parts = result_search_box.split('/')
+        if len(parts) == 3 and len(parts[-1]) < 3:
+            parts[-1] = parts[-1].zfill(3)
+            result_search_box = '/'.join(parts)
 
         csvdf = pd.read_csv("Extracting_Result_Data/ranked_results_csv/UNI_rankedR28.csv")
 
@@ -1145,13 +1158,21 @@ if selected == 'PROFILE':
             stud_branch_rank = None
 
             # HAD TO FIND THE BRANCH RANK ALAG SE !
-            fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR28.csv')
-            m1 = fl['ROLL NO. OG'].str.contains(result_search_box.upper(), regex=False, na=False)
-            fl_final = fl[m1]
-            stud_branch_rank = fl_final['RANK'].values[0]
+            try:
+                fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR28.csv')
+                m1_fl = fl['ROLL NO. OG'].str.contains(result_search_box.upper(), regex=False, na=False)
+                fl_final = fl[m1_fl]
+                stud_branch_rank = int(fl_final['RANK'].values[0]) if len(fl_final) > 0 else "N/A"
+            except Exception:
+                fl = csvdf
+                stud_branch_rank = "N/A"
+
             stud_total_credits = df_final['CREDITS1'].values[0]
 
-            stud_brnch_percentile = round(float(((len(fl.values) - stud_branch_rank) / len(fl.values)) * 100), 3)
+            if stud_branch_rank != "N/A":
+                stud_brnch_percentile = round(float(((len(fl.values) - stud_branch_rank) / len(fl.values)) * 100), 3)
+            else:
+                stud_brnch_percentile = 0.0
             stud_percentile = round(float(((uni_stdcount28 - stud_university_rank) / uni_stdcount28) * 100), 3)
 
             stud_grade1List = (df_final['GRADE1'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(',')
@@ -1168,7 +1189,7 @@ if selected == 'PROFILE':
                 st.markdown('<br><br>', unsafe_allow_html=True)
                 st.write(f"""
                     <div class="blue-header">HELLO, {df_final["NAME"].values[0]}</div>
-                    <h5>{stud_branch}, {shortf_branch28[stud_branch]}, B. TECH</h5>
+                    <h5>{stud_branch}, {shortf_branch28.get(stud_branch, stud_branch)}, B. TECH</h5>
                     <h5>{df_final['ROLL NO. OG'].values[0]}</h5>
                     <h5>YOUR RESULTS:</h5>
                     """,unsafe_allow_html=True)
@@ -1348,7 +1369,7 @@ if selected == 'PROFILE':
 
             # MENU1: FOURTH MAIN DIV WITH 3 COLUMNS --------------------------------------------------------------------------------------------------
 
-            st.write(f"""<h3 style="text-align: center; align-items: center;">Your Branch <span style="color: {color};">{shortf_branch28[stud_branch]}</span> Placement Stats:</h3>""",unsafe_allow_html=True)
+            st.write(f"""<h3 style="text-align: center; align-items: center;">Your Branch <span style="color: {color};">{shortf_branch28.get(stud_branch, stud_branch)}</span> Placement Stats:</h3>""",unsafe_allow_html=True)
 
             st.markdown("<br>", unsafe_allow_html=True)
 
@@ -1361,9 +1382,9 @@ if selected == 'PROFILE':
 
                 'YEAR': ['2023', '2022', '2021'],
                 'AVERAGE PACKAGE': [
-                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
-                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
-                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0]
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Avg CTC (in LPA)'),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Avg CTC (in LPA)'),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Avg CTC (in LPA)')
 
                 ]})
 
@@ -1383,9 +1404,9 @@ if selected == 'PROFILE':
 
                 'YEAR': ['2023', '2022', '2021'],
                 'HIGHEST PACKAGE': [
-                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
-                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
-                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0]
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Max CTC (in LPA)'),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Max CTC (in LPA)'),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Max CTC (in LPA)')
 
                 ]})
 
@@ -1405,9 +1426,9 @@ if selected == 'PROFILE':
 
                 'YEAR': ['2023', '2022', '2021'],'% STUDENT PLACED': [
 
-                    float(data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%','')),
-                    float(data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%','')),
-                    float(data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace('%',''))
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Placed (%)', as_float=True),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Placed (%)', as_float=True),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Placed (%)', as_float=True)
 
                 ]})
 
@@ -1438,8 +1459,10 @@ if selected == 'PROFILE':
             result_search_box = result_search_box.replace('2k', '').replace('2K', '').strip()
 
         # DEALING WITH USER PUTTEN ROLL NO. 23/EP/12  AND  23/EP/01
-        if len(result_search_box) == 8:
-            result_search_box = result_search_box[0:6] + '0' + result_search_box[6:]
+        parts = result_search_box.split('/')
+        if len(parts) == 3 and len(parts[-1]) < 3:
+            parts[-1] = parts[-1].zfill(3)
+            result_search_box = '/'.join(parts)
 
         csvdf = pd.read_csv("Extracting_Result_Data/ranked_results_csv/UNI_rankedR27.csv")
         m1 = csvdf['ROLL NO.'].str.contains(result_search_box.upper(), regex=False, na=False)
@@ -1460,13 +1483,22 @@ if selected == 'PROFILE':
             stud_branch_rank = None
 
             # HAD TO FIND THE BRANCH RANK ALAG SE !
-            fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR27.csv')
-            m1 = fl['ROLL NO.'].str.contains(result_search_box.upper(), regex=False, na=False)
-            fl_final = fl[m1]
-            stud_branch_rank = fl_final['RANK'].values[0]
+            try:
+                fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR27.csv')
+                m1_fl = fl['ROLL NO.'].str.contains(result_search_box.upper(), regex=False, na=False)
+                fl_final = fl[m1_fl]
+                stud_branch_rank = int(fl_final['RANK'].values[0]) if len(fl_final) > 0 else "N/A"
+            except Exception:
+                fl = csvdf
+                stud_branch_rank = "N/A"
+
             stud_total_credits = df_final['CREDITS1'].values[0] + df_final['CREDITS2'].values[0] + \
                                  df_final['CREDITS3'].values[0] + df_final['CREDITS4'].values[0]
-            stud_brnch_percentile = round(float(((len(fl.values) - stud_branch_rank) / len(fl.values)) * 100), 3)
+
+            if stud_branch_rank != "N/A":
+                stud_brnch_percentile = round(float(((len(fl.values) - stud_branch_rank) / len(fl.values)) * 100), 3)
+            else:
+                stud_brnch_percentile = 0.0
             stud_percentile = round(float(((uni_stdcount27 - stud_university_rank) / uni_stdcount27) * 100), 3)
 
             stud_grade1List = (df_final['GRADE1'].values[0].replace("[", '').replace("]", '').replace("'", '')).split(
@@ -1496,7 +1528,7 @@ if selected == 'PROFILE':
 
                 st.write(f"""
                             <div class="blue-header">HELLO, {df_final["NAME"].values[0]}</div>
-                            <h5>{stud_branch}, {shortf_branch27[stud_branch]}, B. TECH</h5>
+                            <h5>{stud_branch}, {shortf_branch27.get(stud_branch, stud_branch)}, B. TECH</h5>
                             <h5>{df_final['ROLL NO.'].values[0]}</h5>
                             <h5>YOUR RESULTS:</h5>
                             """,
@@ -1752,7 +1784,7 @@ if selected == 'PROFILE':
                         <h3 style="
                         text-align: center;
                         align-items: center;
-                        ">Your Branch <span style="color: {color};">{shortf_branch27[stud_branch]}</span> Placement Stats:</h3>
+                        ">Your Branch <span style="color: {color};">{shortf_branch27.get(stud_branch, stud_branch)}</span> Placement Stats:</h3>
                         """,
                      unsafe_allow_html=True)
 
@@ -1760,7 +1792,7 @@ if selected == 'PROFILE':
 
             # AVERAGE PLACEMENTS
 
-            # data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0] FOR ACCESING VALYE OF PLACEMENT DIRECTLY
+            # __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Avg CTC (in LPA)') FOR ACCESING VALYE OF PLACEMENT DIRECTLY
             data23 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package23.csv')
             data22 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package22.csv')
             data21 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package21.csv')
@@ -1768,9 +1800,9 @@ if selected == 'PROFILE':
             df = pd.DataFrame({
                 'YEAR': ['2023', '2022', '2021'],
                 'AVERAGE PACKAGE': [
-                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
-                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
-                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0]
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Avg CTC (in LPA)'),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Avg CTC (in LPA)'),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Avg CTC (in LPA)')
                 ]})
 
             df.reset_index(drop=True)
@@ -1789,9 +1821,9 @@ if selected == 'PROFILE':
             df = pd.DataFrame({
                 'YEAR': ['2023', '2022', '2021'],
                 'HIGHEST PACKAGE': [
-                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
-                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
-                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0]
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Max CTC (in LPA)'),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Max CTC (in LPA)'),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Max CTC (in LPA)')
                 ]})
 
             df.reset_index(drop=True)
@@ -1810,18 +1842,9 @@ if selected == 'PROFILE':
             df = pd.DataFrame({
                 'YEAR': ['2023', '2022', '2021'],
                 '% STUDENT PLACED': [
-                    float(
-                        data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
-                            '%',
-                            '')),
-                    float(
-                        data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
-                            '%',
-                            '')),
-                    float(
-                        data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
-                            '%',
-                            ''))
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Placed (%)', as_float=True),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Placed (%)', as_float=True),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Placed (%)', as_float=True)
                 ]})
 
             df.reset_index(drop=True)
@@ -1855,8 +1878,10 @@ if selected == 'PROFILE':
             result_search_box = result_search_box.replace('2k', '').replace('2K', '').strip()
 
         # DEALING WITH USER PUTTEN ROLL NO. 23/EP/12  AND  23/EP/01
-        if len(result_search_box) == 8:
-            result_search_box = result_search_box[0:6] + '0' + result_search_box[6:]
+        parts = result_search_box.split('/')
+        if len(parts) == 3 and len(parts[-1]) < 3:
+            parts[-1] = parts[-1].zfill(3)
+            result_search_box = '/'.join(parts)
 
         data26std = pd.read_csv('Extracting_Result_Data/ranked_results_csv/UNI_rankedR26.csv')
         m1 = data26std['ROLL NO.'].str.contains(result_search_box.upper(), regex=False, na=False)
@@ -1878,11 +1903,19 @@ if selected == 'PROFILE':
             stud_university_rank = df_final['RANK'].values[0]
 
             # HAD TO FIND THE BRANCH RANK ALAG SE !
-            fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR26.csv')
-            m1 = fl['ROLL NO.'].str.contains(result_search_box.upper(), regex=False, na=False)
-            fl_final = fl[m1]
-            stud_branch_rank = fl_final['RANK'].values[0]
-            stud_brnch_percentile = round(float(((len(fl.values) - stud_branch_rank) / len(fl.values)) * 100), 4)
+            try:
+                fl = pd.read_csv(f'./Extracting_Result_Data/ranked_results_csv/{stud_branch}_rankedR26.csv')
+                m1_fl = fl['ROLL NO.'].str.contains(result_search_box.upper(), regex=False, na=False)
+                fl_final = fl[m1_fl]
+                stud_branch_rank = int(fl_final['RANK'].values[0]) if len(fl_final) > 0 else "N/A"
+            except Exception:
+                fl = data26std
+                stud_branch_rank = "N/A"
+
+            if stud_branch_rank != "N/A":
+                stud_brnch_percentile = round(float(((len(fl.values) - stud_branch_rank) / len(fl.values)) * 100), 4)
+            else:
+                stud_brnch_percentile = 0.0
             stud_percentile = round(float(((uni_stdcount26 - stud_university_rank) / uni_stdcount26) * 100), 4)
 
             l_c, m_c, r_c = st.columns([1.5, 2, 1])
@@ -1893,7 +1926,7 @@ if selected == 'PROFILE':
 
                 st.write(f"""
                             <h2 style="color: #1F51FF;">HELLO, {df_final['NAME'].values[0]}</h2>
-                            <h5>{stud_branch}, {shortf_branch26[stud_branch]}, B. TECH</h5>
+                            <h5>{stud_branch}, {shortf_branch26.get(stud_branch, stud_branch)}, B. TECH</h5>
                             <h5>{df_final['ROLL NO.'].values[0]}</h5>
                             <h5>RESULTS:- </h5>
                             """,
@@ -2055,13 +2088,13 @@ if selected == 'PROFILE':
                         <h3 style="
                         text-align: center;
                         align-items: center;
-                        ">Your Branch <span style="color: {color};">{shortf_branch26[stud_branch]}</span> Placement Stats:</h3>
+                        ">Your Branch <span style="color: {color};">{shortf_branch26.get(stud_branch, stud_branch)}</span> Placement Stats:</h3>
                         """,
                      unsafe_allow_html=True)
 
             st.markdown("<br>", unsafe_allow_html=True)
 
-            # data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0] FOR ACCESING VALYE OF PLACEMENT DIRECTLY
+            # __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Avg CTC (in LPA)') FOR ACCESING VALYE OF PLACEMENT DIRECTLY
             data23 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package23.csv')
             data22 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package22.csv')
             data21 = pd.read_csv('./Extracting_Result_Data/placement_data/average_package21.csv')
@@ -2069,9 +2102,9 @@ if selected == 'PROFILE':
             df = pd.DataFrame({
                 'YEAR': ['2023', '2022', '2021'],
                 'AVERAGE PACKAGE': [
-                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
-                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0],
-                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Avg CTC (in LPA)'].values[0]
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Avg CTC (in LPA)'),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Avg CTC (in LPA)'),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Avg CTC (in LPA)')
                 ]})
 
             df.reset_index(drop=True)
@@ -2089,9 +2122,9 @@ if selected == 'PROFILE':
             df = pd.DataFrame({
                 'YEAR': ['2023', '2022', '2021'],
                 'HIGHEST PACKAGE': [
-                    data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
-                    data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0],
-                    data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Max CTC (in LPA)'].values[0]
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Max CTC (in LPA)'),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Max CTC (in LPA)'),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Max CTC (in LPA)')
                 ]})
 
             df.reset_index(drop=True)
@@ -2109,15 +2142,9 @@ if selected == 'PROFILE':
             df = pd.DataFrame({
                 'YEAR': ['2023', '2022', '2021'],
                 '% STUDENT PLACED': [
-                    float(
-                        data23.loc[data23['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
-                            '%', '')),
-                    float(
-                        data22.loc[data22['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
-                            '%', '')),
-                    float(
-                        data21.loc[data21['Branch'] == placem_branch_name[stud_branch]]['Placed (%)'].values[0].replace(
-                            '%', ''))
+                    __safe_pkg_val(data23, stud_branch, placem_branch_name, 'Placed (%)', as_float=True),
+                    __safe_pkg_val(data22, stud_branch, placem_branch_name, 'Placed (%)', as_float=True),
+                    __safe_pkg_val(data21, stud_branch, placem_branch_name, 'Placed (%)', as_float=True)
                 ]})
 
             df.reset_index(drop=True)
